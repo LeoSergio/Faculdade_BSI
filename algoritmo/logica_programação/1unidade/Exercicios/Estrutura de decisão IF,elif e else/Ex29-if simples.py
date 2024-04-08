@@ -16,8 +16,10 @@ if( day == 29) and (month != 2) or (day == 28 and month != 2):
       print('%s / %s / %s Data inválida'%(day,month,year))
 elif (day <= 31 and day >= 1) and (year > 0) and (month >= 1 and month <= 12 and month !=2):
         print('%s / %s / %s Data válida'%(day,month,year))
+else:
+       print('Data inválida')
         
-if(year % 4 == 0) and (year % 100 != 0 or year % 400 == 0):
+if(year % 4 == 0) and (year % 100 != 0 or year % 400 == 0): # Aqui que estar o erro.
         if (day == 29 and month == 2) and (year > 0) and (month >= 1 and month <= 12):
                 print('%s / %s / %s Data válida para o mês de fevereiro'%(day,month,year))
                 print('%s Ano bissexto'%(year))
