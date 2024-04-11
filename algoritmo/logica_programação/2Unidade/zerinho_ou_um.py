@@ -10,7 +10,7 @@ Permita ao jogador repetir o jogo, caso deseje.
 '''
 import random
 print('Jogo do Zerinho ou Um')
-resp = input('Deseja Jogar? s/n')
+resp = input('Deseja Jogar? s/n ')
 if resp.lower() == 's':
     while resp.lower() == 's':
         jog = int(input('Qual o seu número? 0/1'))
