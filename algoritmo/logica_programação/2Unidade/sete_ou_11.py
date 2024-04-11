@@ -11,22 +11,17 @@ caso a resposta seja afirmativa ou encerrar em caso negativo.
 import random
 
 resp = input('Deseja jogar? s/n')
-print('Resultado dos Dados é',soma)
 if resp == 's' or 'S':
     while resp == 'S' or resp == 's':
-        dados1 = random.randint(1,6)
-dados2 = random.randint(1,6)
-jog = dados1 + dados2
-compt = dados1 + dados2
-soma = dados1 + dados2
+        dado1 = random.randint(1,6)
+        dado2 = random.randint(1,6)
+        jog = dado1 + dado2
+        soma = dado1 + dado2
         if (jog == 7 or jog ==11):
             print('Humano venceu')
             print('Resultado dos Dados é',soma)
-        elif (compt == 7 or compt == 11):
-            print('Computador venceu')
-            print('Resultado dos Dados é',soma)
         else:
-            print('EMPATE')
+            print('Computador venceu')
             print('Resultado dos Dados é',soma)
         resp = input('Jogar Novamente? s/n')
 else:
