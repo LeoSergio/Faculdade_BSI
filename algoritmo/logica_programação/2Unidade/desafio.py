@@ -27,12 +27,7 @@ if option.lower()=='s':
             print('PARABÉNS,VOCÊ TEM MUITA SORTE!')
             print(resultado)
             print("FIM DO PROGRAMA")
-            chance+=1
-            
-        elif (resultado == resp) and (chance>=2):
-            print('Parabéns você acertou, teve um pouco de sorte')
-            chance+=1
-            
+            chance+=1 
         elif(resultado < resp):
             print('Digite outro número!')
             print('DIGITE UM NÚMERO MENOR')
@@ -44,6 +39,10 @@ if option.lower()=='s':
             print('DIGITE UM NÚMERO MAIOR!')
             resp = int(input('Qual o número?'))
             print('FIM DO PROGRAMA,MAIS SORTE NA PROXIMA!')
+        elif (resultado == resp) and (chance>=2):
+            print('Parabéns você acertou, teve um pouco de sorte')
+            chance+=1
+
         else:
             print(resultado)
     chance+=1
