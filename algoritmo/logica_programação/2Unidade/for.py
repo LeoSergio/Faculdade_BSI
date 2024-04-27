@@ -18,7 +18,24 @@ for x in range (a,b+1):
             print(x)
 print('FIM DO LAÇO')
 '''
-for x in range(1,100):
+'''for x in range(1,100):
     if (x % 4 == 0) or (x%10==4):
         x='PIM'     
-    print(x)
+    print(x)'''
+nome = input('Nome Completo: ')
+idade = int(input('Qual a sua Idade:'))
+genero = input('Qual o seu Gênero: M/F ')
+peso = float(input('Qual o seu peso atual: '))
+altura = float(input('Qual a sua altura atual: '))
+pacientes=[nome,idade,genero, peso,altura]
+print('''
+          Nome: s%, 
+          Idade: s%, 
+          Gênero: s%}, 
+          Peso: s%, 
+          Altura: s%
+
+          ######################
+######### CADASTRADO COM SUCESSO ##########
+          ######################
+''' %(pacientes[0,1,2,3,4]))

@@ -32,17 +32,19 @@ if option == 1:
     peso = float(input('Qual o seu peso atual: '))
     altura = float(input('Qual a sua altura atual: '))
     pacientes=[nome,idade,genero, peso,altura]
-    print('''f
-          Nome: {paciente[0]}, 
-          Idade: {paciente[1]}, 
-          Gênero: {paciente[2]}, 
-          Peso: {paciente[3]}, 
-          Altura: {paciente[4]}
+
+    # Imprimindo os dados dos pacientes em formato de coluna
+    print('''
+          Nome: {},
+          Idade: {},
+          Gênero: {},
+          Peso: {},
+          Altura: {}
 
           ######################
-##########CADASTRADO COM SUCESSO##########
+######### CADASTRADO COM SUCESSO ##########
           ######################
-''')
+'''.format(*pacientes))
 
 
 elif option == 2:
