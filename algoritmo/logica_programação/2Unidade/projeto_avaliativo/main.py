@@ -9,7 +9,6 @@ resp = input('Você deseja participar? S/N ')
 option = ''
 if resp.upper()== 'S':
     while option != '0':
-        os.system('clear')
         print('''
     Projeto Nutri-Center
     1-Cadastramento de Clientes:
@@ -29,14 +28,16 @@ if resp.upper()== 'S':
             peso = float(input('Qual o seu peso atual: '))
             altura = float(input('Qual a sua altura atual: '))
             pacientes=[nome,idade,genero, peso,altura]
+            usuario_cadastrado = nome
+            
 
             # Imprimindo os dados dos pacientes em formato de coluna
             print('''
-                Nome: {},
-                Idade: {},
-                Gênero: {},
-                Peso: {},
-                Altura: {}
+                Nome: {}
+                Idade: {} anos
+                Gênero: {}
+                Peso: {} KG
+                Altura: {} Metros
 
                 ######################
             ######### CADASTRADO COM SUCESSO ##########
