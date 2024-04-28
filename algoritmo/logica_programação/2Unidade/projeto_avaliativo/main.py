@@ -19,38 +19,34 @@ if resp.upper()== 'S':
     0-FINALIZAR PROGRAMA
     ''')
         option = input('Escolha sua opção?')
+
+ #MODULO1-CADASTRAMENTO DE PACIENTES
+
         if option == '1':
             print('DIGITE AS INFORMAÕES PEDIDAS.')
-            ######################################################
+######################################################
             nome = input('Nome Completo: ')
             idade = int(input('Qual a sua Idade:'))
             genero = input('Qual o seu Gênero: M/F ')
             peso = float(input('Qual o seu peso atual: '))
             altura = float(input('Qual a sua altura atual: '))
-            pacientes=[nome,idade,genero, peso,altura]
-            usuario_cadastrado = nome
-            
-
+            info = [nome,idade,genero,peso,altura]
+                 
             # Imprimindo os dados dos pacientes em formato de coluna
             print('''
-                Nome: {}
-                Idade: {} anos
-                Gênero: {}
-                Peso: {} KG
-                Altura: {} Metros
-
-                ######################
-            ######### CADASTRADO COM SUCESSO ##########
-                ######################
-            '''.format(*pacientes))
+                  
+            | Nome: {:>20}                                   
+            | Idade: {} anos                             
+            | Gênero: {}                                 
+            | Peso: {} KG                                
+            | Altura: {} Metros                          
+            
+                   
+            ######################
+######### CADASTRADO COM SUCESSO ##########
+            ######################
+        '''.format(*info))
             input('Tecle <ENTER> para continuar...')
-
-
-        #ALTERAÇÕES NECESSÁRIAS. ATENÇÃO!!!
-        #Falta fazer o paciente voltar ao menu de seleção
-        #Tentar bloquear o usuario para ele não fazer mais de um cadastro.
-        #Colocar as informações em apenas um formato. ex: maiuscula(string) para ficar igual.
-        #Corrigir em vez do if colocar while, pode facilitar a movimentação do usuario.
 
 
         elif option == '2':
@@ -58,15 +54,18 @@ if resp.upper()== 'S':
             input('Tecle <ENTER> para continuar...')
         elif option == '3':
             print('Módulo3')
+            input('Tecle <ENTER> para continuar...')
         elif option == '4':
             print('Módulo4')
+            input('Tecle <ENTER> para continuar...')
         elif option == '5':
             print('Módulo5')
+            input('Tecle <ENTER> para continuar...')
 else:
         print('FIM DO PROGRAMA')
 
 
-        #MODULO1-CADASTRAMENTO DE PACIENTES
+       
 
 
 
