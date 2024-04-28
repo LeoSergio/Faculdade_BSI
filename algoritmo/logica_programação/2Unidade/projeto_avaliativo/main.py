@@ -4,6 +4,8 @@ import os
 ##### Projeto Planejamento de Dietas - Versão 1 #####
 #####################################
 
+#ATENÇÃO: TENTAR VALIDAR USUARIO(OPCIONAL) LINHA 27
+# TRABALHAR NOS PROXIMOS MODULOS
 print('CONSULTA ONLINE')
 resp = input('Você deseja participar? S/N ')
 option = ''
@@ -26,16 +28,17 @@ if resp.upper()== 'S':
             print('DIGITE AS INFORMAÕES PEDIDAS.')
 ######################################################
             nome = input('Nome Completo: ')
+            nome_upper = nome.upper()
             idade = int(input('Qual a sua Idade:'))
             genero = input('Qual o seu Gênero: M/F ')
             peso = float(input('Qual o seu peso atual: '))
             altura = float(input('Qual a sua altura atual: '))
-            info = [nome,idade,genero,peso,altura]
+            info = [nome_upper,idade,genero,peso,altura]
                  
             # Imprimindo os dados dos pacientes em formato de coluna
             print('''
                   
-            | Nome: {:>20}                                   
+            | Nome: {}                                   
             | Idade: {} anos                             
             | Gênero: {}                                 
             | Peso: {} KG                                
