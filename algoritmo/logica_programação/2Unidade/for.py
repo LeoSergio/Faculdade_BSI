@@ -28,6 +28,7 @@ genero = input('Qual o seu Gênero: M/F ')
 peso = float(input('Qual o seu peso atual: '))
 altura = float(input('Qual a sua altura atual: '))
 pacientes=[nome,idade,genero, peso,altura]
+
 print('''
           Nome: s%, 
           Idade: s%, 
