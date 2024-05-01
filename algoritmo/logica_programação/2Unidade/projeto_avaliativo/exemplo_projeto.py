@@ -1,4 +1,4 @@
-def menu_principal():
+'''def menu_principal():
     print("\n### MENU PRINCIPAL ###")
     print("1 - Perfil do Paciente")
     print("2 - Planos de Atendimento")
@@ -33,4 +33,4 @@ def main():
             print("Opção inválida. Por favor, escolha uma opção válida.")
 
 if __name__ == "__main__":
-    main()
+    main()'''
