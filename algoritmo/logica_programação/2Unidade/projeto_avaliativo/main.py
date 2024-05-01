@@ -4,22 +4,16 @@ import os
 ##### Projeto Planejamento de Dietas - Versão 1 #####
      #########################################
 
-'''
-1 - Modulo Paciente         #####")
-        print("#####      2 - Modulo Objetivos        #####")
-        print("#####      3 - Modulo Dietas           #####")
-        print("#####      4 - Modulo Finalizacao
-
-'''
 # Oq foi feito na ultima att do projeto?
 '''
 1-Adicionei funções ao projeto.
 2- se a resposta do usuario for sim, chama a função main e executa ela de acordo com as opções do usuario.
+
     PROXIMOS PASSOS:
 1-IMPORTANTE. Parar para ajeitar como vai ser a estrutura do programa na execução.
 ex: MÓDULO PACIENTE: 
     add paciente, remover paciente, verificar informações do paciente.
-FAZER ISSO PARA OS DEMAIS. OBS: Olhar o model do prof.
+FAZER ISSO PARA OS DEMAIS E ARMAZENAR AS IFORMAÇÕES. OBS: Olhar o model do prof.
 
 '''
 
@@ -59,9 +53,9 @@ def perfil():
     | Altura: {} Metros                          
 
         
-    ######################
+              ######################
     ######### CADASTRADO COM SUCESSO ##########
-    ######################
+              ######################
     '''.format(*info))
     input('Tecle <ENTER> para continuar...') #colocar nas outras function
 def main():
