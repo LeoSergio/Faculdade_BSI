@@ -4,7 +4,13 @@ import os
 ##### Projeto Planejamento de Dietas - Versão 1 #####
      #########################################
 
-# 
+'''
+1 - Modulo Paciente         #####")
+        print("#####      2 - Modulo Objetivos        #####")
+        print("#####      3 - Modulo Dietas           #####")
+        print("#####      4 - Modulo Finalizacao
+
+'''
 # Oq foi feito na ultima att do projeto?
 '''
 1-Adicionei funções ao projeto.
@@ -20,13 +26,15 @@ FAZER ISSO PARA OS DEMAIS. OBS: Olhar o model do prof.
 print('CONSULTA ONLINE')
 def main_menu():
             print('''
-            Projeto Nutri-Center
-        [1]-Cadastramento de Clientes:
-        [2]-Objetivos do Paciente:
-        [3]-Planos de Dietas:
-        [4]-Finalização da Consulta e Resultados:
-        [5]-Informações pessoais:
-        [0]-FINALIZAR PROGRAMA
+        PROJETO NUTRI-CENTER
+      ##########################
+    #[1]- Módulo Paciente:      #
+    #[2]- Módulo Objetivos:     #
+    #[3]- Módulo Dietas:        #
+    #[4]- Módulo Finalização:   #
+    #[5]- Módulo Informações:   #
+    #[0]- SAIR                  #
+      ##########################
         ''')
         
         #MODULO1-CADASTRAMENTO DE PACIENTES
