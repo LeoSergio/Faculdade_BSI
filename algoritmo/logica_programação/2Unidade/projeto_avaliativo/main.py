@@ -10,7 +10,7 @@ Conseguir armazenar os dados no dicionário info
 MODULO 1:
     CADASTRAMENTO DE PACIENTE
         *FALTA VERIFICAR CPF
-    COLOCAR OPTIONS DE VERIFICAR INFORMAÇÕES DO PACIENTE E DÁ OPÇÃO DE ALTERA-LO.
+FAZER AS OUTRAS FUNCTION
     
 '''     
 print('CONSULTA ONLINE')
@@ -31,7 +31,7 @@ def main_menu():
         ''')
 
         #MODULO1-CADASTRAMENTO DE PACIENTES
-def cad_paciente():
+def menu_cad():
     print('''
         PROJETO NUTRI-CENTER
 
@@ -45,6 +45,8 @@ def cad_paciente():
 
     ###########################
         ''')
+def cad_paciente():
+    menu_cad()
     option = input('Qual sua opção? ')
     while option!='0':
         if option == '1':
@@ -93,12 +95,20 @@ def cad_paciente():
                 cad = input('Adicionar outro cadastro? S/N ')
         elif option == '2':
             print('verificar_info()')
+            menu_cad()
+            option = input('Digite outra opção: ')
         elif option == '3':
             print('alterar_info()')
+            menu_cad()
+            option = input('Digite outra opção: ')
         elif option == '4':
             print('remover_usuario()')
+            menu_cad()
+            option = input('Digite outra opção: ')
         elif option == '0':
             print('Fim do programa')
+            main_menu()
+            option = input('Digite outra opção: ')
         else:
             print('OPÇÃO INVÁLIDA!')
             option = input('Digite outra opção: ')
