@@ -309,7 +309,7 @@ def cad_paciente():
                 2 - Ganhar peso
 -->  ''')
                           cadastro[cpf][6] = new_obj
-                          print('NOVO GÊNERO CADASTRADO: ', cadastro[cpf][6])
+                          print('NOVO OBJETIVO CADASTRADO: ', cadastro[cpf][6])
                      else:
                           print('ERRO AO TENTAR ALTERAR OS DADOS')
                       
@@ -336,47 +336,13 @@ def cad_paciente():
              if cpf in cadastro:
                 option = input('Você deseja remover suas informações ? [S/N]')
                 if option.upper() == 'S':
-                    #cadastro[cpf] = [0nome_upper,1data_nasc,2genero,3peso,4altura,5imc,6obj]
-                    option = input('''
-                    Qual informação deseja Excluir?
-                            [1]- NOME: 
-                            [2]- CPF:        
-                            [3]- DATA DE NASCIMENTO:   
-                            [4]- GENERO:   
-                            [5]- PESO:
-                            [6]- ALTURA :
-                            [7]- OBJETIVO:
-                            [8]- TODAS AS INFORMAÇÕES                                            
-                    -->  ''') # del alunos[matr]
-                                #print("Aluno(a) excluído(a) com sucesso!")
-                    if option == '1':
-                          del cadastro[cpf][0]                        
-                          print('NOME EXCLUIDO COM SUCESSO: ')
-                    elif option == '2':
-                          del cadastro[cpf]                      
-                          print('CPF EXCLUIDO COM SUCESSO: ')
-                    elif option == '3':
-                          del cadastro[cpf][1]                        
-                          print('DATA DE NASCIMENTO EXCLUIDA COM SUCESSO: ')
-                    elif option == '4':
-                          del cadastro[cpf][2]                        
-                          print('GÊNERO EXCLUIDO COM SUCESSO! ')
-                    elif option == '5':
-                          del cadastro[cpf][3]                        
-                          print('PESO EXCLUIDO COM SUCESSO: ')
-                    elif option == '6':
-                          del cadastro[cpf][4]                        
-                          print('ALTURA EXCLUIDA COM SUCESSO: ')
-                    elif option == '7':
-                          del cadastro[cpf][6]                        
-                          print('OBJETIVO EXCLUIDO COM SUCESSO: ')
-                    elif option == '7':
+                          
                           del cadastro[cpf]                        
                           print('INFORMAÇÕES EXCLUIDA COM SUCESSO: ')
                 else:
                     print("Exclusão não realizada!")                    
              else:
-                print("Aluno(a) inexistente!")
+                print("Paciente inexistente!")
                 input("Tecle <ENTER> para continuar...")
 
         elif option == '0':
