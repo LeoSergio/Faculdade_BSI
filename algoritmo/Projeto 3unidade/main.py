@@ -113,7 +113,6 @@ def cad_paciente():
     menu_cad()
     option = input('Qual sua opção? --> ')
     while option!='0':
-        menu_cad()
         if option == '1':
                 os.system('cls')
                 #Adicionando paciente    
@@ -162,14 +161,14 @@ def cad_paciente():
                      print('''
                           | DIGITE APENAS NÚMEROS :|                     
                           ''')
-                     peso = float(input('Qual o seu peso atual: '))
-                     altura =float(input('Qual a sua altura atual: '))
+                     peso = input('Qual o seu peso atual: ')
+                     altura =input('Qual a sua altura atual em metros: ')
                     
                      try:                             
                         peso_float= float(peso)
                         altuta_float = float(altura) 
-                        imc = float(peso/(altura**2))   
-                        imc_float = float(imc)
+                        imc = peso_float / (altuta_float**2)   
+                        
                         break
                      except ValueError: #indica que a entrada não é um número válido.
                         print('DIGITE APENAS NÚMEROS')
@@ -232,9 +231,11 @@ def cad_paciente():
                 #PEDIR O CPF PRA VERIFICAR AS INFORMAÇÕES
                 elif cadastro == {}:
                     print('ERRO')
-                    print('Não possui cadastro, Cadastra-se !!!')
-                    break
+                    print('DADOS NÃO ENCONTRADOS!')
                     menu_cad()
+                    option = input('Digite outra opção: ')
+                   
+                    
                 else:
                     print('''
                           #############################################
@@ -243,7 +244,9 @@ def cad_paciente():
 ''')
                     menu_cad()
                     option = input('Digite outra opção: ')
-                    break                                      
+                    break
+            menu_cad()
+            option = input('Digite outra opção: ')                                      
 
         elif option == '3':
             
@@ -273,6 +276,8 @@ def cad_paciente():
                         new_name= nome.upper()  
                         cadastro[cpf][0] = new_name                         
                         print('NOVO NOME CADASTRADO: ', cadastro[cpf][0])
+                        menu_cad()
+                        option = input('Digite outra opção: ')
                      elif option == '2':
                           new_cpf = input('Digite um novo CPF')
                           cadastro[cpf] = new_cpf
@@ -325,8 +330,7 @@ def cad_paciente():
                 print('Paciente inexistente')
                 option = input('Digite outra opção: ')
 
-        elif option == '4':
-            
+        elif option == '4':            
              print('''
                           #######################
                 #########      REMOVER USUÁRIO     ##########
@@ -334,25 +338,27 @@ def cad_paciente():
                 ''' )
              cpf = input('Digite seu CPF: ')
              if cpf in cadastro:
-                option = input('Você deseja remover suas informações ? [S/N]')
-                if option.upper() == 'S':
-                          
+                option = input('Você deseja remover suas informações ? [S/N] ')
+                if option.upper() == 'S':                        
                           del cadastro[cpf]                        
                           print('INFORMAÇÕES EXCLUIDA COM SUCESSO: ')
+                          menu_cad()
+                          option = input('Digite outra opção: ')
                 else:
                     print("Exclusão não realizada!")                    
              else:
                 print("Paciente inexistente!")
                 input("Tecle <ENTER> para continuar...")
 
+
         elif option == '0':
-            os.system('cls')
             print('Fim do programa')
             main_menu()
             option = input('Digite outra opção: ')
 
         else:
             print('OPÇÃO INVÁLIDA!')
+            menu_cad()
             option = input('Digite outra opção: ')
 
 ############################# MODULO 2 - Dietas.##########################################
