@@ -16,7 +16,7 @@ cadastro = {#nome_upper,genero,peso,altura,imc,obj
      '123': ['LEANDRO', 123]
 }
 def login():
-    os.system('cls')    
+        
     print('CONSULTA ONLINE')
     #Area de login!!!!!!!!!!!!
     print('''
