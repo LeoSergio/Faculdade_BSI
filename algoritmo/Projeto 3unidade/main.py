@@ -1,6 +1,8 @@
+from validacao import validaCPF
 import os
 import datetime
-from function import validaCPF
+
+
 
      ##########################################
 ##### Projeto Planejamento de Dietas      #####
@@ -21,6 +23,7 @@ dieta={
 agenda = {
 
 }
+
 def cad_dieta():
     print('''
         PROJETO NUTRI-CENTER
@@ -127,9 +130,20 @@ def cad_paciente():
                 #Adicionando paciente    
                 print('DIGITE AS INFORMAÕES PEDIDAS.')
                 nome = input('Nome Completo: ')
-                nome_upper = nome.upper() 
-                cpf = input('Digite seu CPF: ')
-                validaCPF(cpf)
+                nome_upper = nome.upper()
+                nome = nome_upper.replace(' ', '') 
+                while True: #VALIDAÇÃO DO PROF. FLAVIUS
+                    cpf = input("Informe seu CPF: ")
+                    cpf = cpf.replace('.', '')
+                    cpf = cpf.replace('-', '')
+                    cpf = cpf.replace(' ', '')
+                    if validaCPF(cpf):
+                            print("CPF Ok!")
+                            break
+                    else:
+                            print("CPF Inválido!")
+                
+
                             #DATA DE NASCIMENTO#
                 while True:
                     print('''
@@ -457,3 +471,4 @@ def my_information():
   ''')
 if __name__ == "__main__":
     main() #para inicializar a function main
+    
