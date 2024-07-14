@@ -13,7 +13,7 @@ import datetime
     LISTA DE DIETAS E LISTA DOS PESOS DO IMC
 '''
 
-cadastro = {#nome_upper,genero,peso,altura,imc,obj
+cadastro = {#nome,genero,peso,altura,imc,obj
      
 }
 
@@ -202,7 +202,7 @@ def cad_paciente():
                 2 - Ganhar peso
 
 ''')
-                cadastro[cpf] = [nome_upper,data_nasc,genero,peso,altura,imc,obj]
+                cadastro[cpf] = [nome,data_nasc,genero,peso,altura,imc,obj]
                 # Imprimindo os dados dos pacientes em formato de coluna
                 #os dados estão sendo armazenado no dicionário cadastro, chave CPF.
                 print('NOME: ', cadastro[cpf][0])
@@ -276,7 +276,7 @@ def cad_paciente():
                 resp = input('VOCÊ TEM CERTEZA ? , alterar os seus dados ? S/N ')
                 if resp.upper() == 'S':
                      print(cadastro[cpf])
-                     #cadastro[cpf] = [0nome_upper,1data_nasc,2genero,3peso,4altura,5imc,6obj]
+                     #cadastro[cpf] = [0nome,1data_nasc,2genero,3peso,4altura,5imc,6obj]
                      option = input('''
                     Qual informação deseja alterar?
                             [1]- NOME: 
