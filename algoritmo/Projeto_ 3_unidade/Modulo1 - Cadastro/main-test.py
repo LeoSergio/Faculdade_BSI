@@ -1,0 +1,2 @@
+from validacao import *
+validaCPF()
