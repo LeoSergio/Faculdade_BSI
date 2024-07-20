@@ -38,7 +38,7 @@ def validaCPF(cpf): # PROF FLAVIUS
 
 from datetime import datetime
 
-def validar_data_nascimento(): # Gerada pelo Chat GPT b67
+def data_nasc(): # Gerada pelo Chat GPT
     print('''
           |Data de nascimento, DIGITE APENAS NÚMEROS :|                     
           ''')

@@ -1,4 +1,5 @@
 import validacao
+import function
 import os
 import datetime
      ##########################################
@@ -17,88 +18,29 @@ agenda = {
 
 }
 
-def main_menu():
-            print('''
-        PROJETO NUTRI-CENTER
-
-    ###########################
-
-    [1]- Módulo Paciente Objetivos: 
-    [2]- Módulo Dietas:        
-    [3]- Módulo Agendamento/Consulta:   
-    [4]- Módulo Informações:   
-    [0]- SAIR  
-
-    ##########################
-        ''')
-
-
-def menu_cad():
-    print('''
-        PROJETO NUTRI-CENTER
-
-    ###########################
-
-    [1]- Cadastrar-se: 
-    [2]- Verificar informações:        
-    [3]- Alterar informações:   
-    [4]- Remover Usuário:   
-    [0]- SAIR  
-
-    ###########################
-        ''')
-def cad_dieta():
-    print('''
-        PROJETO NUTRI-CENTER
-
-    ###########################
-
-    [1]- Cadastrar Dieta: 
-    [2]- Verificar Dietas:        
-    [3]- Alterar Dietas:   
-    [4]- Remover Dietas:   
-    [0]- SAIR  
-
-    ###########################
-        ''')
-
-def agendamento():
-    print('''
-        PROJETO NUTRI-CENTER
-
-    ###########################
-
-    [1]- Agendar consulta: 
-    [2]- Verificar Consulta:        
-    [3]- Alterar Consulta:   
-    [4]- Remover Consulta:   
-    [0]- SAIR  
-
-    ###########################
-        ''')
 ######################### MENU-PRINCIPAL #####################################
 def main():
         os.system('cls')
-        main_menu()
+        function.main_menu()
         option = input('Escolha uma opção? --> ')
         while option != '0':
             if option == '1':
                 cad_paciente()
-                main_menu()
+                function.main_menu()
                 option = input('Digite outra opção: ')
             elif option == '2':
                 print('CADASTRAMENTO DE DIETAS')
                 dieta()
-                main_menu()
+                function.main_menu()
                 option = input('Digite outra opção: ')     
             elif option == '3':
                 print('Módulo3')
                 agenda()
-                main_menu()
+                function.main_menu()
                 option = input('Digite outra opção: ') 
             elif option == '4':
                 print('Módulo4')
-                main_menu()
+                function.main_menu()
                 my_information()
                 input('Tecle <ENTER> para continuar...')
 
@@ -113,8 +55,7 @@ def main():
 
 ############################ MODULO1-CADASTRAMENTO DE PACIENTES ###############################
 def cad_paciente():
-    os.system('cls')
-    menu_cad()
+    function.menu_cad()
     option = input('Qual sua opção? --> ')
     while option!='0':
         if option == '1':
@@ -129,20 +70,29 @@ def cad_paciente():
                     cpf = cpf.replace('.', '')
                     cpf = cpf.replace('-', '')
                     cpf = cpf.replace(' ', '')
-                    if validaCPF(cpf):
+                    if validacao.validaCPF(cpf):
                             print("CPF Ok!")
                             break
                     else:
                             print("CPF Inválido!")
 
 
-                            #DATA DE NASCIMENTO#
-                print('''
+                while True:
+                    print('''
+                        DATA DE NASCIMENTO
+                    ''')
+                    ano = input('Qual o ano do seu nascimento? ')
+                    mes = input('Qual o mês do seu nascimento? ')
+                    dia = input('Qual o dia do seu nascimento? ')
+                    
+                    if validacao.data_nasc(ano, mes, dia):
+                        data_nasc = f"{dia}/{mes}/{ano}"
+                        cadastro[cpf] = data_nasc
+                        break
+                    else:
+                        print('DATA INVALIDA')
 
-                    DATA DE NASCIMENTO
-
-''')
-                data_nasc()
+                print("Cadastro atualizado:", cadastro)
 
                 genero = input('Qual o seu Gênero: M/F ')
 
@@ -181,7 +131,7 @@ def cad_paciente():
                 ''' )
 
                 input('Tecle <ENTER> para continuar...') #colocar nas outras function
-                menu_cad()
+                function.menu_cad()
                 option = input('Digite outra opção: ')
                 print(cadastro[cpf])
 
@@ -210,7 +160,7 @@ def cad_paciente():
                 elif cadastro == {}:
                     print('ERRO')
                     print('DADOS NÃO ENCONTRADOS!')
-                    menu_cad()
+                    function.menu_cad()
                     option = input('Digite outra opção: ')
                     break
 
@@ -221,7 +171,7 @@ def cad_paciente():
                 #########  ERRO, CPF INVÁLIDO, TENTE NOVAMENTE  #########
                           #############################################      
 ''')
-                    menu_cad()
+                    function.menu_cad()
                     option = input('Digite outra opção: ')
 
 
@@ -253,59 +203,59 @@ def cad_paciente():
                         new_name= nome.upper()  
                         cadastro[cpf][0] = new_name                         
                         print('NOVO NOME CADASTRADO: ', cadastro[cpf][0])
-                        menu_cad()
+                        function.menu_cad()
                         option = input('Digite outra opção: ')
                      elif option == '2':
                             new_cpf = input('DIGITE O NOVO CPF: ')
                             cadastro[new_cpf] = cadastro.pop(cpf)
                             print(f'NOVO CPF CADASTRADO: ', new_cpf )
-                            menu_cad()
+                            function.menu_cad()
                             option = input('Digite outra opção: ')
                      elif option == '3':
                           new_date = input('Digite uma nova DATA DE NASCIMENTO: ')
                           cadastro[cpf][1] = new_date
                           print('NOVA  DATA CADASTRADA: ', cadastro[cpf][1])
-                          menu_cad()
+                          function.menu_cad()
                           option = input('Digite outra opção: ')
                      elif option == '4':
                           new_gender = input('Digite o novo GÊNERO ')
                           cadastro[cpf][2] = new_gender
                           print('NOVO GÊNERO CADASTRADO: ', cadastro[cpf][2])
-                          menu_cad()
+                          function.menu_cad()
                           option = input('Digite outra opção: ')
                      elif option == '5':
                           new_weight = input('Digite um novo PESO: ')
                           cadastro[cpf][3] = new_weight
                           print('NOVO PESO CADASTRADO: ', cadastro[cpf][3])
                           print('IMC ALTERADO, NOVO IMC --> ', cadastro[cpf][5])
-                          menu_cad()
+                          function.menu_cad()
                           option = input('Digite outra opção: ')
                      elif option == '6':
                           new_height = input('Digite uma nova ALTURA: ')
                           cadastro[cpf][4] = new_height
                           print('NOVO PESO CADASTRADO: ', cadastro[cpf][4])
                           print('IMC ALTERADO, NOVO IMC --> ', cadastro[cpf][5])
-                          menu_cad()
+                          function.menu_cad()
                           option = input('Digite outra opção: ')
 
                      else:
                           print('ERRO AO TENTAR ALTERAR OS DADOS')
-                          menu_cad()
+                          function.menu_cad()
                           option = input('Digite outra opção: ')
 
                 else:
                      print('Voltou ao menu!')
-                     menu_cad()
+                     function.menu_cad()
                      option = input('Digite outra opção: ')
 
             elif cadastro == {}:
                  print('ERRO')
                  print('Não possui cadastro, Cadastra-se !!!')
-                 menu_cad()
+                 function.menu_cad()
                  option = input('Digite outra opção: ')
             else:
                 print('Paciente inexistente')
-                menu_cad()
+                function.menu_cad()
                 option = input('Digite outra opção: ')
 
         elif option == '4':            
@@ -320,32 +270,32 @@ def cad_paciente():
                 if option.upper() == 'S':                        
                           del cadastro[cpf]                        
                           print('INFORMAÇÕES EXCLUIDA COM SUCESSO: ')
-                          menu_cad()
+                          function.menu_cad()
                           option = input('Digite outra opção: ')
                 else:
                     print("Exclusão não realizada!")
-                    menu_cad()
+                    function.menu_cad()
                     option = input('Digite outra opção: ')                    
              else:
                 print("Paciente inexistente!")
                 input("Tecle <ENTER> para continuar...")
-                menu_cad()
+                function.menu_cad()
                 option = input('Digite outra opção: ')
 
 
         elif option == '0':
             print('Fim do programa')
-            main_menu()
+            function.main_menu()
             option = input('Digite outra opção: ')
 
         else:
             print('OPÇÃO INVÁLIDA!')
-            menu_cad()
+            function.menu_cad()
             option = input('Digite outra opção: ')
 
 ############################# MODULO 2 - Dietas.##########################################
 def dieta():
-    cad_dieta()
+    function.cad_dieta()
     option = input('Qual sua opção? --> ')
     while option != '0':
         if option == '1': #Nome da dieta, alimentos alergicos,horario das refeições, horario das refeições
@@ -404,11 +354,11 @@ def dieta():
                      hora = 'Noite'
     
                 dieta[cpf] = [name_dieta, alimento, obj, hora]
-                cad_dieta()
+                function.cad_dieta()
                 option = input('Qual sua opção? --> ')
             else:
                  print('CPF inválido ou não encontrado, cadastre-se!!')
-                 cad_dieta()
+                 function.cad_dieta()
                  option = input('Qual sua opção? --> ')
 
         elif option == '2':
@@ -431,7 +381,7 @@ def dieta():
                 elif dieta == {}:
                     print('ERRO')
                     print('DADOS NÃO ENCONTRADOS!')
-                    menu_cad()
+                    function.menu_cad()
                     option = input('Digite outra opção: ')
                     break
 
@@ -442,10 +392,10 @@ def dieta():
                 #########  ERRO, CPF INVÁLIDO, TENTE NOVAMENTE  #########
                           #############################################      
 ''')
-                    menu_cad()
+                    function.menu_cad()
                     option = input('Digite outra opção: ')
 
-                cad_dieta()
+                function.cad_dieta()
                 option = input('Qual sua opção? --> ')
 
         elif option == '3':
@@ -472,7 +422,7 @@ def dieta():
                         new_name= nome.upper()  
                         dieta[cpf][0] = new_name                         
                         print('NOVO NOME CADASTRADO: ', dieta[cpf][0])
-                        menu_cad()
+                        function.menu_cad()
                         option = input('Digite outra opção: ')
 
                      elif option == '2':
@@ -483,7 +433,7 @@ def dieta():
                                  dieta[cpf][1] = alergia
                             elif dieta[cpf][1].upper() == 'N':
                                  dieta[cpf][1] == 'Não possiu Alergia'                                 
-                            menu_cad()
+                            function.menu_cad()
                             option = input('Digite outra opção: ')
 
                      elif option == '3':
@@ -507,7 +457,7 @@ def dieta():
                                 new_obj = 'Ganhar Massa muscular'
                                 dieta[cpf][2] = new_obj
                                 print('NOVO OBJETIVO CADASTRADO: ', dieta[cpf][2])
-                                menu_cad()
+                                function.menu_cad()
                                 option = input('Digite outra opção: ')
                      elif option == '4':
                           new_hora = input('''Quais os horarios das refeições?
@@ -535,20 +485,20 @@ def dieta():
     
                 dieta[cpf][3]= new_hora
                 print('NOVO HORARIO CADASTRADO: ', dieta[cpf][3])
-                cad_dieta()
+                function.cad_dieta()
                 option = input('Qual sua opção? --> ')
                 
             elif dieta == {}:
                  print('ERRO')
                  print('Não possui cadastro, Cadastra-se !!!')
-                 menu_cad()
+                 function.menu_cad()
                  option = input('Digite outra opção: ')
             else:
                 print('Paciente inexistente')
-                menu_cad()
+                function.menu_cad()
                 option = input('Digite outra opção: ')
             print('ALTERAR DIETA')
-            cad_dieta()
+            function.cad_dieta()
             option = input('Qual sua opção? --> ')
         
         
@@ -557,10 +507,10 @@ def dieta():
         
         elif option == '4':
             print('EXCLUIR DIETA')
-            cad_dieta()
+            function.cad_dieta()
             option = input('Qual sua opção? --> ')
         elif option == '0':
-             main_menu()
+             function.main_menu()
              option = input('Qual sua opção? --> ')
 
         else:
@@ -569,7 +519,7 @@ def dieta():
 ############################ Modulo 3 - Cosulta ######################################
 def agenda():
     print('MODULO AGENDAMENTO')
-    agendamento()
+    function.agendamento()
     option = input('Qual a sua opção: ')
     if option == '1':
         print('AGENDAR CONSULTA')
@@ -580,7 +530,7 @@ def agenda():
     elif option == '4':
         print('EXCLUIR CONSULTA')
     elif option == '0':
-        main_menu()
+        function.main_menu()
     else:
         print('OPÇÃO INVÁLIDA')
     '''cpf = input('Digite seu CPF: ')
