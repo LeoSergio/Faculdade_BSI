@@ -36,46 +36,68 @@ def validaCPF(cpf): # PROF FLAVIUS
 
   return True
 
-from datetime import datetime
 
-def data_nasc(): # Gerada pelo Chat GPT
-    print('''
-          |Data de nascimento, DIGITE APENAS NÚMEROS :|                     
-          ''')
+def is_valid_date(date_str):
+    try:
+        day, month, year = date_str.split("/")  # Split by '/' separator
+        day, month, year = int(day), int(month), int(year)  # Convert to integers
 
-    while True:
-        ano = input('Qual o ano do seu nascimento? ')
-        mes = input('Qual o mês do seu nascimento? ')
-        dia = input('Qual o dia do seu nascimento? ')
+        # Check for valid day values
+        if not 1 <= day <= 31:
+            return False
+
+        # Check for valid month values and adjust day range accordingly
+        if not 1 <= month <= 12:
+            return False
+        elif month == 2 and not is_leap_year(year):  # Handle February for non-leap years
+            if day > 28:
+                return False
+        elif month in [4, 6, 9, 11] and day > 30:
+            return False
+
+        # Check for valid year values
+        if year < 1:
+            return False
+
+        return True  # All checks passed, date is valid
+
+    except ValueError:  # Handle invalid input format
+        return False
+
+    except Exception as e:  # Handle unexpected errors
+        print(f"Error during date validation: {e}")
+        return False
+
+def is_leap_year(year):
+
+    if year % 4 != 0:
+        return False
+    elif year % 100 == 0 and year % 400 != 0:
+        return False
+    return True
+
+def validar_data(dia: int, mes: int, ano: int) -> bool:
+    try:
+        # Criar um objeto datetime com a data fornecida
+        data_nascimento_dt = datetime(ano, mes, dia)
         
-        try:
-            # Converte os valores para inteiros
-            ano = int(ano)
-            mes = int(mes)
-            dia = int(dia)
-            
-            # Cria a data de nascimento
-            data_nascimento = datetime.datetime(ano, mes, dia)
-            
-            # Obtém a data atual
-            data_atual = datetime.datetime.now()
-            
-            # Calcula a diferença em anos
-            idade = data_atual.year - data_nascimento.year
-            
-            # Verifica se já fez aniversário este ano
-            if (data_atual.month, data_atual.day) < (data_nascimento.month, data_nascimento.day):
-                idade -= 1
-
-            # Verifica se a idade é maior ou igual a 18 anos
-            if idade < 18:
-                print("Menor de 18 anos.")
-            else:
-                print("Data de nascimento válida.")
-            
-            break
+        # Verificar se a data não está no futuro
+        if data_nascimento_dt > datetime.now():
+            return False
         
-        except ValueError:
-            print('Data inválida. Verifique se ano, mês e dia são números válidos e formam uma data real.')
+        # Verificar se o usuário tem pelo menos 18 anos
+        idade_minima = 18
+        hoje = datetime.now()
+        idade = hoje.year - data_nascimento_dt.year - ((hoje.month, hoje.day) < (data_nascimento_dt.month, data_nascimento_dt.day))
+        
+        if idade < idade_minima:
+            return False
+
+        return True
+    except ValueError:
+        # Se a data não puder ser convertida, ela é inválida
+        return False
+
+validar_data()
 
                 

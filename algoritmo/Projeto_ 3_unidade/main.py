@@ -1,7 +1,6 @@
 import validacao
 import function
 import os
-import datetime
      ##########################################
 ##### Projeto Planejamento de Dietas      #####
      #########################################
@@ -77,22 +76,15 @@ def cad_paciente():
                             print("CPF Inválido!")
 
 
-                while True:
-                    print('''
-                        DATA DE NASCIMENTO
-                    ''')
-                    ano = input('Qual o ano do seu nascimento? ')
-                    mes = input('Qual o mês do seu nascimento? ')
-                    dia = input('Qual o dia do seu nascimento? ')
-                    
-                    if validacao.data_nasc(ano, mes, dia):
-                        data_nasc = f"{dia}/{mes}/{ano}"
-                        cadastro[cpf] = data_nasc
-                        break
-                    else:
-                        print('DATA INVALIDA')
+               #ADD VALIDAÇÃO DE DATA
+                data_nasc = str(input(" Data de Nascimento: "))
+                while not validacao.valid_date(data_nasc):
+                    print("Data Inválida! Tente Novamente.\n(Insira a Data no Formato: xx/xx/xxxx)")
+                    print()
+                    data_nasc = str(input("-> "))
+                    data_nasc = data_nasc.strip()
+                    print()
 
-                print("Cadastro atualizado:", cadastro)
 
                 genero = input('Qual o seu Gênero: M/F ')
 
@@ -114,6 +106,7 @@ def cad_paciente():
 
 
                 cadastro[cpf] = [nome,data_nasc,genero,peso,altura,imc]
+                
                 # Imprimindo os dados dos pacientes em formato de coluna
                 #os dados estão sendo armazenado no dicionário cadastro, chave CPF.
                 print('NOME: ', cadastro[cpf][0])
@@ -395,8 +388,7 @@ def dieta():
                     function.menu_cad()
                     option = input('Digite outra opção: ')
 
-                function.cad_dieta()
-                option = input('Qual sua opção? --> ')
+                
 
         elif option == '3':
             print('''
@@ -405,6 +397,7 @@ def dieta():
                           #######################
                 ''' )
             cpf = input('Digite seu CPF: ')
+
             if cpf in cadastro:              
                 resp = input('VOCÊ TEM CERTEZA ? , alterar os seus dados ? S/N ')
                 if resp.upper() == 'S':
