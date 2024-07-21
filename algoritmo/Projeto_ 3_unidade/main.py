@@ -78,7 +78,7 @@ def cad_paciente():
 
                #ADD VALIDAÇÃO DE DATA
                 data_nasc = str(input(" Data de Nascimento: "))
-                while not validacao.valid_date(data_nasc):
+                while not validacao.date(data_nasc):
                     print("Data Inválida! Tente Novamente.\n(Insira a Data no Formato: xx/xx/xxxx)")
                     print()
                     data_nasc = str(input("-> "))
