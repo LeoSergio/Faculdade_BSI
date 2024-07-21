@@ -7,7 +7,7 @@ VALIDACAO DA DATA DE NASCIMENTO
 
 
 '''
-import datetime
+from datetime import datetime
 def validaCPF(cpf): # PROF FLAVIUS
   tam = len(cpf)
   soma = 0
@@ -37,7 +37,7 @@ def validaCPF(cpf): # PROF FLAVIUS
   return True
 
 
-def is_valid_date(date_str):
+def date(date_str):
     try:
         day, month, year = date_str.split("/")  # Split by '/' separator
         day, month, year = int(day), int(month), int(year)  # Convert to integers
@@ -75,29 +75,3 @@ def is_leap_year(year):
     elif year % 100 == 0 and year % 400 != 0:
         return False
     return True
-
-def validar_data(dia: int, mes: int, ano: int) -> bool:
-    try:
-        # Criar um objeto datetime com a data fornecida
-        data_nascimento_dt = datetime(ano, mes, dia)
-        
-        # Verificar se a data não está no futuro
-        if data_nascimento_dt > datetime.now():
-            return False
-        
-        # Verificar se o usuário tem pelo menos 18 anos
-        idade_minima = 18
-        hoje = datetime.now()
-        idade = hoje.year - data_nascimento_dt.year - ((hoje.month, hoje.day) < (data_nascimento_dt.month, data_nascimento_dt.day))
-        
-        if idade < idade_minima:
-            return False
-
-        return True
-    except ValueError:
-        # Se a data não puder ser convertida, ela é inválida
-        return False
-
-validar_data()
-
-                

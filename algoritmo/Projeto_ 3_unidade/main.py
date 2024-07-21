@@ -29,7 +29,7 @@ def main():
                 option = input('Digite outra opção: ')
             elif option == '2':
                 print('CADASTRAMENTO DE DIETAS')
-                dieta()
+                mod_dieta()
                 function.main_menu()
                 option = input('Digite outra opção: ')     
             elif option == '3':
@@ -287,7 +287,7 @@ def cad_paciente():
             option = input('Digite outra opção: ')
 
 ############################# MODULO 2 - Dietas.##########################################
-def dieta():
+def mod_dieta():
     function.cad_dieta()
     option = input('Qual sua opção? --> ')
     while option != '0':
@@ -388,7 +388,8 @@ def dieta():
                     function.menu_cad()
                     option = input('Digite outra opção: ')
 
-                
+                function.menu_cad()
+                option = input('Digite outra opção: ')    
 
         elif option == '3':
             print('''
