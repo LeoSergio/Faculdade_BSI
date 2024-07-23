@@ -1,7 +1,9 @@
 import validacao
 import function
+import main
 import modulo1
 import modulo2
+import modulo3
 import os
      ##########################################
 ##### Projeto Planejamento de Dietas      #####
@@ -35,8 +37,8 @@ def main():
                 function.main_menu()
                 option = input('Digite outra opção: ')     
             elif option == '3':
-                print('Módulo3')
-                agenda()
+                print('Módulo3- Agendamento')
+                modulo3.agenda()
                 function.main_menu()
                 option = input('Digite outra opção: ') 
             elif option == '4':
@@ -61,32 +63,7 @@ def main():
 
 
 ############################ Modulo 3 - Cosulta ######################################
-def agenda():
-    print('MODULO AGENDAMENTO')
-    function.agendamento()
-    option = input('Qual a sua opção: ')
-    if option == '1':
-        print('AGENDAR CONSULTA')
-    elif option == '2':
-        print('VERIFICAR CONSULTA')
-    elif option == '3':
-        print('ALTERAR CONSULTA')
-    elif option == '4':
-        print('EXCLUIR CONSULTA')
-    elif option == '0':
-        function.main_menu()
-    else:
-        print('OPÇÃO INVÁLIDA')
-    '''cpf = input('Digite seu CPF: ')
-    if cpf in cadastro:
-        print('conulta resultado')
-    if cadastro == {}:
-        print('ERRO')
-        print('Não possui cadastro, Cadastra-se no modulo paciente.')'''
 
-  #para imprimir a receita, Fazer meio q um login antes, com cpf de preferência!
-  #imprimir a receita
-  #Se não tiver todas as informações, dá erro avançar se as informações estiverem comPletas
 
 ################################### Modulo 4 - Minhas informações.##############################
 def my_information():

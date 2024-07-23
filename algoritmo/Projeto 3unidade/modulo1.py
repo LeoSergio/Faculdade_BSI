@@ -18,7 +18,7 @@ dieta={
 agenda = {
 
 }
-
+#FAZER O RELATORIO 
 ######################### MENU-PRINCIPAL #####################################
 def main():
         os.system('cls')
