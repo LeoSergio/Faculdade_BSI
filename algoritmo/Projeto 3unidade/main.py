@@ -38,7 +38,7 @@ def main():
                 option = input('Digite outra opção: ')     
             elif option == '3':
                 print('Módulo3- Agendamento')
-                modulo3.agenda()
+                modulo3.agendam()
                 function.main_menu()
                 option = input('Digite outra opção: ') 
             elif option == '4':
