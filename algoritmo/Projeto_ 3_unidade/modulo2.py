@@ -21,27 +21,12 @@ def mod_dieta():
                 else:
                     print( 'Não é alergico!')
                     alimento = 'Não tem alergia'
+                print('''
+                         CADASTRAR OBJETIVOS
+''')
+                obj = validacao.valida_obj(cpf)
 
-                obj= input('''
-                    Cadastrar objetivo:
-                    1 - Perder peso
-                    2 - Ganhar Massa Muscular
-                    3 - Mantnutenção de Peso
-                                    -->   ''')
-                while obj !=  '1' and obj!='2':
-                        print('Erro no cadastro, objetivo inválido')
-                        obj = input('''
-                    Qual o seu objetivo?
-                    1 - Perder peso
-                    2 - Ganhar peso
-
-    ''')
-                if obj == '1':
-                     obj = 'Perder peso'
-                elif obj == '2':
-                     obj = 'Ganhar Massa muscular'
-
-                hora = input('''Quais os horarios das refeições?
+                hora = input('''Qual o horário das refeições?
                               1 - Manhâ
                               2 - Tarde
                               3- Cafe da tarde
@@ -73,7 +58,6 @@ def mod_dieta():
                  option = input('Qual sua opção? --> ')
 
         elif option == '2':
-             while True:
                 print('''
                           #######################
                 ##########    VERIFICAR DIETAS     ###########

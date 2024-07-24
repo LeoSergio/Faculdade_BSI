@@ -1,16 +1,45 @@
-while True:
-                     print('''
-                          | DIGITE APENAS NÚMEROS :|                     
-                          ''')
-                     peso = input('Qual o seu peso atual: ')
-                     altura =input('Qual a sua altura atual em metros: ')
-
-                     try:                             
-                        peso_float= float(peso)
-                        altuta_float = float(altura) 
-                        imc = peso_float / (altuta_float**2)
-                        imc = round(imc,2) 
-                        print(imc)  
-                        break
-                     except ValueError: #indica que a entrada não é um número válido.
-                        print('DIGITE APENAS NÚMEROS')
+import modulo1
+def valida_obj(cpf):
+    imc = modulo1.cadastro[cpf][5]
+    obj= input('''
+                    Cadastrar objetivo:
+                    1 - Perder peso
+                    2 - Ganhar Massa Muscular
+                    3 - Manutenção de Peso
+                                        -->   ''')
+    while True:
+        if obj !=  '1' and obj!='2':
+            print('Erro no cadastro, objetivo inválido')
+            obj = input('''
+            Qual o seu objetivo?
+            1 - Perder peso
+            2 - Ganhar peso
+        ''')
+        elif obj == '1' and imc < 18.5:
+            print('OBJETIVO INVÁLIDO')
+            print('Seu IMC indica que você está abaixo do peso.')
+            obj = input('''
+            Qual o seu objetivo?
+            1 - Perder peso
+            2 - Ganhar peso
+        ''')
+        elif obj == '2' and imc > 25:
+            print('OBJETIVO INVÁLIDO')
+            print('Seu IMC indica que você está acima do peso.')
+            obj = input('''
+            Qual o seu objetivo?
+            1 - Perder peso
+            2 - Ganhar peso
+        ''')
+        elif (obj == '3' and imc > 25) and (obj == '3' and imc < 18.5):
+            print('OBJETIVO INVÁLIDO')
+            print('Seu IMC está na faixa normal.')
+            obj = input('''
+            Qual o seu objetivo?
+            1 - Perder peso
+            2 - Ganhar peso
+        ''')
+        if obj == '1':
+            obj = 'Perder peso'
+        elif obj == '2':
+            obj = 'Ganhar Massa muscular'

@@ -254,9 +254,15 @@ def cad_paciente():
         elif option == '5':
              cpf = input('Digite seu CPF: ')
              if cpf in cadastro:
-                  function.plan_dieta()
+                  function.plan_dieta(cpf)
+                  input('Tecle <ENTER> para continuar...')
+                  function.menu_cad()
+                  option = input('Digite outra opção: ')
              else:
                   print('CPF invalido ou não Cadastrado ')
+                  input('Tecle <ENTER> para continuar...')
+                  function.menu_cad()
+                  option = input('Digite outra opção: ')
              
         elif option == '0':
             print('Fim do programa')
