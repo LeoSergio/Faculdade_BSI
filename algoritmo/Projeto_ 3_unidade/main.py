@@ -5,21 +5,6 @@ import modulo1
 import modulo2
 import modulo3
 import os
-     ##########################################
-##### Projeto Planejamento de Dietas      #####
-     #########################################
-
-
-cadastro = {#nome,genero,peso,altura,imc
-
-}
-
-dieta={
-
-}
-agenda = {
-
-}
 
 ######################### MENU-PRINCIPAL #####################################
 def main():

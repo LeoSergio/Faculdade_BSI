@@ -84,29 +84,18 @@ def mod_dieta():
                     print('ALERGIA: ', dieta[cpf][1])
                     print('OBJETIVO: ' , dieta[cpf][2])
                     print('HORARIO: ', dieta[cpf][3])
-                    break
-
-
-                #PEDIR O CPF PRA VERIFICAR AS INFORMAÇÕES
-                elif dieta == {}:
-                    print('ERRO')
-                    print('DADOS NÃO ENCONTRADOS!')
+                    input('Tecle <ENTER> para continuar...') 
                     function.menu_cad()
                     option = input('Digite outra opção: ')
-                    break
-
-
                 else:
                     print('''
                           #############################################
                 #########  ERRO, CPF INVÁLIDO, TENTE NOVAMENTE  #########
                           #############################################      
 ''')
+                    input('Tecle <ENTER> para continuar...') 
                     function.menu_cad()
                     option = input('Digite outra opção: ')
-
-                function.menu_cad()
-                option = input('Digite outra opção: ')    
 
         elif option == '3':
             print('''
@@ -148,7 +137,7 @@ def mod_dieta():
                             option = input('Digite outra opção: ')
 
                      elif option == '3':
-                          new_obj = input('Digite um novo obletivo: ')
+                          new_obj = input('Digite um novo objetivo: ')
                           new_obj= input('''
                     Cadastrar objetivo:
                     1 - Perder peso

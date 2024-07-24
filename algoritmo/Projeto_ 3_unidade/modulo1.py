@@ -12,9 +12,6 @@ cadastro = {#nome,genero,peso,altura,imc
 
 }
 
-dieta={
-
-}
 agenda = {
 
 }
@@ -61,8 +58,20 @@ def cad_paciente():
                     data_nasc = data_nasc.strip()
                     print()
 
-
-                genero = input('Qual o seu Gênero: M/F ')
+                while True:
+                    genero = input('Qual o seu Gênero: M/F ')
+                    if genero.upper() == 'M':
+                        genero = 'MASCULINO'
+                        break
+                    elif genero.upper() =='F':
+                        genero= 'FEMININO'
+                        break
+                    elif (genero.upper() != 'M') and (genero.upper() != 'F'):
+                        print('''
+                             ###############                  
+                    ######### OPÇÃO INVALIDA ########
+                             ###############                
+    ''')
 
                 while True:
                      print('''
@@ -75,7 +84,6 @@ def cad_paciente():
                         peso_float= float(peso)
                         altuta_float = float(altura) 
                         imc = peso_float / (altuta_float**2)   
-
                         break
                      except ValueError: #indica que a entrada não é um número válido.
                         print('DIGITE APENAS NÚMEROS')
@@ -106,7 +114,6 @@ def cad_paciente():
 
                                 # VERIFICAR#
         elif option == '2':
-            while True:
                 print('''
                           #######################
                 ##########    VERIFICAR DADOS     ###########
@@ -121,19 +128,10 @@ def cad_paciente():
                     print('PESO: ', cadastro[cpf][3])
                     print('ALTURA: ', cadastro[cpf][4])
                     print('IMC: ', cadastro[cpf][5])
-
-                    break
-
-
-                #PEDIR O CPF PRA VERIFICAR AS INFORMAÇÕES
-                elif cadastro == {}:
-                    print('ERRO')
-                    print('DADOS NÃO ENCONTRADOS!')
+                    input('Tecle <ENTER> para continuar...') 
                     function.menu_cad()
                     option = input('Digite outra opção: ')
-                    break
-
-
+                    
                 else:
                     print('''
                           #############################################
@@ -142,8 +140,8 @@ def cad_paciente():
 ''')
                     function.menu_cad()
                     option = input('Digite outra opção: ')
-                function.menu_cad()
-                option = input('Digite outra opção: ')
+                    
+
 
         elif option == '3':
 
