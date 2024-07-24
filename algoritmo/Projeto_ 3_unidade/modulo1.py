@@ -83,7 +83,8 @@ def cad_paciente():
                      try:                             
                         peso_float= float(peso)
                         altuta_float = float(altura) 
-                        imc = peso_float / (altuta_float**2)   
+                        imc = peso_float / (altuta_float**2)
+                        imc = round(imc,2)   
                         break
                      except ValueError: #indica que a entrada não é um número válido.
                         print('DIGITE APENAS NÚMEROS')
@@ -250,7 +251,13 @@ def cad_paciente():
                 function.menu_cad()
                 option = input('Digite outra opção: ')
 
-
+        elif option == '5':
+             cpf = input('Digite seu CPF: ')
+             if cpf in cadastro:
+                  function.plan_dieta()
+             else:
+                  print('CPF invalido ou não Cadastrado ')
+             
         elif option == '0':
             print('Fim do programa')
             function.main_menu()

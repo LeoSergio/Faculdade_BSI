@@ -1,3 +1,12 @@
+import validacao
+import function
+import modulo1
+import modulo2
+import modulo3
+import os
+
+
+
 def main_menu():
             print('''
       ##########################################
@@ -9,8 +18,8 @@ def main_menu():
 
     ###########################
 
-    [1]- Módulo Paciente Objetivos: 
-    [2]- Módulo Dietas:        
+    [1]- Módulo Paciente: 
+    [2]- Módulo Dietas Personalizadas:        
     [3]- Módulo Agendamento/Consulta:   
     [4]- Módulo Informações:   
     [0]- SAIR  
@@ -19,16 +28,17 @@ def main_menu():
         ''')
 
 
-def menu_cad():
+def menu_cad(): #CRUD 1
     print('''
         PROJETO NUTRI-CENTER
 
     ###########################
 
     [1]- Cadastrar-se: 
-    [2]- Verificar informações:        
+    [2]- Informações do Paciente:        
     [3]- Alterar informações:   
-    [4]- Remover Usuário:   
+    [4]- Remover Paciente:
+    [5]- Plano de Dieta  
     [0]- SAIR  
 
     ###########################
@@ -63,3 +73,25 @@ def agendamento():
 
     ###########################
         ''')
+def plan_dieta():
+    print('''
+    #####################################
+    #         PLANO DE DIETA             #
+    #####################################
+    ''')
+    if modulo1.imc < 18.5:
+        print('Seu IMC indica que você está abaixo do peso. Plano de dieta para ganho de peso:')
+        print('1. Coma mais frequentemente.')
+        print('2. Escolha alimentos ricos em nutrientes.')
+        print('3. Tente shakes e smoothies.')
+    elif modulo1.imc >= 18.5 and modulo1.imc < 25:
+        print('Seu IMC está na faixa normal. Plano de dieta para manutenção de peso:')
+        print('1. Mantenha uma dieta balanceada.')
+        print('2. Controle as porções.')
+        print('3. Mantenha-se ativo.')
+    else:
+        print('Seu IMC indica que você está acima do peso. Plano de dieta para perda de peso:')
+        print('1. Reduza calorias de forma controlada.')
+        print('2. Coma mais proteínas.')
+        print('3. Reduza a ingestão de carboidratos.')
+    input('\nPressione Enter para continuar...')

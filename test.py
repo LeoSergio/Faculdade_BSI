@@ -8,7 +8,9 @@ while True:
                      try:                             
                         peso_float= float(peso)
                         altuta_float = float(altura) 
-                        imc = peso_float / (altuta_float**2)   
+                        imc = peso_float / (altuta_float**2)
+                        imc = round(imc,2) 
+                        print(imc)  
                         break
                      except ValueError: #indica que a entrada não é um número válido.
-                        print()
+                        print('DIGITE APENAS NÚMEROS')

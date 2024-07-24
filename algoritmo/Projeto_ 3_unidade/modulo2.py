@@ -26,6 +26,7 @@ def mod_dieta():
                     Cadastrar objetivo:
                     1 - Perder peso
                     2 - Ganhar Massa Muscular
+                    3 - Mantnutenção de Peso
                                     -->   ''')
                 while obj !=  '1' and obj!='2':
                         print('Erro no cadastro, objetivo inválido')
