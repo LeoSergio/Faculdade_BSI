@@ -13,8 +13,8 @@ def mod_dieta():
             cpf = input('Digite seu cpf: ')
             #validaCPF()
             if cpf in modulo1.cadastro:               
-                name_dieta = input('Qual o nome da dieta? --> ')
-                if name_dieta in dieta[cpf]:
+                name_dieta = validacao.valida_nome(nome)
+                if name_dieta in dieta:
                      print('NOME JÁ EXISTENTE')
                 alergia = input('Algum comer alergico ? [S/N] ')
                 if alergia.upper() == 'S':
@@ -29,6 +29,9 @@ def mod_dieta():
 ''')
                 obj = validacao.valida_obj(cpf)
 
+                print('''
+                         CADASTRAR HORÁRIO
+''')
                 hora = validacao.hora(cpf)
 
                 dieta[cpf] = [name_dieta, alimento, obj, hora]
@@ -60,14 +63,19 @@ def mod_dieta():
                 ''' )
                 cpf = input('Digite seu CPF: ')           
                 if cpf in modulo1.cadastro:
-                    print('NOME DA DIETA: ', dieta[cpf][0])
-                    print('ALERGIA: ', dieta[cpf][1])
-                    print('OBJETIVO: ' , dieta[cpf][2])
-                    print('HORARIO: ', dieta[cpf][3])
-                    print(validacao.plan_dieta(cpf))
-                    input('Tecle <ENTER> para continuar...') 
-                    function.cad_dieta()
-                    option = input('Digite outra opção: ')
+                    name = input('Digite o nome da dieta: ')
+                    name_dieta = validacao.valida_nome(name)
+                    if cpf in dieta and dieta[cpf][0] == name_dieta:                        
+                        print('NOME DA DIETA: ', dieta[cpf][0])
+                        print('ALERGIA: ', dieta[cpf][1])
+                        print('OBJETIVO: ' , dieta[cpf][2])
+                        print('HORARIO: ', dieta[cpf][3])
+                        print(validacao.plan_dieta(cpf))
+                        input('Tecle <ENTER> para continuar...') 
+                        function.cad_dieta()
+                        option = input('Digite outra opção: ')
+                    else:
+                         print('NOME NÃO ENCONTRADO OU NÃO CADASTRADO')
                 else:
                     print('''
                           #############################################
@@ -75,7 +83,7 @@ def mod_dieta():
                           #############################################      
 ''')
                     input('Tecle <ENTER> para continuar...') 
-                    function.menu_cad()
+                    function.cad_dieta()
                     option = input('Digite outra opção: ')
 
         elif option == '3':

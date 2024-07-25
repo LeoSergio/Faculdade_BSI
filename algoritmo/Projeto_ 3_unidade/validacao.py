@@ -160,4 +160,24 @@ def hora(cpf):
         hora = 'Noite'
     modulo2.dieta[cpf]= hora
     return hora
-   
+
+def valida_nome(nome):
+    # Remove espaços
+    nome_sem_espacos = nome.replace(" ", "")
+    
+    # Verifica se o nome está vazio
+    if not nome_sem_espacos:
+        return None
+    
+    # Expressão regular para permitir apenas letras
+    
+    
+    # Verifica se o nome corresponde ao padrão
+    if (nome_sem_espacos):
+        # Converte para maiúsculas
+        nome_maiusculo = nome_sem_espacos.upper()
+        return nome_maiusculo
+    else:
+        return None
+
+# Entrada do nome do usuário

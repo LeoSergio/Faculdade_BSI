@@ -10,9 +10,9 @@ import os
 COLOCAR DIETAS DE ACORDO COM O OBJETIVO, PODE COPIAR DO IMC
 FAZER AGENDAMENTO, MOSTRAR HORARIOS DISPONIVEIS PELO TURNO.
 
+ERROS: VALIDAR NOME DA DIETA, PESQUISAR A DIETA NO DICIONÁRIO PELO NOME, PRA ISSO VALIDAR O NOME SEM ESPAÇO
 
-
-
+['LEANDRO', '20/05/2001', 'MASCULINO', '11', '11', 0.09]                                                                                                                                                    
 '''
 
 

@@ -9,7 +9,7 @@ import os
 
 
 cadastro = {#nome,genero,peso,altura,imc
-     
+     '13971335462': ['LEANDRO', '20/05/2001', 'MASCULINO', '11', '11', 0.09]
 }
 
 agenda = {
