@@ -39,7 +39,7 @@ def validaCPF(cpf): # PROF FLAVIUS
   return True
 
 
-def date(date_str):
+def date(date_str): #pEGUEI PELO COLEGA KAIO
     try:
         day, month, year = date_str.split("/")  # Split by '/' separator
         day, month, year = int(day), int(month), int(year)  # Convert to integers
@@ -70,7 +70,7 @@ def date(date_str):
         print(f"Error during date validation: {e}")
         return False
 
-def is_leap_year(year):
+def is_leap_year(year): #PEGUEI PELO COLEGA KAIO
 
     if year % 4 != 0:
         return False

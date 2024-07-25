@@ -6,6 +6,18 @@ import modulo2
 import modulo3
 import os
 
+'''
+COLOCAR DIETAS DE ACORDO COM O OBJETIVO, PODE COPIAR DO IMC
+FAZER AGENDAMENTO, MOSTRAR HORARIOS DISPONIVEIS PELO TURNO.
+
+
+
+
+'''
+
+
+
+
 ######################### MENU-PRINCIPAL #####################################
 def main():
         os.system('cls')
