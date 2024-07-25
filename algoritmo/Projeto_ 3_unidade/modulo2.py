@@ -100,8 +100,7 @@ def mod_dieta():
                         new_name= nome.upper()  
                         dieta[cpf][0] = new_name                         
                         print('NOVO NOME CADASTRADO: ', dieta[cpf][0])
-                        function.menu_cad()
-                        option = input('Digite outra opção: ')
+                        
 
                      elif option == '2':
                             new_alergia = input('POSSUI ALGUM ALERGIA: [S/N] ')
@@ -111,8 +110,7 @@ def mod_dieta():
                                  dieta[cpf][1] = alergia
                             elif dieta[cpf][1].upper() == 'N':
                                  dieta[cpf][1] == 'Não possiu Alergia'                                 
-                            function.menu_cad()
-                            option = input('Digite outra opção: ')
+                            
 
                      elif option == '3':
                           obj=validacao.valida_obj(cpf)
@@ -120,7 +118,7 @@ def mod_dieta():
                      elif option == '4':
                           hora = validacao.hora(cpf)
                           print('NOVO HORARIO CADASTRADO: ', hora )
-                          
+
                 input('Tecle <ENTER> para continuar...')
                 function.cad_dieta()
                 option = input('Qual sua opção? --> ')
@@ -137,9 +135,6 @@ def mod_dieta():
             print('ALTERAR DIETA')
             function.cad_dieta()
             option = input('Qual sua opção? --> ')
-
-
-
 
 
         elif option == '4':
