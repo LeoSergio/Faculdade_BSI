@@ -1,12 +1,3 @@
-#funcoes de validacao mentrer outras
-'''
-
-VALIDAÇÃO DE NOMES
-VALIDACAO DE CPF
-VALIDACAO DA DATA DE NASCIMENTO
-
-
-'''
 import modulo1
 import modulo2
 from datetime import datetime
@@ -38,8 +29,8 @@ def validaCPF(cpf): # PROF FLAVIUS
 
   return True
 
-
-def date(date_str): #pEGUEI PELO COLEGA KAIO
+################################################################################
+def date(date_str): #PEGUEI PELO COLEGA KAIO
     try:
         day, month, year = date_str.split("/")  # Split by '/' separator
         day, month, year = int(day), int(month), int(year)  # Convert to integers
@@ -77,7 +68,7 @@ def is_leap_year(year): #PEGUEI PELO COLEGA KAIO
     elif year % 100 == 0 and year % 400 != 0:
         return False
     return True
-
+#####################################################################
 def valida_obj(cpf):
     imc = modulo1.cadastro[cpf][5]
     while True:
@@ -107,7 +98,7 @@ def valida_obj(cpf):
           print('Seu IMC está fora da faixa ideal para manutenção de peso.')
           
       else:
-          # Se o objetivo for válido, sai do loop
+          # Se o objetivo for válido, sair do loop
           break
     if obj == '1':
         obj = 'Perder peso'       
@@ -116,4 +107,57 @@ def valida_obj(cpf):
     elif obj == '3':
         obj = 'Ganhar Massa muscular'
     modulo2.dieta[cpf] = obj 
-    return obj   
+    return obj
+##############################################################
+def plan_dieta(cpf):
+    imc = modulo1.cadastro[cpf][5]
+    print('''
+    #####################################
+    #         PLANO DE DIETA             #
+    #####################################
+    ''')
+    
+    if imc < 18.5:
+        print('Seu IMC indica que você está abaixo do peso.')
+        print('1. Coma mais frequentemente.')
+        print('2. Escolha alimentos ricos em nutrientes.')
+        print('3. Tente shakes e smoothies.')
+    elif imc >= 18.5 and imc < 25:
+        print('Seu IMC está na faixa normal.')
+        print('1. Mantenha uma dieta balanceada.')
+        print('2. Controle as porções.')
+        print('3. Mantenha-se ativo.')
+    else:
+        print('Seu IMC indica que você está acima do peso.')
+        print('1. Reduza calorias de forma controlada.')
+        print('2. Coma mais proteínas.')
+        print('3. Reduza a ingestão de carboidratos.')
+
+################################################################
+
+def hora(cpf):
+    hora=input('''Qual o horário das refeições?
+                1 - Manhâ
+                2 - Tarde
+                3- Cafe da tarde
+                4 - Noite                                                     
+                ''')
+    while hora !=  '1' and hora !='2' and hora !='3' and hora !='4':
+            print('Erro no cadastro, Horario inválido')
+            hora = input('''Quais os horarios das refeições?
+                1 - Manhâ
+                2 - Tarde
+                3- Cafe da tarde
+                4 - Noite                                                     
+                ''')
+    if hora == '1':
+        hora = 'Manhâ'
+    elif hora == '2':
+        hora = 'Tarde'
+    elif hora == '3':
+        hora = 'Cafe da tarde'
+    elif hora == '4':
+        hora = 'Noite'
+    modulo2.dieta[cpf]= hora
+    return hora
+   

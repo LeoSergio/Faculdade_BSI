@@ -27,30 +27,22 @@ def mod_dieta():
 ''')
                 obj = validacao.valida_obj(cpf)
 
-                hora = input('''Qual o horário das refeições?
-                              1 - Manhâ
-                              2 - Tarde
-                              3- Cafe da tarde
-                              4 - Noite                                                     
-                              ''')
-                while hora !=  '1' and hora !='2' and hora !='3' and hora !='4':
-                        print('Erro no cadastro, Horario inválido')
-                        hora = input('''Quais os horarios das refeições?
-                              1 - Manhâ
-                              2 - Tarde
-                              3- Cafe da tarde
-                              4 - Noite                                                     
-                              ''')
-                if hora == '1':
-                     hora = 'Manhâ'
-                elif hora == '2':
-                     hora = 'Tarde'
-                elif hora == '3':
-                     hora = 'Cafe da tarde'
-                elif hora == '4':
-                     hora = 'Noite'
+                hora = validacao.hora(cpf)
 
                 dieta[cpf] = [name_dieta, alimento, obj, hora]
+
+                print('NOME DA DIETA: ', dieta[cpf][0])
+                print( dieta[cpf][1],)
+                print('OBJETIVO DA DIETA: ', dieta[cpf][2])
+                print('HORÁRIO: ', dieta[cpf][3])
+                print('IMC: ', modulo1.cadastro[cpf][5])
+                print(validacao.plan_dieta(cpf))
+
+                print('''
+                          #######################
+                ######### CADASTRADO COM SUCESSO ##########
+                          #######################
+                ''' )
                 function.cad_dieta()
                 option = input('Qual sua opção? --> ')
             else:
@@ -123,54 +115,13 @@ def mod_dieta():
                             option = input('Digite outra opção: ')
 
                      elif option == '3':
-                          new_obj = input('Digite um novo objetivo: ')
-                          new_obj= input('''
-                    Cadastrar objetivo:
-                    1 - Perder peso
-                    2 - Ganhar Massa Muscular
-                                    -->   ''')
-                          while new_obj !=  '1' and new_obj!='2':
-                                    print('Erro no cadastro, objetivo inválido')
-                                    new_obj = input('''
-                                Qual o seu objetivo?
-                                1 - Perder peso
-                                2 - Ganhar peso
-
-    ''')
-                          if new_obj == '1':
-                                new_obj = 'Perder peso'
-                          elif new_obj == '2':
-                                new_obj = 'Ganhar Massa muscular'
-                                dieta[cpf][2] = new_obj
-                                print('NOVO OBJETIVO CADASTRADO: ', dieta[cpf][2])
-                                function.menu_cad()
-                                option = input('Digite outra opção: ')
+                          obj=validacao.valida_obj(cpf)
+                          print('NOPVO OBJETIVO CADASTRADO: ', obj )
                      elif option == '4':
-                          new_hora = input('''Quais os horarios das refeições?
-                              1 - Manhâ
-                              2 - Tarde
-                              3- Cafe da tarde
-                              4 - Noite                                                     
-                              ''')
-                while new_hora !=  '1' and new_hora !='2' and new_hora !='3' and new_hora !='4':
-                        print('Erro no cadastro, Horario inválido')
-                        new_hora = input('''Quais os horarios das refeições?
-                              1 - Manhâ
-                              2 - Tarde
-                              3- Cafe da tarde
-                              4 - Noite                                                     
-                              ''')
-                if new_hora == '1':
-                     new_hora = 'Manhâ'
-                elif new_hora == '2':
-                     new_hora = 'Tarde'
-                elif new_hora == '3':
-                     new_hora = 'Cafe da tarde'
-                elif new_hora == '4':
-                     new_hora = 'Noite'
-
-                dieta[cpf][3]= new_hora
-                print('NOVO HORARIO CADASTRADO: ', dieta[cpf][3])
+                          hora = validacao.hora(cpf)
+                          print('NOVO HORARIO CADASTRADO: ', hora )
+                          
+                input('Tecle <ENTER> para continuar...')
                 function.cad_dieta()
                 option = input('Qual sua opção? --> ')
 

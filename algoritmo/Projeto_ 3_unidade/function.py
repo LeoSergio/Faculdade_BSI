@@ -73,26 +73,4 @@ def agendamento():
 
     ###########################
         ''')
-def plan_dieta(cpf):
-    imc = modulo1.cadastro[cpf][5]
-    print('''
-    #####################################
-    #         PLANO DE DIETA             #
-    #####################################
-    ''')
-    
-    if imc < 18.5:
-        print('Seu IMC indica que você está abaixo do peso. Plano de dieta para ganho de peso:')
-        print('1. Coma mais frequentemente.')
-        print('2. Escolha alimentos ricos em nutrientes.')
-        print('3. Tente shakes e smoothies.')
-    elif imc >= 18.5 and imc < 25:
-        print('Seu IMC está na faixa normal. Plano de dieta para manutenção de peso:')
-        print('1. Mantenha uma dieta balanceada.')
-        print('2. Controle as porções.')
-        print('3. Mantenha-se ativo.')
-    else:
-        print('Seu IMC indica que você está acima do peso. Plano de dieta para perda de peso:')
-        print('1. Reduza calorias de forma controlada.')
-        print('2. Coma mais proteínas.')
-        print('3. Reduza a ingestão de carboidratos.')
+
