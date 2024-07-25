@@ -9,7 +9,7 @@ import os
 
 
 cadastro = {#nome,genero,peso,altura,imc
-
+     
 }
 
 agenda = {
@@ -42,7 +42,9 @@ def cad_paciente():
                     cpf = cpf.replace('.', '')
                     cpf = cpf.replace('-', '')
                     cpf = cpf.replace(' ', '')
-                    if validacao.validaCPF(cpf):
+                    if cpf in cadastro and validacao.validaCPF(cpf):
+                         print('USUARIO JÁ CADASTRADO')
+                    elif validacao.validaCPF(cpf):
                             print("CPF Ok!")
                             break
                     else:

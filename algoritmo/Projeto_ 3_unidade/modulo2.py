@@ -14,6 +14,8 @@ def mod_dieta():
             #validaCPF()
             if cpf in modulo1.cadastro:               
                 name_dieta = input('Qual o nome da dieta? --> ')
+                if name_dieta in dieta[cpf]:
+                     print('NOME JÁ EXISTENTE')
                 alergia = input('Algum comer alergico ? [S/N] ')
                 if alergia.upper() == 'S':
                     alimento_alergia = input('Qual alimento você tem alergia? ')
@@ -62,8 +64,9 @@ def mod_dieta():
                     print('ALERGIA: ', dieta[cpf][1])
                     print('OBJETIVO: ' , dieta[cpf][2])
                     print('HORARIO: ', dieta[cpf][3])
+                    print(validacao.plan_dieta(cpf))
                     input('Tecle <ENTER> para continuar...') 
-                    function.menu_cad()
+                    function.cad_dieta()
                     option = input('Digite outra opção: ')
                 else:
                     print('''
