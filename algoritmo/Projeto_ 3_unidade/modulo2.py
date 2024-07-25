@@ -21,6 +21,7 @@ def mod_dieta():
                 else:
                     print( 'Não é alergico!')
                     alimento = 'Não tem alergia'
+                    #INTERFACE
                 print('''
                          CADASTRAR OBJETIVOS
 ''')
