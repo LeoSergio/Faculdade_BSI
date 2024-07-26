@@ -132,28 +132,31 @@ def mod_dieta():
                 #########      REMOVER USUÁRIO     ##########
                           #######################
                 ''' )
-            cpf = input('Digite seu CPF: ')
+            cpf = input('Digite seu CPF: ').replace('.', '').replace('-', '').replace(' ', '')
             if cpf in modulo1.cadastro:           
                 option = input('Você deseja remover suas informações ? [S/N] ')
                 if option.upper() == 'S':
-                            nome = input('Digite o nome da dieta: ')
-                            nome = validacao.valida_nome(nome)
-                            if nome:
-                                function.excluir_dieta(nome)
-                            else:
-                                print('Nome da dieta inválido.')
-                                input('Tecle <ENTER> para continuar...')
-                                function.functioncad_dieta()
-                                option = input('Digite outra opção: ')
-                else:
+                    nome = input('Digite o nome da dieta: ')
+                    nome = validacao.valida_nome(nome)
+                    if nome:
+                        if nome in dieta:
+                            dieta_excluida[nome] = dieta[nome]
+                            del dieta[nome]
+                            print('INFORMAÇÕES EXCLUÍDAS COM SUCESSO: ')
+                        else:
+                            print('NOME INVÁLIDO OU NÃO ENCONTRADO')
+                    else:
+                        print('Nome da dieta inválido.')
+                elif option.upper() == 'N':
                     print("Exclusão não realizada!")
-                    function.cad_dieta()
-                    option = input('Digite outra opção: ')                    
+                else:
+                    print('OPÇÃO INVÁLIDA')                    
             else:
-             print('CPF INVALIDO OU NÃO CADASTRADO')
-             input("Tecle <ENTER> para continuar...")
-             function.cad_dieta()
-             option = input('Digite outra opção: ')
+                print('CPF INVÁLIDO OU NÃO CADASTRADO')
+
+            input("Tecle <ENTER> para continuar...")
+            function.cad_dieta()
+            option = input('Digite outra opção: ')
         #PEGAR OS DADOS QUE SERIAM EXCLUIDOS COLOCAR EM UM DICIONARIO VAZIO.
         elif option == '0':
              function.main_menu()

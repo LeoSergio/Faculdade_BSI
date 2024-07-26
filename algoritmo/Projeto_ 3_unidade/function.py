@@ -74,11 +74,5 @@ def agendamento():
     ###########################
         ''')
 ############################################################
-def excluir_dieta(nome):  
-    if nome in modulo2.dieta:
-        modulo2.dieta_excluida[nome] = modulo2.dieta[nome]
-        del modulo2.dieta[nome]
-        print('INFORMAÇÕES EXCLUÍDAS COM SUCESSO: ')
-    else:
-        print('NOME INVÁLIDO OU NÃO ENCONTRADO')
+
 
