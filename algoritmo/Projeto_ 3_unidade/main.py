@@ -48,9 +48,9 @@ def main():
 
                 option = input('Digite outra opção: ') 
 
-            else:
-                
+            else: 
                 print('OPÇÃO INVÁLIDA')
+                function.main_menu()
                 option = input('Digite outra opção: ')
         print('FIM DO PROGRAMA')       
 

@@ -1,5 +1,8 @@
 import modulo1
 import modulo2
+import modulo3
+import validacao
+import function
 from datetime import datetime
 def validaCPF(cpf): # PROF FLAVIUS
   tam = len(cpf)
@@ -181,7 +184,7 @@ def valida_nome(nome): #chat gpt
         return None
 
 # Entrada do nome do usuário
-def exibir_dieta():
+def exibir_dieta(cpf):
     nome = input('Digite o nome da dieta: ')
     name_dieta_validado = valida_nome(nome)
 
@@ -192,15 +195,33 @@ def exibir_dieta():
             print('ALERGIA: ', dieta_info[0])
             print('OBJETIVO: ', dieta_info[1])
             print('HORARIO: ', dieta_info[2])
+            print(validacao.plan_dieta(cpf))
         else:
             print('Dieta não encontrada ou não cadastrada.')
     else:
         print('Nome da dieta inválido.')
 
-def excluir_dieta(nome):  
-    if nome in modulo2.dieta:
-        modulo2.dieta_excluida[nome] = modulo2.dieta[nome]
-        del modulo2.dieta[nome]
-        print('INFORMAÇÕES EXCLUÍDAS COM SUCESSO: ')
+#créditos: Flavius Gorgônio
+def validate_phone(phone_number):
+  phone_number = phone_number.replace(' ', '')
+  phone_number = phone_number.replace('-', '')
+  phone_number = phone_number.replace('(', '')
+  phone_number = phone_number.replace(')', '')
+  phone_number = phone_number.replace('+', '')
+  tam = len(phone_number)
+  if tam != 11:
+    return False
+  if not(phone_number.isdigit()):
+    return False
+  
+  return True
+
+#==================================#
+#======== Validar Número ==========#
+#==================================#
+def validate_number(x):
+    if x.isdigit():
+        return True
     else:
-        print('NOME INVÁLIDO OU NÃO ENCONTRADO')
+        return False
+    

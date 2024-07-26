@@ -65,7 +65,7 @@ def mod_dieta():
                 ''' )
                 cpf = input('Digite seu cpf: ')
                 if cpf in dieta:
-                    nome =  validacao.exibir_dieta()
+                    nome =  validacao.exibir_dieta(cpf)
                     input('Tecle <ENTER> para continuar...') 
                     function.cad_dieta()
                     option = input('Digite outra opção: ')
