@@ -10,45 +10,47 @@ def mod_dieta():
     while option != '0':
         if option == '1': #Nome da dieta, alimentos alergicos,horario das refeições, horario das refeições
             print('CADASTRAR DIETA')
-            cpf = input('Digite seu cpf: ')
-            
+            cpf = input("Informe seu CPF: ")
+            cpf = cpf.replace('.', '')
+            cpf = cpf.replace('-', '')
+            cpf = cpf.replace(' ', '')
             if cpf in modulo1.cadastro:
                 nome = input('Digite o nome da dieta: ')
                 nome = validacao.valida_nome(nome)
                 
-            alergia = input('Algum comer alergico ? [S/N] ')
-            if alergia.upper() == 'S':
-                alimento_alergia = input('Qual alimento você tem alergia? ')
-                alimento = 'ALERGIA: ', alimento_alergia
-            else:
-                print( 'Não é alergico!')
-                alimento = 'Não tem alergia'
-                    #INTERFACE
-            print('''
-                        CADASTRAR OBJETIVOS
-''')
-            obj = validacao.valida_obj(cpf)
+                alergia = input('Algum comer alergico ? [S/N] ')
+                if alergia.upper() == 'S':
+                    alimento_alergia = input('Qual alimento você tem alergia? ')
+                    alimento = 'ALERGIA: ', alimento_alergia
+                else:
+                    print( 'Não é alergico!')
+                    alimento = 'Não tem alergia'
+                        #INTERFACE
+                print('''
+                            CADASTRAR OBJETIVOS
+    ''')
+                obj = validacao.valida_obj(cpf)
 
-            print('''
-                        CADASTRAR HORÁRIO
-''')
-            hora = validacao.hora(cpf)
+                print('''
+                            CADASTRAR HORÁRIO
+    ''')
+                hora = validacao.hora(cpf)
 
-            dieta[nome] = [alimento, obj, hora]
+                dieta[nome] = [alimento, obj, hora,cpf]
 
-            print('NOME DA DIETA: ', {nome})
-            print( dieta[nome][1],)
-            print('OBJETIVO DA DIETA: ', dieta[nome][1])
-            print('HORÁRIO: ', dieta[nome][2])
-            print(validacao.plan_dieta(cpf))
+                print('NOME DA DIETA: ', {nome})
+                print( dieta[nome][1],)
+                print('OBJETIVO DA DIETA: ', dieta[nome][1])
+                print('HORÁRIO: ', dieta[nome][2])
+                print(validacao.plan_dieta(cpf))
 
-            print('''
-                        #######################
-            ######### CADASTRADO COM SUCESSO ##########
-                        #######################
-            ''' )
-            function.cad_dieta()
-            option = input('Qual sua opção? --> ')
+                print('''
+                            #######################
+                ######### CADASTRADO COM SUCESSO ##########
+                            #######################
+                ''' )
+                function.cad_dieta()
+                option = input('Qual sua opção? --> ')
            
 
         elif option == '2':

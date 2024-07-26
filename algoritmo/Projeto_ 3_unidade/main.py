@@ -10,7 +10,7 @@ import os
 COLOCAR DIETAS DE ACORDO COM O OBJETIVO, PODE COPIAR DO IMC
 FAZER AGENDAMENTO, MOSTRAR HORARIOS DISPONIVEIS PELO TURNO.
 
-ERROS: OPÇÃO INVALIDA EM UM LOOP NA HR QUE SAI DE ALTERAR DADOS                                                                                                                                               
+ERROS: LEITURA DO CPF ESTA ERRADA NO MODULO2 CADASTRAR DIETA: ERRO NA VERIFICAÇÃO.
 '''
 
 
