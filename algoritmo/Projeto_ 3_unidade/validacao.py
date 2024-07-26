@@ -122,7 +122,7 @@ def plan_dieta(cpf):
         print('1. Coma mais frequentemente.')
         print('2. Escolha alimentos ricos em nutrientes.')
         print('3. Tente shakes e smoothies.')
-    elif imc >= 18.5 and imc < 25:
+    elif imc >= 18.5 and imc < 25:      
         print('Seu IMC está na faixa normal.')
         print('1. Mantenha uma dieta balanceada.')
         print('2. Controle as porções.')
@@ -161,7 +161,7 @@ def hora(cpf):
     modulo2.dieta[cpf]= hora
     return hora
 
-def valida_nome(nome):
+def valida_nome(nome): #chat gpt
     # Remove espaços
     nome_sem_espacos = nome.replace(" ", "")
     
@@ -181,3 +181,18 @@ def valida_nome(nome):
         return None
 
 # Entrada do nome do usuário
+def exibir_dieta():
+    nome = input('Digite o nome da dieta: ')
+    name_dieta_validado = valida_nome(nome)
+
+    if name_dieta_validado:
+        if name_dieta_validado in modulo2.dieta:
+            dieta_info = modulo2.dieta[name_dieta_validado]
+            print('NOME DA DIETA: ', name_dieta_validado)
+            print('ALERGIA: ', dieta_info[0])
+            print('OBJETIVO: ', dieta_info[1])
+            print('HORARIO: ', dieta_info[2])
+        else:
+            print('Dieta não encontrada ou não cadastrada.')
+    else:
+        print('Nome da dieta inválido.')
