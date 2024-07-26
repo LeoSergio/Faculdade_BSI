@@ -11,11 +11,11 @@ import os
 cadastro = {#nome,genero,peso,altura,imc
      
 }
-
-agenda = {
+cad_excluido = {
 
 }
-#FAZER O RELATORIO 
+
+#FAZER O RELATORIO de cada modulo
 ######################### MENU-PRINCIPAL #####################################
        
 
@@ -140,7 +140,7 @@ def cad_paciente():
                 else:
                     print('''
                           #############################################
-                #########  ERRO, CPF INVÁLIDO, TENTE NOVAMENTE  #########
+                #########  ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO    #########
                           #############################################      
 ''')
                     function.menu_cad()
@@ -238,7 +238,9 @@ def cad_paciente():
              if cpf in cadastro:
                 option = input('Você deseja remover suas informações ? [S/N] ')
                 if option.upper() == 'S':                        
-                          del cadastro[cpf]                        
+                          cad_excluido[cpf] = cadastro[cpf] 
+                          del cadastro[cpf]
+                          print(cad_excluido[cpf])                       
                           print('INFORMAÇÕES EXCLUIDA COM SUCESSO: ')
                           function.menu_cad()
                           option = input('Digite outra opção: ')

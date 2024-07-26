@@ -64,10 +64,20 @@ def mod_dieta():
                           #######################
                 ''' )
                 cpf = input('Digite seu cpf: ')
-                nome =  validacao.exibir_dieta()
-                input('Tecle <ENTER> para continuar...') 
-                function.cad_dieta()
-                option = input('Digite outra opção: ')
+                if cpf in dieta:
+                    nome =  validacao.exibir_dieta()
+                    input('Tecle <ENTER> para continuar...') 
+                    function.cad_dieta()
+                    option = input('Digite outra opção: ')
+                else:
+                    print('''
+                          #############################################
+                #########  ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO    #########
+                          #############################################      
+''')
+                    input('Tecle <ENTER> para continuar...') 
+                    function.cad_dieta()
+                    option = input('Digite outra opção: ')
 
         elif option == '3':
             print('''
@@ -117,7 +127,11 @@ def mod_dieta():
                 option = input('Qual sua opção? --> ')
 
             else:
-                print('CPF INVALIDO OU NÃO CADASTRADO')
+                print('''
+                          #############################################
+                #########  ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO    #########
+                          #############################################      
+''')
                 input('Tecle <ENTER> para continuar...')
                 function.cad_dieta()
                 option = input('Digite outra opção: ')
@@ -152,7 +166,11 @@ def mod_dieta():
                 else:
                     print('OPÇÃO INVÁLIDA')                    
             else:
-                print('CPF INVÁLIDO OU NÃO CADASTRADO')
+                print('''
+                          #############################################
+                #########  ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO    #########
+                          #############################################      
+''')
 
             input("Tecle <ENTER> para continuar...")
             function.cad_dieta()
