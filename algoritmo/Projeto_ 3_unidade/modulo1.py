@@ -27,6 +27,7 @@ import validacao
 import os
 cadastro = {}
 def cad_paciente():
+    os.system('cls')
     function.menu_cad()
     option = input('Qual sua opção? --> ')
     while option!='0':
@@ -117,6 +118,7 @@ def cad_paciente():
 
                                 # VERIFICAR#
         elif option == '2':
+                os.system('cls')
                 print('''
                           #######################
                 ##########    VERIFICAR DADOS     ###########
@@ -147,6 +149,7 @@ def cad_paciente():
 
 
         elif option == '3':
+            os.system('cls')
 
             print('''
                           #######################
@@ -219,17 +222,13 @@ def cad_paciente():
                      function.menu_cad()
                      option = input('Digite outra opção: ')
 
-            elif cadastro == {}:
-                 print('ERRO')
-                 print('Não possui cadastro, Cadastra-se !!!')
-                 function.menu_cad()
-                 option = input('Digite outra opção: ')
             else:
-                print('Paciente inexistente')
+                print('CPF NÃO ENCONTRADO OU NÃO CADASTRADO')
                 function.menu_cad()
                 option = input('Digite outra opção: ')
 
-        elif option == '4':            
+        elif option == '4': 
+             os.system('cls')           
              print('''
                           #######################
                 #########      REMOVER USUÁRIO     ##########
@@ -254,6 +253,7 @@ def cad_paciente():
                 option = input('Digite outra opção: ')
 
         elif option == '5':
+             os.system('cls')
              cpf = input('Digite seu CPF: ')
              if cpf in cadastro:
                   function.plan_dieta(cpf)
@@ -267,6 +267,7 @@ def cad_paciente():
                   option = input('Digite outra opção: ')
              
         elif option == '0':
+            os.system('cls')
             print('Fim do programa')
             function.main_menu()
             option = input('Digite outra opção: ')

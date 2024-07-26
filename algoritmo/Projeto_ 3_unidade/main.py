@@ -23,20 +23,24 @@ def main():
         option = input('Escolha uma opção? --> ')
         while option != '0':
             if option == '1':
+                os.system('cls')
                 modulo1.cad_paciente()
                 function.main_menu()
                 option = input('Digite outra opção: ')
             elif option == '2':
+                os.system('cls')
                 print('CADASTRAMENTO DE DIETAS')
                 modulo2.mod_dieta()
                 function.main_menu()
                 option = input('Digite outra opção: ')     
             elif option == '3':
+                os.system('cls')
                 print('Módulo3- Agendamento')
                 modulo3.agendam()
                 function.main_menu()
                 option = input('Digite outra opção: ') 
             elif option == '4':
+                os.system('cls')
                 print('Módulo4')
                 function.main_menu()
                 my_information()
@@ -45,6 +49,7 @@ def main():
                 option = input('Digite outra opção: ') 
 
             else:
+                
                 print('OPÇÃO INVÁLIDA')
                 option = input('Digite outra opção: ')
         print('FIM DO PROGRAMA')       

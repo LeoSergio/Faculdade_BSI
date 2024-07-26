@@ -4,6 +4,7 @@ import modulo1
 import os
 
 dieta = {}
+dieta_excluida = {}
 def mod_dieta():
     function.cad_dieta()
     option = input('Qual sua opção? --> ')
@@ -17,7 +18,7 @@ def mod_dieta():
             if cpf in modulo1.cadastro:
                 nome = input('Digite o nome da dieta: ')
                 nome = validacao.valida_nome(nome)
-                
+                        
                 alergia = input('Algum comer alergico ? [S/N] ')
                 if alergia.upper() == 'S':
                     alimento_alergia = input('Qual alimento você tem alergia? ')
@@ -52,7 +53,10 @@ def mod_dieta():
                 function.cad_dieta()
                 option = input('Qual sua opção? --> ')
            
-
+            else:
+                print('CPF INVALIDO OU NÃO CADASTRADO')
+                function.cad_dieta()
+                option = input('Qual sua opção? --> ')
         elif option == '2':
                 print('''
                           #######################
@@ -113,7 +117,7 @@ def mod_dieta():
                 option = input('Qual sua opção? --> ')
 
             else:
-                print('Paciente inexistente')
+                print('CPF INVALIDO OU NÃO CADASTRADO')
                 input('Tecle <ENTER> para continuar...')
                 function.cad_dieta()
                 option = input('Digite outra opção: ')
@@ -122,9 +126,35 @@ def mod_dieta():
 
         elif option == '4':
             print('EXCLUIR DIETA')
-            #PEGAR OS DADOS QUE SERIAM EXCLUIDOS COLOCAR EM UM DICIONARIO VAZIO.
-            function.cad_dieta()
-            option = input('Qual sua opção? --> ')
+            os.system('cls')           
+            print('''
+                          #######################
+                #########      REMOVER USUÁRIO     ##########
+                          #######################
+                ''' )
+            cpf = input('Digite seu CPF: ')
+            if cpf in modulo1.cadastro:           
+                option = input('Você deseja remover suas informações ? [S/N] ')
+                if option.upper() == 'S':
+                            nome = input('Digite o nome da dieta: ')
+                            nome = validacao.valida_nome(nome)
+                            if nome:
+                                function.excluir_dieta(nome)
+                            else:
+                                print('Nome da dieta inválido.')
+                                input('Tecle <ENTER> para continuar...')
+                                function.functioncad_dieta()
+                                option = input('Digite outra opção: ')
+                else:
+                    print("Exclusão não realizada!")
+                    function.cad_dieta()
+                    option = input('Digite outra opção: ')                    
+            else:
+             print('CPF INVALIDO OU NÃO CADASTRADO')
+             input("Tecle <ENTER> para continuar...")
+             function.cad_dieta()
+             option = input('Digite outra opção: ')
+        #PEGAR OS DADOS QUE SERIAM EXCLUIDOS COLOCAR EM UM DICIONARIO VAZIO.
         elif option == '0':
              function.main_menu()
              option = input('Qual sua opção? --> ')
