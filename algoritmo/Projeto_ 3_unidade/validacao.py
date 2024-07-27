@@ -187,7 +187,6 @@ def valida_nome(nome): #chat gpt
 def exibir_dieta(cpf):
     nome = input('Digite o nome da dieta: ')
     name_dieta_validado = valida_nome(nome)
-
     if name_dieta_validado:
         if name_dieta_validado in modulo2.dieta:
             dieta_info = modulo2.dieta[name_dieta_validado]

@@ -35,7 +35,52 @@ def agendam():
         print('AGENDAR CONSULTA')
         os.system('cls')
                 #Adicionando paciente    
-        resp = input('Já possui cadastro ? [S/N] --> ')
+        resp = input('Já possui cadastro de paciente? [S/N] --> ')
+        if resp.upper() == 'S':
+            cpf = input('Digite seu CPF: ').replace('.', '').replace('-', '').replace(' ', '')
+            if cpf in modulo1.cadastro:
+                print('NOME: ', modulo1.cadastro[cpf][0])
+                #print(f'CPF: ', modulo1.cadastro.cpf )
+                print('DATA DE NASCIMENTO: ' , modulo1.cadastro[cpf][1])
+                print('GÊNERO: ', modulo1.cadastro[cpf][2])
+                resp = input('Alterar Dados do cadastro ? ')
+                if resp.upper() == 'S':
+                     option = input('''
+                    Qual informação deseja alterar?
+                            [1]- NOME: 
+                            [2]- CPF:        
+                            [3]- DATA DE NASCIMENTO:   
+                            [4]- GENERO:   
+                    -->  ''')
+                     if option == '1':
+                        nome = input('Digite o novo NOME: ')
+                        new_name= nome.upper()  
+                        modulo1.cadastro[cpf][0] = new_name                         
+                        print('NOVO NOME CADASTRADO: ', modulo1.cadastro[cpf][0])
+                        function.menu_cad()
+                        option = input('Digite outra opção: ')
+                     elif option == '2':
+                            new_cpf = input('DIGITE O NOVO CPF: ')
+                            modulo1.cadastro[new_cpf] = modulo1.cadastro.pop(cpf)
+                            print(f'NOVO CPF CADASTRADO: ', new_cpf )
+                            function.menu_cad()
+                            option = input('Digite outra opção: ')
+                     elif option == '3':
+                          new_date = input('Digite uma nova DATA DE NASCIMENTO: ')
+                          modulo1.cadastro[cpf][1] = new_date
+                          print('NOVA  DATA CADASTRADA: ', modulo1.cadastro[cpf][1])
+                          function.menu_cad()
+                          option = input('Digite outra opção: ')
+                     elif option == '4':
+                          new_gender = input('Digite o novo GÊNERO ')
+                          modulo1.cadastro[cpf][2] = new_gender
+                          print('NOVO GÊNERO CADASTRADO: ', modulo1.cadastro[cpf][2])
+                          function.menu_cad()
+                          option = input('Digite outra opção: ')
+                     
+
+
+
         if resp.upper() == 'N':
             print('DIGITE AS INFORMAÕES PEDIDAS.')
             nome = input('Nome Completo: ')
