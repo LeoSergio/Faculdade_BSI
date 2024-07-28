@@ -93,7 +93,7 @@ def agendam():
                                 ###############                
         ''')
                      print('HORARIO DA CONSULTA')
-                     agendado = validacao.agendar_consulta()
+                     agendado = validacao.agendar_consulta() #ERRO, NÃO ESTA VERIFICANDO SE EXISTE  HORARIOS IGUAIS. CORRIGIR.
                      while True:
                         print('''
                             | DIGITE APENAS NÚMEROS :|                     

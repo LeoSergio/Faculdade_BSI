@@ -274,8 +274,8 @@ def agendar_consulta():
     data = obter_data()
     horario = obter_horario()
     
-    if horario_disponivel(data, horario):
-        print('Horário disponível. Você pode agendar sua consulta.')
+    if horario_disponivel(data, horario) in modulo3.agendamento:
+        print('Horário não disponível. Você pode agendar sua consulta.')
         data_str = data.strftime('%d/%m/%Y')
         horario_str = horario.strftime('%H:%M')
         
