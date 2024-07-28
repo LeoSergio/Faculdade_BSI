@@ -45,11 +45,11 @@ def agendam():
                      #add horario ao dicionario agendamento
                      print(agendamento[cpf])
                 elif resp.upper() == 'N': #Não usar os dados do cadastro, usar outros dados.
-                    print('DIGITE AS INFORMAÕES PEDIDAS.')
-                    nome = input('Nome Completo: ')
-                    nome_upper = nome.upper()
-                    nome = nome_upper.replace(' ', '') 
-                    while True: #VALIDAÇÃO DO PROF. FLAVIUS
+                     print('DIGITE AS INFORMAÕES PEDIDAS.')
+                     nome = input('Nome Completo: ')
+                     nome_upper = nome.upper()
+                     nome = nome_upper.replace(' ', '') 
+                     while True: #VALIDAÇÃO DO PROF. FLAVIUS
                         cpf = input("Informe seu CPF: ")
                         cpf = cpf.replace('.', '')
                         cpf = cpf.replace('-', '')
@@ -62,17 +62,23 @@ def agendam():
                         else:
                                 print("CPF Inválido!")
 
-                    phone_number = validacao.validate_phone(phone_number)
+                     while True:
+                        phone_number = input('Número de Tefefone: --> ')
+                        if validacao.validate_phone(phone_number):
+                            print()
+                            break
+                        else:
+                            print('Número invalido')
                 #ADD VALIDAÇÃO DE DATA
-                    data_nasc = str(input(" Data de Nascimento: "))
-                    while not validacao.date(data_nasc):
+                     data_nasc = str(input(" Data de Nascimento: "))
+                     while not validacao.date(data_nasc):
                         print("Data Inválida! Tente Novamente.\n(Insira a Data no Formato: xx/xx/xxxx)")
                         print()
                         data_nasc = str(input("-> "))
                         data_nasc = data_nasc.strip()
                         print()
 
-                    while True:
+                     while True:
                         genero = input('Qual o seu Gênero: M/F ')
                         if genero.upper() == 'M':
                             genero = 'MASCULINO'
@@ -86,8 +92,9 @@ def agendam():
                         ######### OPÇÃO INVALIDA ########
                                 ###############                
         ''')
-
-                    while True:
+                     print('HORARIO DA CONSULTA')
+                     agendado = validacao.agendar_consulta()
+                     while True:
                         print('''
                             | DIGITE APENAS NÚMEROS :|                     
                             ''')
@@ -103,29 +110,33 @@ def agendam():
                         except ValueError: #indica que a entrada não é um número válido.
                             print('DIGITE APENAS NÚMEROS')
 
+                     
+                
 
-                    agendamento[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number]
+
+                     agendamento[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number,agendado]
 
                     # Imprimindo os dados dos pacientes em formato de coluna
                     #os dados estão sendo armazenado no dicionário cadastro, chave CPF.
-                    print('NOME: ', agendamento[cpf][0])
-                    print(f'CPF: {cpf}')
-                    print('Telefone: ', agendamento[cpf][6])
-                    print('DATA DE NASCIMENTO: ' , agendamento[cpf][1],)
-                    print('GÊNERO: ', agendamento[cpf][2])
-                    print('PESO: ', agendamento[cpf][3], 'KG')
-                    print('ALTURA: ', agendamento[cpf][4])
-                    print('IMC: ', agendamento[cpf][5])
+                     print('NOME: ', agendamento[cpf][0])
+                     print(f'CPF: {cpf}')
+                     print('TELEFONE: ', agendamento[cpf][6])
+                     print('DATA DE NASCIMENTO: ' , agendamento[cpf][1],)
+                     print('DATA DA CONSULTA: ' , agendamento[cpf][7],)
+                     print('GÊNERO: ', agendamento[cpf][2])
+                     print('PESO: ', agendamento[cpf][3], 'KG')
+                     print('ALTURA: ', agendamento[cpf][4])
+                     print('IMC: ', agendamento[cpf][5])
 
-                    print('''
+                     print('''
                             #######################
                     ######### CADASTRADO COM SUCESSO ##########
                             #######################
                     ''' )
 
-                    input('Tecle <ENTER> para continuar...') #colocar nas outras function
-                    function.menu_cad()
-                    option = input('Digite outra opção: ')
+                     input('Tecle <ENTER> para continuar...') #colocar nas outras function
+                     function.menu_cad()
+                     option = input('Digite outra opção: ')
                      
 
 

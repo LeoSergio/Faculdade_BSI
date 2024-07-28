@@ -4,6 +4,7 @@ import modulo3
 import validacao
 import function
 from datetime import datetime
+from datetime import datetime, timedelta
 def validaCPF(cpf): # PROF FLAVIUS
   tam = len(cpf)
   soma = 0
@@ -202,7 +203,6 @@ def exibir_dieta(cpf):
 
 #créditos: Flavius Gorgônio
 def validate_phone(phone_number):
-  phone_number = input('Número de Tefefone: --> ')
   phone_number = phone_number.replace(' ', '')
   phone_number = phone_number.replace('-', '')
   phone_number = phone_number.replace('(', '')
@@ -224,4 +224,71 @@ def validate_number(x):
         return True
     else:
         return False
+    
+def obter_data():
+    while True:
+        print()
+        data_str = input('Digite a data do agendamento (dd/mm/aaaa): ')
+        try:
+            data = datetime.strptime(data_str, '%d/%m/%Y')
+            data_atual = datetime.now()
+            # Verifica se a data é um final de semana ou no passado
+            if data.weekday() >= 5:  # 5 = sábado, 6 = domingo
+                print('Agendamentos não são permitidos nos finais de semana. Por favor, escolha uma data durante a semana.')
+            elif data < data_atual:
+                print('A data do agendamento não pode ser no passado. Por favor, escolha uma data futura.')
+            else:
+                return data
+        except ValueError:
+            print('Data inválida. Tente novamente.')
+
+# Função para coletar e validar o horário
+def obter_horario():
+    while True:
+        horario_str = input('Digite a hora do agendamento (hh:mm): ')
+        try:
+            horario = datetime.strptime(horario_str, '%H:%M').time()
+            # Verifica se o horário está dentro do horário de funcionamento
+            if not ((datetime.strptime('08:00', '%H:%M').time() <= horario < datetime.strptime('12:00', '%H:%M').time()) or
+                    (datetime.strptime('14:00', '%H:%M').time() <= horario < datetime.strptime('18:00', '%H:%M').time())):
+                print('Horário fora do horário de funcionamento (8h às 12h e 14h às 18h). Por favor, escolha um horário dentro do horário de funcionamento.')
+            else:
+                return horario
+        except ValueError:
+            print('Horário inválido. Tente novamente.')
+
+# Função para verificar se o horário está disponível
+def horario_disponivel(data, horario):
+    data_str = data.strftime('%d/%m/%Y')
+    if data_str in modulo3.agendamento:
+        for horario_agendado in modulo3.agendamento[data_str]:
+            horario_inicial = (datetime.combine(data, datetime.strptime(horario_agendado, '%H:%M').time()) - timedelta(minutes=30)).time()
+            horario_final = (datetime.combine(data, datetime.strptime(horario_agendado, '%H:%M').time()) + timedelta(minutes=30)).time()
+            
+            if horario_inicial <= horario <= horario_final:
+                return False
+    return True
+
+# Função para agendar a consulta
+def agendar_consulta():
+    data = obter_data()
+    horario = obter_horario()
+    
+    if horario_disponivel(data, horario):
+        print('Horário disponível. Você pode agendar sua consulta.')
+        data_str = data.strftime('%d/%m/%Y')
+        horario_str = horario.strftime('%H:%M')
+        
+        # Adiciona o agendamento ao dicionário global
+            
+        # Armazena as informações do agendamento em uma variável
+        agendado = {'data': data_str, 'hora': horario_str}
+        
+        return agendado
+    else:
+        print('Horário indisponível. Por favor, escolha outro horário.')
+        return None
+
+# Teste das funções
+
     

@@ -50,8 +50,13 @@ def cad_paciente():
                             break
                     else:
                             print("CPF Inválido!")
-
-                phone_number = validacao.validate_phone(phone_number)
+                while True:
+                    phone_number = input('Número de Tefefone: --> ')
+                    if validacao.validate_phone(phone_number):
+                         print()
+                         break
+                    else:
+                         print('Número invalido')
                #ADD VALIDAÇÃO DE DATA
                 data_nasc = str(input(" Data de Nascimento: "))
                 while not validacao.date(data_nasc):
@@ -93,13 +98,14 @@ def cad_paciente():
                         print('DIGITE APENAS NÚMEROS')
 
 
-                cadastro[cpf] = [nome,data_nasc,genero,peso,altura,imc]
+                cadastro[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number]
 
                 # Imprimindo os dados dos pacientes em formato de coluna
                 #os dados estão sendo armazenado no dicionário cadastro, chave CPF.
                 print('NOME: ', cadastro[cpf][0])
                 print(f'CPF: {cpf}')
                 print('DATA DE NASCIMENTO: ' , cadastro[cpf][1],)
+                print('TELEFONE: ', cadastro[cpf][6])
                 print('GÊNERO: ', cadastro[cpf][2])
                 print('PESO: ', cadastro[cpf][3], 'KG')
                 print('ALTURA: ', cadastro[cpf][4])
