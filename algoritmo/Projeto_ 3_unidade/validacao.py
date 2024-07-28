@@ -202,6 +202,7 @@ def exibir_dieta(cpf):
 
 #créditos: Flavius Gorgônio
 def validate_phone(phone_number):
+  phone_number = input('Número de Tefefone: --> ')
   phone_number = phone_number.replace(' ', '')
   phone_number = phone_number.replace('-', '')
   phone_number = phone_number.replace('(', '')

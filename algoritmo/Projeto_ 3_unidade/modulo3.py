@@ -99,15 +99,11 @@ def agendam():
                 else:
                         print("CPF Inválido!")
 
-
+            ##################################################
+            phone_number = input('Número de Tefefone: --> ')
+            validacao.validate_phone(phone_number)
             #ADD VALIDAÇÃO DE DATA
-            data_nasc = str(input(" Data de Nascimento: "))
-            while not validacao.date(data_nasc):
-                print("Data Inválida! Tente Novamente.\n(Insira a Data no Formato: xx/xx/xxxx)")
-                print()
-                data_nasc = str(input("-> "))
-                data_nasc = data_nasc.strip()
-                print()
+            
 
             while True:
                 genero = input('Qual o seu Gênero: M/F ')

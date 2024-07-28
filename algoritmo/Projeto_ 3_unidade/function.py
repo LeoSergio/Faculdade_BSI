@@ -74,5 +74,18 @@ def agendamento():
     ###########################
         ''')
 ############################################################
-
+def exibir_agendamentos():
+    for agendamento in agendamento:
+        print('--- Agendamento ---')
+        print(f"Paciente: {agendamento['paciente']['nome']}")
+        print(f"Nutricionista: {agendamento['nutricionista']['nome']}")
+        print(f"Data: {agendamento['agendamento']['data']}")
+        print(f"Hora: {agendamento['agendamento']['hora']}")
+        print(f"Motivo: {agendamento['agendamento']['motivo']}")
+        print(f"Observações: {agendamento['agendamento']['observacoes']}")
+        print(f"Local: {agendamento['agendamento']['local']}")
+        print(f"Documentos: {agendamento['agendamento']['documentos']}")
+        print(f"Duração: {agendamento['agendamento']['duracao']}")
+        print(f"Custo: {agendamento['agendamento']['custo']}")
+        print('-------------------')
 
