@@ -51,7 +51,7 @@ def cad_paciente():
                     else:
                             print("CPF Inválido!")
 
-
+                phone_number = validacao.validate_phone(phone_number)
                #ADD VALIDAÇÃO DE DATA
                 data_nasc = str(input(" Data de Nascimento: "))
                 while not validacao.date(data_nasc):
@@ -114,7 +114,7 @@ def cad_paciente():
                 input('Tecle <ENTER> para continuar...') #colocar nas outras function
                 function.menu_cad()
                 option = input('Digite outra opção: ')
-                print(cadastro[cpf])
+                
 
                                 # VERIFICAR#
         elif option == '2':

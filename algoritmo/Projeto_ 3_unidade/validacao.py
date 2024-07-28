@@ -164,7 +164,7 @@ def hora(cpf):
     modulo2.dieta[cpf]= hora
     return hora
 
-def valida_nome(nome): #chat gpt
+def valida_nome(nome):#créditos: CHAT GPT
     # Remove espaços
     nome_sem_espacos = nome.replace(" ", "")
     

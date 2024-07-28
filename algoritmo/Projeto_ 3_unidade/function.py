@@ -38,7 +38,7 @@ def menu_cad(): #CRUD 1
     [2]- Informações do Paciente:        
     [3]- Alterar informações:   
     [4]- Remover Paciente:
-    [5]- Plano de Dieta  
+    [5]- Relatório    
     [0]- SAIR  
 
     ###########################
@@ -53,7 +53,9 @@ def cad_dieta():
     [1]- Cadastrar Dieta: 
     [2]- Verificar Dietas:        
     [3]- Alterar Dietas:   
-    [4]- Remover Dietas:   
+    [4]- Remover Dietas:
+    [5]- Plano de Dieta 
+    [6]- Relatório   
     [0]- SAIR  
 
     ###########################
@@ -65,10 +67,11 @@ def agendamento():
 
     ###########################
 
-    [1]- Agendar consulta: 
-    [2]- Verificar Consulta:        
-    [3]- Alterar Consulta:   
-    [4]- Remover Consulta:   
+    [1]- Cadastrtar Agendamento: 
+    [2]- Verificar Agendamento:        
+    [3]- Alterar Agendamento:   
+    [4]- Remover Agendamento:
+    [5]- Relatório  
     [0]- SAIR  
 
     ###########################

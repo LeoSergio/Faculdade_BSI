@@ -176,6 +176,19 @@ def mod_dieta():
             function.cad_dieta()
             option = input('Digite outra opção: ')
         #PEGAR OS DADOS QUE SERIAM EXCLUIDOS COLOCAR EM UM DICIONARIO VAZIO.
+        elif option == '5':
+             os.system('cls')
+             cpf = input('Digite seu CPF: ')
+             if cpf in modulo1.cadastro:
+                  validacao.plan_dieta(cpf)
+                  input('Tecle <ENTER> para continuar...')
+                  function.menu_cad()
+                  option = input('Digite outra opção: ')
+             else:
+                  print('CPF invalido ou não Cadastrado ')
+                  input('Tecle <ENTER> para continuar...')
+                  function.menu_cad()
+                  option = input('Digite outra opção: ')
         elif option == '0':
              function.main_menu()
              option = input('Qual sua opção? --> ')
