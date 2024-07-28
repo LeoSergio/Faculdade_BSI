@@ -225,7 +225,7 @@ def validate_number(x):
     else:
         return False
     
-def obter_data():
+def obter_data(): #créditos: CHAT GPT
     while True:
         print()
         data_str = input('Digite a data do agendamento (dd/mm/aaaa): ')
