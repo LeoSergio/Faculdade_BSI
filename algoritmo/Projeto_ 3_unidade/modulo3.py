@@ -27,6 +27,7 @@ se cpf in dicionario aproveitar agendamento, se nao cadastrar novas informaçõe
 '''
 #COLOCAR O HORARIO DENTRO DE UM WHILE
 agendamento = {}
+agendamento_excluido = {}
 
 def agendam():
     print('MODULO AGENDAMENTO')
@@ -93,8 +94,7 @@ def agendam():
                         ######### OPÇÃO INVALIDA ########
                                 ###############                
         ''')
-                     print('HORARIO DA CONSULTA')
-                     agendado = validacao.agendar_consulta() #ERRO, NÃO ESTA VERIFICANDO SE EXISTE  HORARIOS IGUAIS. CORRIGIR.
+                     
                      while True:
                         print('''
                             | DIGITE APENAS NÚMEROS :|                     
@@ -110,6 +110,8 @@ def agendam():
                             break
                         except ValueError: #indica que a entrada não é um número válido.
                             print('DIGITE APENAS NÚMEROS')
+                     print('HORARIO DA CONSULTA')
+                     agendado = validacao.agendar_consulta() #ERRO, NÃO ESTA VERIFICANDO SE EXISTE  HORARIOS IGUAIS. CORRIGIR.
 
                      
                 
@@ -123,11 +125,11 @@ def agendam():
                      print(f'CPF: {cpf}')
                      print('TELEFONE: ', agendamento[cpf][6])
                      print('DATA DE NASCIMENTO: ' , agendamento[cpf][1],)
-                     print('DATA DA CONSULTA: ' , agendamento[cpf][7],)
                      print('GÊNERO: ', agendamento[cpf][2])
                      print('PESO: ', agendamento[cpf][3], 'KG')
                      print('ALTURA: ', agendamento[cpf][4])
                      print('IMC: ', agendamento[cpf][5])
+                     print('DATA DA CONSULTA: ' , agendamento[cpf][7],)
 
                      print('''
                             #######################
@@ -152,11 +154,150 @@ def agendam():
             modulo1.cad_paciente()
             
     elif option == '2':
-        print('VERIFICAR CONSULTA')
+        print('''
+                          #######################
+                ##########    VERIFICAR DIETAS     ###########
+                          #######################
+                ''' )
+        cpf = input('Digite seu cpf: ')
+        if cpf in agendamento:
+            print('--- Agendamento ---')
+            print(agendamento[cpf])
+            input('Tecle <ENTER> para continuar...') 
+            function.cad_dieta()
+            option = input('Digite outra opção: ')
+        else:
+            print('''
+                    #############################################
+        #########  ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO    #########
+                    #############################################      
+''')
+            input('Tecle <ENTER> para continuar...') 
+            function.cad_dieta()
     elif option == '3':
-        print('ALTERAR CONSULTA')
+         os.system('cls')
+         print('ALTERAR CONSULTA')
+         print('''
+                          #######################
+                #########      ALTERAR DADOS     ##########
+                          #######################
+                ''' )
+         cpf = input('Digite seu CPF: ')
+         if cpf in agendamento:              
+            resp = input('VOCÊ TEM CERTEZA ? , alterar os seus dados do agendamento ? S/N ')
+            if resp.upper() == 'S':
+                print(agendamento[cpf])
+                    #agendamento[cpf] = [0nome,1data_nasc,2genero,3peso,4altura,5imc]
+                option = input('''
+                Qual informação deseja alterar?
+                        [1]- NOME: 
+                        [2]- CPF:        
+                        [3]- DATA DE NASCIMENTO:
+                        [4]- TELEFONE:   
+                        [5]- GENERO:   
+                        [6]- PESO:
+                        [7]- ALTURA:
+                        [8] DATA DO AGENDAMENTO
+                        
+
+                -->  ''')
+                if option == '1':
+                    nome = input('Digite o novo NOME: ')
+                    new_name= nome.upper()  
+                    agendamento[cpf][0] = new_name                         
+                    print('NOVO NOME CADASTRADO: ', agendamento[cpf][0])
+                    function.menu_cad()
+                    option = input('Digite outra opção: ')
+                    
+                elif option == '2':
+                        new_cpf = input('DIGITE O NOVO CPF: ')
+                        agendamento[new_cpf] = agendamento.pop(cpf)
+                        print(f'NOVO CPF CADASTRADO: ', new_cpf )
+                        function.menu_cad()
+                        option = input('Digite outra opção: ')
+                elif option == '3':
+                        new_date = input('Digite uma nova DATA DE NASCIMENTO: ')
+                        agendamento[cpf][1] = new_date
+                        print('NOVA  DATA CADASTRADA: ', agendamento[cpf][1])
+                        function.menu_cad()
+                        option = input('Digite outra opção: ')
+                elif option == '4':
+                        new_number = input('Digite um novo NÚMERO DE TELEFONE: ')
+                        agendamento[cpf][1] = new_number
+                        print('NOVA  DATA CADASTRADA: ', agendamento[cpf][1])
+                        function.menu_cad()
+                        option = input('Digite outra opção: ')
+                elif option == '5':
+                        new_gender = input('Digite o novo GÊNERO ')
+                        agendamento[cpf][2] = new_gender
+                        print('NOVO GÊNERO CADASTRADO: ', agendamento[cpf][2])
+                        function.menu_cad()
+                        option = input('Digite outra opção: ')
+                elif option == '6':
+                        new_weight = input('Digite um novo PESO: ')
+                        agendamento[cpf][3] = new_weight
+                        print('NOVO PESO CADASTRADO: ', agendamento[cpf][3])
+                        print('IMC ALTERADO, NOVO IMC --> ', agendamento[cpf][5])
+                        function.menu_cad()
+                        option = input('Digite outra opção: ')
+                elif option == '7':
+                        new_height = input('Digite uma nova ALTURA: ')
+                        agendamento[cpf][4] = new_height
+                        print('NOVO PESO CADASTRADO: ', agendamento[cpf][4])
+                        print('IMC ALTERADO, NOVO IMC --> ', agendamento[cpf][5])
+                        function.menu_cad()
+                        option = input('Digite outra opção: ')
+                elif option == '8':
+                        new_agenda = input('Digite uma nova ALTURA: ')
+                        agendamento[cpf][4] = new_agenda
+                        print('NOVO PESO CADASTRADO: ', agendamento[cpf][4])
+                        print('IMC ALTERADO, NOVO IMC --> ', agendamento[cpf][5])
+                        function.menu_cad()
+                        option = input('Digite outra opção: ')
+
+                else:
+                        print('ERRO AO TENTAR ALTERAR OS DADOS')
+                        function.menu_cad()
+                        option = input('Digite outra opção: ')
+
+            else:
+                    print('Voltou ao menu!')
+                    function.menu_cad()
+                    option = input('Digite outra opção: ')
+
+         else:
+            print('CPF NÃO ENCONTRADO OU NÃO CADASTRADO')
+            function.menu_cad()
+            option = input('Digite outra opção: ')
+
+
+
     elif option == '4':
         print('EXCLUIR CONSULTA')
+        print('''
+                          #######################
+                #########      REMOVER USUÁRIO     ##########
+                          #######################
+                ''' )
+        cpf = input('Digite seu CPF: ')
+        if cpf in agendamento:
+            option = input('Você deseja remover suas informações ? [S/N] ')
+            if option.upper() == 'S':                        
+                        agendamento_excluido[cpf] = agendamento[cpf] 
+                        del agendamento[cpf]
+                        print(agendamento_excluido[cpf])                       
+                        print('INFORMAÇÕES EXCLUIDA COM SUCESSO: ')
+                        function.menu_cad()
+                        option = input('Digite outra opção: ')
+            else:
+                print("Exclusão não realizada!")
+                function.menu_cad()
+                option = input('Digite outra opção: ')                    
+        else:
+            print("Paciente inexistente!")
+            input("Tecle <ENTER> para continuar...")
+            function.menu_cad()
+            option = input('Digite outra opção: ')
     elif option == '0':
         function.main_menu()
     else:
