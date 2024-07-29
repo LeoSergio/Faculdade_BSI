@@ -25,6 +25,7 @@ Custo da consulta (se aplicável)
 se cpf in dicionario aproveitar agendamento, se nao cadastrar novas informações:
 
 '''
+#COLOCAR O HORARIO DENTRO DE UM WHILE
 agendamento = {}
 
 def agendam():
