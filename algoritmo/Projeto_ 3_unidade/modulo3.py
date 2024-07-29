@@ -112,11 +112,7 @@ def agendam():
                             print('DIGITE APENAS NÚMEROS')
                      print('HORARIO DA CONSULTA')
                      agendado = validacao.agendar_consulta() #ERRO, NÃO ESTA VERIFICANDO SE EXISTE  HORARIOS IGUAIS. CORRIGIR.
-
                      
-                
-
-
                      agendamento[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number,agendado]
 
                     # Imprimindo os dados dos pacientes em formato de coluna
@@ -130,6 +126,7 @@ def agendam():
                      print('ALTURA: ', agendamento[cpf][4])
                      print('IMC: ', agendamento[cpf][5])
                      print('DATA DA CONSULTA: ' , agendamento[cpf][7],)
+                     print('Custo da consulta: R$50,00')
 
                      print('''
                             #######################
@@ -154,6 +151,9 @@ def agendam():
             modulo1.cad_paciente()
             
     elif option == '2':
+        '''
+        Falta mostar os arquivos em formato de coluna
+        '''
         print('''
                           #######################
                 ##########    VERIFICAR DIETAS     ###########
