@@ -91,4 +91,28 @@ def exibir_agendamentos():
         print(f"Duração: {agendamento['agendamento']['duracao']}")
         print(f"Custo: {agendamento['agendamento']['custo']}")
         print('-------------------')
+def gerar_relatorio_pacientes(agendamento):
+    pacientes = agendamento
+    pacientes_excluidos = agendamento
+    
+    relatorio = "Relatório de Pacientes\n" + "-"*23 + "\n\n"
+    relatorio += f"Total de Pacientes: {len(pacientes)}\n\n"
+    relatorio += "Lista de Pacientes:\n"
+    for idx, paciente in enumerate(pacientes, start=1):
+        relatorio += (f"{idx}. Nome: {paciente['nome']}\n"
+                      f"   CPF: {paciente['cpf']}\n"
+                      f"   Idade: {paciente['idade']}\n"
+                      f"   Peso: {paciente['peso']}\n"
+                      f"   Altura: {paciente['altura']}\n"
+                      f"   Objetivo: {paciente['objetivo']}\n\n")
+    
+    relatorio += "Pacientes Excluídos:\n"
+    for idx, paciente in enumerate(pacientes_excluidos, start=1):
+        relatorio += (f"{idx}. Nome: {paciente['nome']}\n"
+                      f"   CPF: {paciente['cpf']}\n"
+                      f"   Idade: {paciente['idade']}\n"
+                      f"   Peso: {paciente['peso']}\n"
+                      f"   Altura: {paciente['altura']}\n"
+                      f"   Objetivo: {paciente['objetivo']}\n\n")
+    return relatorio
 

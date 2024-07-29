@@ -25,7 +25,7 @@ cad_excluido = {
 import function
 import validacao
 import os
-cadastro = {}
+
 def cad_paciente():
     os.system('cls')
     function.menu_cad()
@@ -262,17 +262,11 @@ def cad_paciente():
 
         elif option == '5':
              os.system('cls')
-             cpf = input('Digite seu CPF: ')
-             if cpf in cadastro:
-                  function.plan_dieta(cpf)
-                  input('Tecle <ENTER> para continuar...')
-                  function.menu_cad()
-                  option = input('Digite outra opção: ')
+             agendamento = function.gerar_relatorio_pacientes(cadastro)
+             if function.gerar_relatorio_pacientes(agendamento):
+                  print()
              else:
-                  print('CPF invalido ou não Cadastrado ')
-                  input('Tecle <ENTER> para continuar...')
-                  function.menu_cad()
-                  option = input('Digite outra opção: ')
+                  print('Cadastre-se')
              
         elif option == '0':
             os.system('cls')

@@ -1,4 +1,7 @@
-def gerar_relatorio_pacientes(pacientes):
+def gerar_relatorio_pacientes(agendamento):
+    pacientes = agendamento['cpf']
+    pacientes_excluidos = agendamento['cpf']
+    
     relatorio = "Relatório de Pacientes\n" + "-"*23 + "\n\n"
     relatorio += f"Total de Pacientes: {len(pacientes)}\n\n"
     relatorio += "Lista de Pacientes:\n"
@@ -9,7 +12,17 @@ def gerar_relatorio_pacientes(pacientes):
                       f"   Peso: {paciente['peso']}\n"
                       f"   Altura: {paciente['altura']}\n"
                       f"   Objetivo: {paciente['objetivo']}\n\n")
+    
+    relatorio += "Pacientes Excluídos:\n"
+    for idx, paciente in enumerate(pacientes_excluidos, start=1):
+        relatorio += (f"{idx}. Nome: {paciente['nome']}\n"
+                      f"   CPF: {paciente['cpf']}\n"
+                      f"   Idade: {paciente['idade']}\n"
+                      f"   Peso: {paciente['peso']}\n"
+                      f"   Altura: {paciente['altura']}\n"
+                      f"   Objetivo: {paciente['objetivo']}\n\n")
     return relatorio
+
 
 def gerar_relatorio_dietas(dietas):
     relatorio = "Relatório de Dietas Personalizadas\n" + "-"*36 + "\n\n"
