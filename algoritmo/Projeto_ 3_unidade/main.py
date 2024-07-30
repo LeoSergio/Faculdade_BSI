@@ -1,9 +1,9 @@
-import validacao
+
 import function
-import main
 import modulo1
 import modulo2
 import modulo3
+import modulo4
 import os
 import pickle
 
@@ -62,75 +62,44 @@ arq_agendamento_excluido.close()
 
 
 ######################### MENU-PRINCIPAL #####################################
-def main():
+
+function.main_menu()
+option = input('Escolha uma opção? --> ')
+while option != '0':
+    os.system('cls')
+    if option == '1':
         os.system('cls')
+        modulo1.cad_paciente(cadastro,cad_excluido)
         function.main_menu()
-        option = input('Escolha uma opção? --> ')
-        while option != '0':
-            if option == '1':
-                os.system('cls')
-                modulo1.cad_paciente()
-                function.main_menu()
-                option = input('Digite outra opção: ')
-            elif option == '2':
-                os.system('cls')
-                print('CADASTRAMENTO DE DIETAS')
-                modulo2.mod_dieta()
-                function.main_menu()
-                option = input('Digite outra opção: ')     
-            elif option == '3':
-                os.system('cls')
-                print('Módulo3- Agendamento')
-                modulo3.agendam()
-                function.main_menu()
-                option = input('Digite outra opção: ') 
-            elif option == '4':
-                os.system('cls')
-                print('Módulo4')
-                function.main_menu()
-                my_information()
-                input('Tecle <ENTER> para continuar...')
+        option = input('Digite outra opção: ')
+    elif option == '2':
+        os.system('cls')
+        print('CADASTRAMENTO DE DIETAS')
+        modulo2.mod_dieta()
+        function.main_menu()
+        option = input('Digite outra opção: ')     
+    elif option == '3':
+        os.system('cls')
+        print('Módulo3- Agendamento')
+        modulo3.agendam()
+        function.main_menu()
+        option = input('Digite outra opção: ') 
+    elif option == '4':
+        os.system('cls')
+        print('Módulo4')
+        function.main_menu()
+        modulo4.my_information()
+        input('Tecle <ENTER> para continuar...')
 
-                option = input('Digite outra opção: ') 
+        option = input('Digite outra opção: ') 
 
-            else: 
-                print('OPÇÃO INVÁLIDA')
-                function.main_menu()
-                option = input('Digite outra opção: ')
-        print('FIM DO PROGRAMA')       
+    else: 
+        print('OPÇÃO INVÁLIDA')
+        function.main_menu()
+        option = input('Digite outra opção: ')
+print('FIM DO PROGRAMA') 
 
 
-
-############################ MODULO1-CADASTRAMENTO DE PACIENTES ###############################
-
-'''
-13971335462
-12345678909
-84996197364
-
-M2 = R6
-M3 = R5
-'''
-############################# MODULO 2 - Dietas.##########################################
-
-
-############################ Modulo 3 - Cosulta ######################################
-
-
-################################### Modulo 4 - Minhas informações.##############################
-def my_information():
-  os.system('cls')
-  print('''
-  minhas informações:
-  nome: Leandro Sérgio da Silva 
-  curso: Sistema de informação
-  Professor: Flaviu...
-  instituição: UFRN-CAICO
-  Github:Leo.sergio...
-  e-mail: leandrooos222@gmail.com
-  whatsapp: (84) 9 9619-7364
-  Instagram:
-  ''')
 ###################### MODULO1 ########################
 arq_cadastro = open("cadastro.dat", "wb")
 pickle.dump(cadastro, arq_cadastro)
@@ -155,7 +124,7 @@ arq_agendamento.close()
 
 arq_agendamento_excluido = open("agendamento_excluido.dat", "wb")
 pickle.dump(agendamento_excluido, arq_agendamento_excluido)
-arq_agendamento_excluido.close()
+arq_agendamento_excluido.close()      
 
-if __name__ == "__main__":
-    main() #para inicializar a function main
+
+ #para inicializar a function main

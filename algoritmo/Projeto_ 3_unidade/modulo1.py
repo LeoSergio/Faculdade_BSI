@@ -1,21 +1,14 @@
 import validacao
 import function
-import modulo1
-import modulo2
 import os
      ##########################################
 ##### Projeto Planejamento de Dietas      #####
      #########################################
 
 
-cadastro = {#nome,genero,peso,altura,imc
-     
-}
-cad_excluido = {
 
-}
 ############################ MODULO1-CADASTRAMENTO DE PACIENTES ###############################
-def cad_paciente():
+def cad_paciente(cadastro,cad_excluido):
     os.system('cls')
     function.menu_cad()
     option = input('Qual sua opção? --> ')
@@ -252,7 +245,7 @@ def cad_paciente():
 
         elif option == '5':
              os.system('cls')
-             function.reports_clients()
+             function.reports_clients(cadastro,cad_excluido)
              function.menu_cad()
              option = input('Digite outra opção: ')
              

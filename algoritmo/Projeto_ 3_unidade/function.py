@@ -80,9 +80,9 @@ def agendamento():
 
 RED = "\033[31m"
 RESET = "\033[0m"
-def reports_clients():
-    cadastro = modulo1.cadastro
-    cadastro_ex = modulo1.cad_excluido
+def reports_clients(cadastro,cad_excluido):
+    cadastro = cadastro
+    cadastro_ex = cad_excluido
     
     # Limpa a tela de maneira compatível com diferentes sistemas operacionais
     os.system('cls' if os.name == 'nt' else 'clear')
