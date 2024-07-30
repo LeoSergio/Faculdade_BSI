@@ -14,18 +14,7 @@ cadastro = {#nome,genero,peso,altura,imc
 cad_excluido = {
 
 }
-
-#FAZER O RELATORIO de cada modulo
-######################### MENU-PRINCIPAL #####################################
-       
-
-
-
 ############################ MODULO1-CADASTRAMENTO DE PACIENTES ###############################
-import function
-import validacao
-import os
-
 def cad_paciente():
     os.system('cls')
     function.menu_cad()

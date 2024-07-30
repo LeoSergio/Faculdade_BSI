@@ -156,5 +156,6 @@ arq_agendamento.close()
 arq_agendamento_excluido = open("agendamento_excluido.dat", "wb")
 pickle.dump(agendamento_excluido, arq_agendamento_excluido)
 arq_agendamento_excluido.close()
+
 if __name__ == "__main__":
     main() #para inicializar a function main
