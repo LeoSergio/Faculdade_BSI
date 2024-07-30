@@ -19,7 +19,7 @@ def main_menu():
     ###########################
 
     [1]- Módulo Paciente: 
-    [2]- Módulo Dietas Personalizadas:        
+    [2]- Módulo de Dietas:        
     [3]- Módulo Agendamento/Consulta:   
     [4]- Módulo Informações:   
     [0]- SAIR  

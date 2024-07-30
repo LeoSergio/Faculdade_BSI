@@ -5,15 +5,60 @@ import modulo1
 import modulo2
 import modulo3
 import os
-
-'''
-COLOCAR DIETAS DE ACORDO COM O OBJETIVO, PODE COPIAR DO IMC
-FAZER AGENDAMENTO, MOSTRAR HORARIOS DISPONIVEIS PELO TURNO.
-
-ERROS: LEITURA DO CPF ESTA ERRADA NO MODULO2 CADASTRAR DIETA: ERRO NA VERIFICAÇÃO.
-'''
+import pickle
 
 
+###################### MODULO1 ########################
+cadastro = {#nome,genero,peso,altura,imc  
+}
+try:
+    arq_cadastro = open("cadastro.dat", "rb")
+    cadastro = pickle.load(arq_cadastro)
+except:
+    arq_cadastro = open("cadastro.dat", "wb")
+arq_cadastro.close()
+
+cad_excluido = {}
+try:
+    arq_cad_excluido = open("cad_excluido.dat", "rb")
+    cad_excluido = pickle.load(arq_cad_excluido)
+except:
+    arq_cad_excluido = open("cad_excluido.dat", "wb")
+arq_cad_excluido.close()
+
+###################### MODULO2 ########################
+dietas = {}
+try:
+    arq_dietas = open("dietas.dat", "rb")
+    dietas = pickle.load(arq_dietas)
+except:
+    arq_dietas = open("dietas.dat", "wb")
+arq_dietas.close()
+
+dietas_excluida = {}
+try:
+    arq_dietas_excluida = open("dietas_excluida.dat", "rb")
+    dietas_excluida = pickle.load(arq_dietas_excluida)
+except:
+    arq_dietas_excluida = open("dietas_excluida.dat", "wb")
+arq_dietas_excluida.close()
+
+###################### MODULO3 ########################
+agendamento = {}
+try:
+    arq_agendamento = open("agendamento.dat", "rb")
+    agendamento = pickle.load(arq_agendamento)
+except:
+    arq_agendamento = open("agendamento.dat", "wb")
+arq_agendamento.close()
+
+agendamento_excluido = {}
+try:
+    arq_agendamento_excluido = open("agendamento_excluido.dat", "rb")
+    agendamento_excluido = pickle.load(arq_agendamento_excluido)
+except:
+    arq_agendamento_excluido = open("agendamento_excluido.dat", "wb")
+arq_agendamento_excluido.close()
 
 
 ######################### MENU-PRINCIPAL #####################################
@@ -86,5 +131,30 @@ def my_information():
   whatsapp: (84) 9 9619-7364
   Instagram:
   ''')
+###################### MODULO1 ########################
+arq_cadastro = open("cadastro.dat", "wb")
+pickle.dump(cadastro, arq_cadastro)
+arq_cadastro.close()
+
+arq_cad_excluido = open("cad_excluido.dat", "wb")
+pickle.dump(cad_excluido, arq_cad_excluido)
+arq_cad_excluido.close()
+###################### MODULO2 ########################
+arq_dietas = open("dietas.dat", "wb")
+pickle.dump(dietas, arq_dietas)
+arq_dietas.close()
+
+arq_dietas_excluida = open("dietas_excluida.dat", "wb")
+pickle.dump(dietas_excluida, arq_dietas_excluida)
+arq_dietas_excluida.close()
+
+###################### MODULO3 ########################
+arq_agendamento = open("agendamento.dat", "wb")
+pickle.dump(agendamento, arq_agendamento)
+arq_agendamento.close()
+
+arq_agendamento_excluido = open("agendamento_excluido.dat", "wb")
+pickle.dump(agendamento_excluido, arq_agendamento_excluido)
+arq_agendamento_excluido.close()
 if __name__ == "__main__":
     main() #para inicializar a function main

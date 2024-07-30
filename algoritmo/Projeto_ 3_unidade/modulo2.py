@@ -17,8 +17,7 @@ def mod_dieta():
             cpf = cpf.replace(' ', '')
             if cpf in modulo1.cadastro:
                 nome = input('Digite o nome da dieta: ')
-                nome = validacao.valida_nome(nome)
-                        
+                nome = validacao.valida_nome(nome)        
                 alergia = input('Algum comer alergico ? [S/N] ')
                 if alergia.upper() == 'S':
                     alimento_alergia = input('Qual alimento você tem alergia? ')
