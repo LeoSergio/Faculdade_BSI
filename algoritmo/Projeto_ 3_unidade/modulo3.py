@@ -213,61 +213,61 @@ def agendam():
                         new_cpf = input('DIGITE O NOVO CPF: ')
                         agendamento[new_cpf] = agendamento.pop(cpf)
                         print(f'NOVO CPF CADASTRADO: ', new_cpf )
-                        function.menu_cad()
+                        function.agendamento()
                         option = input('Digite outra opção: ')
                 elif option == '3':
                         new_date = input('Digite uma nova DATA DE NASCIMENTO: ')
                         agendamento[cpf][1] = new_date
                         print('NOVA  DATA CADASTRADA: ', agendamento[cpf][1])
-                        function.menu_cad()
+                        function.agendamento()
                         option = input('Digite outra opção: ')
                 elif option == '4':
                         new_number = input('Digite um novo NÚMERO DE TELEFONE: ')
                         agendamento[cpf][1] = new_number
                         print('NOVA  DATA CADASTRADA: ', agendamento[cpf][1])
-                        function.menu_cad()
+                        function.agendamento()
                         option = input('Digite outra opção: ')
                 elif option == '5':
                         new_gender = input('Digite o novo GÊNERO ')
                         agendamento[cpf][2] = new_gender
                         print('NOVO GÊNERO CADASTRADO: ', agendamento[cpf][2])
-                        function.menu_cad()
+                        function.agendamento()
                         option = input('Digite outra opção: ')
                 elif option == '6':
                         new_weight = input('Digite um novo PESO: ')
                         agendamento[cpf][3] = new_weight
                         print('NOVO PESO CADASTRADO: ', agendamento[cpf][3])
                         print('IMC ALTERADO, NOVO IMC --> ', agendamento[cpf][5])
-                        function.menu_cad()
+                        function.agendamento()
                         option = input('Digite outra opção: ')
                 elif option == '7':
                         new_height = input('Digite uma nova ALTURA: ')
                         agendamento[cpf][4] = new_height
                         print('NOVO PESO CADASTRADO: ', agendamento[cpf][4])
                         print('IMC ALTERADO, NOVO IMC --> ', agendamento[cpf][5])
-                        function.menu_cad()
+                        function.agendamento()
                         option = input('Digite outra opção: ')
                 elif option == '8':
                         new_agenda = input('Digite uma nova ALTURA: ')
                         agendamento[cpf][4] = new_agenda
                         print('NOVO PESO CADASTRADO: ', agendamento[cpf][4])
                         print('IMC ALTERADO, NOVO IMC --> ', agendamento[cpf][5])
-                        function.menu_cad()
+                        function.agendamento()
                         option = input('Digite outra opção: ')
 
                 else:
                         print('ERRO AO TENTAR ALTERAR OS DADOS')
-                        function.menu_cad()
+                        function.agendamento()
                         option = input('Digite outra opção: ')
 
             else:
                     print('Voltou ao menu!')
-                    function.menu_cad()
+                    function.agendamento()
                     option = input('Digite outra opção: ')
 
          else:
             print('CPF NÃO ENCONTRADO OU NÃO CADASTRADO')
-            function.menu_cad()
+            function.agendamento()
             option = input('Digite outra opção: ')
 
 
@@ -287,17 +287,22 @@ def agendam():
                         del agendamento[cpf]
                         print(agendamento_excluido[cpf])                       
                         print('INFORMAÇÕES EXCLUIDA COM SUCESSO: ')
-                        function.menu_cad()
+                        function.agendamento()
                         option = input('Digite outra opção: ')
             else:
                 print("Exclusão não realizada!")
-                function.menu_cad()
+                function.agendamento()
                 option = input('Digite outra opção: ')                    
         else:
             print("Paciente inexistente!")
             input("Tecle <ENTER> para continuar...")
-            function.menu_cad()
+            function.agendamento()
             option = input('Digite outra opção: ')
+    elif option == '5':
+             os.system('cls')
+             function.reports_clients()
+             function.agendamento()
+             option = input('Digite outra opção: ')
     elif option == '0':
         function.main_menu()
     else:

@@ -182,13 +182,18 @@ def mod_dieta():
              if cpf in modulo1.cadastro:
                   validacao.plan_dieta(cpf)
                   input('Tecle <ENTER> para continuar...')
-                  function.menu_cad()
+                  function.cad_dieta()
                   option = input('Digite outra opção: ')
              else:
                   print('CPF invalido ou não Cadastrado ')
                   input('Tecle <ENTER> para continuar...')
-                  function.menu_cad()
+                  function.cad_dieta()
                   option = input('Digite outra opção: ')
+        elif option == '6':
+             os.system('cls')
+             function.reports_clients()
+             function.cad_dieta()
+             option = input('Digite outra opção: ')
         elif option == '0':
              function.main_menu()
              option = input('Qual sua opção? --> ')

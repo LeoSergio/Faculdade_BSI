@@ -135,6 +135,7 @@ def cad_paciente():
                     print('NOME: ', cadastro[cpf][0])
                     print(f'CPF: ', cpf )
                     print('DATA DE NASCIMENTO: ' , cadastro[cpf][1])
+                    print('TELEFONE: ', cadastro[cpf][6])
                     print('GÊNERO: ', cadastro[cpf][2])
                     print('PESO: ', cadastro[cpf][3])
                     print('ALTURA: ', cadastro[cpf][4])
@@ -262,11 +263,9 @@ def cad_paciente():
 
         elif option == '5':
              os.system('cls')
-             agendamento = function.gerar_relatorio_pacientes(cadastro)
-             if function.gerar_relatorio_pacientes(agendamento):
-                  print()
-             else:
-                  print('Cadastre-se')
+             function.reports_clients()
+             function.menu_cad()
+             option = input('Digite outra opção: ')
              
         elif option == '0':
             os.system('cls')
