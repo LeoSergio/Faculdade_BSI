@@ -80,49 +80,47 @@ def reports_clients(cadastro,cad_excluido):
     cadastro_ex = cad_excluido
     
     # Limpa a tela de maneira compatível com diferentes sistemas operacionais
-    os.system('cls' if os.name == 'nt' else 'clear')
     if len(cadastro) == 0 and len(cadastro_ex) == 0:
         print("#========================================#")
         print("#========== SEM INFORMAÇÕES ==========#")
         print("#========================================#")
         print()
         print("--" * 25)
+    else:
+         if len(cadastro) > 0:
+            print("#========================================#")
+            print("#========== PACIENTES CADASTRADOS ==========#")
+            print("#========================================#")
+            print("--" * 25)
+         
     # Exibir clientes cadastrados
-    for cpf in cadastro:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("#========================================#")
-        print("#========== PACIENTES CADASTRADOS ==========#")
-        print("#========================================#")
-        print()
-        print("--" * 25)
-       
-        print('NOME: ', cadastro[cpf][0])
-        print(f'CPF: {cpf}')
-        print('DATA DE NASCIMENTO: ', cadastro[cpf][1])
-        print('TELEFONE: ', cadastro[cpf][6])
-        print('GÊNERO: ', cadastro[cpf][2])
-        print('PESO: ', cadastro[cpf][3])
-        print('ALTURA: ', cadastro[cpf][4])
-        print('IMC: ', cadastro[cpf][5])
-        print("--" * 25)
+            for cpf in cadastro:
+                print('NOME: ', cadastro[cpf][0])
+                print(f'CPF: {cpf}')
+                print('DATA DE NASCIMENTO: ', cadastro[cpf][1])
+                print('TELEFONE: ', cadastro[cpf][6])
+                print('GÊNERO: ', cadastro[cpf][2])
+                print('PESO: ', cadastro[cpf][3])
+                print('ALTURA: ', cadastro[cpf][4])
+                print('IMC: ', cadastro[cpf][5])
+                print("--" * 25)
+         if len(cad_excluido) > 0:
+            print("#========================================#")
+            print("#========== PACIENTES REMOVIDOS ==========#")
+            print("#========================================#")
+            print("--" * 25)
     
     # Exibir clientes excluídos
-    for cpf in cadastro_ex:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("#========================================#")
-        print("#========== PACIENTES REMOVIDOS ==========#")
-        print("#========================================#")
-        print()
-        print("--" * 25)
-        print(f'{RED}NOME: {cadastro_ex[cpf][0]}{RESET}')
-        print(f'{RED}CPF: {cpf}{RESET}')
-        print(f'{RED}DATA DE NASCIMENTO: {cadastro_ex[cpf][1]}{RESET}')
-        print(f'{RED}TELEFONE: {cadastro_ex[cpf][6]}{RESET}')
-        print(f'{RED}GÊNERO: {cadastro_ex[cpf][2]}{RESET}')
-        print(f'{RED}PESO: {cadastro_ex[cpf][3]}{RESET}')
-        print(f'{RED}ALTURA: {cadastro_ex[cpf][4]}{RESET}')
-        print(f'{RED}IMC: {cadastro_ex[cpf][5]}{RESET}')
-        print(f'{RED}{"--" * 25}{RESET}')
+            for cpf in cadastro_ex:
+                print(f'{RED}NOME: {cadastro_ex[cpf][0]}{RESET}')
+                print(f'{RED}CPF: {cpf}{RESET}')
+                print(f'{RED}DATA DE NASCIMENTO: {cadastro_ex[cpf][1]}{RESET}')
+                print(f'{RED}TELEFONE: {cadastro_ex[cpf][6]}{RESET}')
+                print(f'{RED}GÊNERO: {cadastro_ex[cpf][2]}{RESET}')
+                print(f'{RED}PESO: {cadastro_ex[cpf][3]}{RESET}')
+                print(f'{RED}ALTURA: {cadastro_ex[cpf][4]}{RESET}')
+                print(f'{RED}IMC: {cadastro_ex[cpf][5]}{RESET}')
+                print(f'{RED}{"--" * 25}{RESET}')
     
     print()
     input("Pressione <ENTER> para continuar.")

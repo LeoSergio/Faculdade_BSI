@@ -14,94 +14,112 @@ def cad_paciente(cadastro,cad_excluido):
     option = input('Qual sua opção? --> ')
     while option!='0':
         if option == '1':
-                os.system('cls')
+               os.system('cls')
                 #Adicionando paciente    
-                print('DIGITE AS INFORMAÕES PEDIDAS.')
-                nome = input('Nome Completo: ')
-                nome_upper = nome.upper()
-                nome = nome_upper.replace(' ', '') 
-                while True: #VALIDAÇÃO DO PROF. FLAVIUS
+               RED = "\033[91m"
+               RESET = "\033[0m"
+
+               # Inform user to enter the required information
+               print(f'''
+               {RED}
+               ===========================================
+                    DIGITE AS INFORMAÇÕES PEDIDAS
+               ===========================================
+               {RESET}
+               ''')
+
+               # Input for name
+               nome = input('Nome Completo: ')
+               nome_upper = nome.upper()
+               nome = nome_upper.replace(' ', '') 
+
+               # CPF validation loop
+               while True:  # VALIDAÇÃO DO PROF. FLAVIUS
                     cpf = input("Informe seu CPF: ")
                     cpf = cpf.replace('.', '')
                     cpf = cpf.replace('-', '')
                     cpf = cpf.replace(' ', '')
                     if cpf in cadastro and validacao.validaCPF(cpf):
-                         print('USUARIO JÁ CADASTRADO')
+                         print(f'{RED}USUÁRIO JÁ CADASTRADO{RESET}')
                     elif validacao.validaCPF(cpf):
-                            print("CPF Ok!")
-                            break
-                    else:
-                            print("CPF Inválido!")
-                while True:
-                    phone_number = input('Número de Tefefone: --> ')
-                    if validacao.validate_phone(phone_number):
-                         print()
+                         print("CPF Ok!")
                          break
                     else:
-                         print('Número invalido')
-               #ADD VALIDAÇÃO DE DATA
-                data_nasc = str(input(" Data de Nascimento: "))
-                while not validacao.date(data_nasc):
-                    print("Data Inválida! Tente Novamente.\n(Insira a Data no Formato: xx/xx/xxxx)")
-                    print()
+                         print(f'{RED}CPF INVÁLIDO!{RESET}')
+
+               # Phone number validation loop
+               while True:
+                    phone_number = input('Número de Telefone: --> ')
+                    if validacao.validate_phone(phone_number):
+                         print(f'{RED}Número de telefone válido!{RESET}')
+                         break
+                    else:
+                         print(f'{RED}Número inválido{RESET}')
+
+               # Date of birth validation loop
+               data_nasc = str(input("Data de Nascimento (xx/xx/xxxx): "))
+               while not validacao.date(data_nasc):
+                    print(f'{RED}Data Inválida! Tente Novamente.\n(Insira a Data no Formato: xx/xx/xxxx){RESET}')
                     data_nasc = str(input("-> "))
                     data_nasc = data_nasc.strip()
                     print()
 
-                while True:
-                    genero = input('Qual o seu Gênero: M/F ')
+               # Gender validation loop
+               while True:
+                    genero = input('Qual o seu Gênero (M/F): ')
                     if genero.upper() == 'M':
-                        genero = 'MASCULINO'
-                        break
-                    elif genero.upper() =='F':
-                        genero= 'FEMININO'
-                        break
-                    elif (genero.upper() != 'M') and (genero.upper() != 'F'):
-                        RED = "\033[91m"
-                        RESET = "\033[0m"
-                        print(f'''
-     {RED}
-          ###############                  
-######### OPÇÃO INVALIDA ########
-          ############### 
-     {RESET}
-                                   ''')
+                         genero = 'MASCULINO'
+                         break
+                    elif genero.upper() == 'F':
+                         genero = 'FEMININO'
+                         break
+                    else:
+                         print(f'''
+                    {RED}
+                    ===========================================
+                         OPÇÃO INVÁLIDA! DIGITE M OU F
+                    ===========================================
+                    {RESET}
+                    ''')
 
-                while True:
-                     print('''
-                          | DIGITE APENAS NÚMEROS :|                     
-                          ''')
-                     peso = input('Qual o seu peso atual: ')
-                     altura =input('Qual a sua altura atual em metros: ')
+               # Weight and height input with numeric validation
+               while True:
+                    print('''
+                    {RED}
+                    ===========================================
+                         DIGITE APENAS NÚMEROS
+                    ===========================================
+                    {RESET}
+                    ''')
+                    peso = input('Qual o seu peso atual (kg): ')
+                    altura = input('Qual a sua altura atual em metros: ')
 
-                     try:                             
-                        peso_float= float(peso)
-                        altuta_float = float(altura) 
-                        imc = peso_float / (altuta_float**2)
-                        imc = round(imc,2)   
-                        break
-                     except ValueError: #indica que a entrada não é um número válido.
-                        RED = "\033[91m"
-                        RESET = "\033[0m"
-                        print(f'''
-{RED}
-      #######################                 
-######### DIGITE APENAS NUMEROS ########
-      #######################
-{RESET}
-                                   ''')
+                    try:
+                         peso_float = float(peso)
+                         altura_float = float(altura)
+                         imc = peso_float / (altura_float**2)
+                         imc = round(imc, 2)
+                         break
+                    except ValueError:  # Indicates invalid number input
+                         print(f'''
+                    {RED}
+                    ===========================================
+                    DIGITE APENAS NÚMEROS VÁLIDOS!
+                    ===========================================
+                    {RESET}
+                         ''')
 
 
-                cadastro[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number]
+               cadastro[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number]
 
                 # Imprimindo os dados dos pacientes em formato de coluna
                 #os dados estão sendo armazenado no dicionário cadastro, chave CPF.
-                function.display_patient_info(cpf, cadastro)
+               function.display_patient_info(cpf, cadastro)
                 
 
-                input('Tecle <ENTER> para continuar...') #colocar nas outras function
-                function.menu_cad()
-                option = input('Digite outra opção: ')
+               input('Tecle <ENTER> para continuar...') #colocar nas outras function
+               function.menu_cad()
+               option = input('Digite outra opção: ')
                 
 
                                 # VERIFICAR#
