@@ -89,14 +89,23 @@ while option != '0':
         print('Módulo4')
         function.main_menu()
         modulo4.my_information()
+        modulo4.project_information()
         input('Tecle <ENTER> para continuar...')
 
         option = input('Digite outra opção: ') 
 
     else: 
-        print('OPÇÃO INVÁLIDA')
-        function.main_menu()
-        option = input('Digite outra opção: ')
+         RED = "\033[91m"
+         RESET = "\033[0m"
+         print(f'''
+    {RED}
+        ###############                  
+######### OPÇÃO INVALIDA ########
+        ############### 
+    {RESET}
+                                ''')
+         function.main_menu()
+         option = input('Digite outra opção: ')
 print('FIM DO PROGRAMA') 
 
 

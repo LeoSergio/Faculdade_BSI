@@ -164,8 +164,7 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
             print('--- Agendamento ---')
             print(agendamento[cpf])
             input('Tecle <ENTER> para continuar...') 
-            function.agendamento()
-            option = input('Digite outra opção: ')
+            
         else:
             print('''
                     #############################################
@@ -301,8 +300,7 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
     elif option == '5':
              os.system('cls')
              function.reports_scheduling(agendamento,agendamento_excluido)
-             function.agendamento()
-             option = input('Digite outra opção: ')
+    
     elif option == '0':
         function.main_menu()
     else:

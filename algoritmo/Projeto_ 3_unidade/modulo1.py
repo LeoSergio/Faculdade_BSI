@@ -57,11 +57,15 @@ def cad_paciente(cadastro,cad_excluido):
                         genero= 'FEMININO'
                         break
                     elif (genero.upper() != 'M') and (genero.upper() != 'F'):
-                        print('''
-                             ###############                  
-                    ######### OPÇÃO INVALIDA ########
-                             ###############                
-    ''')
+                        RED = "\033[91m"
+                        RESET = "\033[0m"
+                        print(f'''
+     {RED}
+          ###############                  
+######### OPÇÃO INVALIDA ########
+          ############### 
+     {RESET}
+                                   ''')
 
                 while True:
                      print('''
@@ -77,27 +81,23 @@ def cad_paciente(cadastro,cad_excluido):
                         imc = round(imc,2)   
                         break
                      except ValueError: #indica que a entrada não é um número válido.
-                        print('DIGITE APENAS NÚMEROS')
+                        RED = "\033[91m"
+                        RESET = "\033[0m"
+                        print(f'''
+{RED}
+      #######################                 
+######### DIGITE APENAS NUMEROS ########
+      #######################
+{RESET}
+                                   ''')
 
 
                 cadastro[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number]
 
                 # Imprimindo os dados dos pacientes em formato de coluna
                 #os dados estão sendo armazenado no dicionário cadastro, chave CPF.
-                print('NOME: ', cadastro[cpf][0])
-                print(f'CPF: {cpf}')
-                print('DATA DE NASCIMENTO: ' , cadastro[cpf][1],)
-                print('TELEFONE: ', cadastro[cpf][6])
-                print('GÊNERO: ', cadastro[cpf][2])
-                print('PESO: ', cadastro[cpf][3], 'KG')
-                print('ALTURA: ', cadastro[cpf][4])
-                print('IMC: ', cadastro[cpf][5])
-
-                print('''
-                          #######################
-                ######### CADASTRADO COM SUCESSO ##########
-                          #######################
-                ''' )
+                function.display_patient_info(cpf, cadastro)
+                
 
                 input('Tecle <ENTER> para continuar...') #colocar nas outras function
                 function.menu_cad()
@@ -114,29 +114,24 @@ def cad_paciente(cadastro,cad_excluido):
                 ''' )
                 cpf = input('Digite seu CPF: ')           
                 if cpf in cadastro:
-                    print('NOME: ', cadastro[cpf][0])
-                    print(f'CPF: ', cpf )
-                    print('DATA DE NASCIMENTO: ' , cadastro[cpf][1])
-                    print('TELEFONE: ', cadastro[cpf][6])
-                    print('GÊNERO: ', cadastro[cpf][2])
-                    print('PESO: ', cadastro[cpf][3])
-                    print('ALTURA: ', cadastro[cpf][4])
-                    print('IMC: ', cadastro[cpf][5])
+                    function.display_patient_info(cpf,cadastro)
                     input('Tecle <ENTER> para continuar...') 
                     function.menu_cad()
                     option = input('Digite outra opção: ')
                     
                 else:
-                    print('''
-                          #############################################
-                #########  ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO    #########
-                          #############################################      
-''')
+                    RED = "\033[91m"
+                    RESET = "\033[0m"
+                    print(f'''
+{RED}
+          #############################################
+#########    ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO     #########
+          ############################################# 
+{RESET}
+                                   ''')
                     function.menu_cad()
                     option = input('Digite outra opção: ')
                     
-
-
         elif option == '3':
             os.system('cls')
 
@@ -212,9 +207,17 @@ def cad_paciente(cadastro,cad_excluido):
                      option = input('Digite outra opção: ')
 
             else:
-                print('CPF NÃO ENCONTRADO OU NÃO CADASTRADO')
-                function.menu_cad()
-                option = input('Digite outra opção: ')
+                 RED = "\033[91m"
+                 RESET = "\033[0m"
+                 print(f'''
+{RED}
+          #############################################
+#########    ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO    #########
+          ############################################# 
+{RESET}
+                                   ''')
+                 function.menu_cad()
+                 option = input('Digite outra opção: ')
 
         elif option == '4': 
              os.system('cls')           
@@ -256,27 +259,14 @@ def cad_paciente(cadastro,cad_excluido):
             option = input('Digite outra opção: ')
 
         else:
-            print('OPÇÃO INVÁLIDA!')
-            function.menu_cad()
-            option = input('Digite outra opção: ')
-############################# MODULO 2 - Dietas.##########################################
-
-
-############################ Modulo 3 - Cosulta ######################################
-
-
-################################### Modulo 4 - Minhas informações.##############################
-def my_information():
-  os.system('cls')
-  print('''
-  minhas informações:
-  nome: Leandro Sérgio da Silva 
-  curso: Sistema de informação
-  Professor: Flaviu...
-  instituição: UFRN-CAICO
-  Github:Leo.sergio...
-  e-mail: leandrooos222@gmail.com
-  whatsapp: (84) 9 9619-7364
-  Instagram:
-  ''')
- #para inicializar a function main
+          RED = "\033[91m"
+          RESET = "\033[0m"
+          print(f'''
+{RED}
+         ###############                  
+######### OPÇÃO INVALIDA ########
+          ############### 
+{RESET}
+                              ''')
+          function.menu_cad()
+          option = input('Digite outra opção: ')

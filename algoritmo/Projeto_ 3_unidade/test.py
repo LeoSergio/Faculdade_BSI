@@ -1,28 +1,40 @@
-import modulo1
-import modulo2
-import modulo3
-import validacao
-import function
-from datetime import datetime
-from datetime import datetime, timedelta
-def test(cpf,dietas):
-    while True:
-      # Solicitando o objetivo ao usuário
-      hora = input('''Qual o horário das refeições?
-                1 - Manhã
-                2 - Tarde
-                3 - Noite 
-      ''')
-      # Verificando se a entrada é válida
-      if hora != '1' and hora != '2' and hora != '3':
-          print('Erro no cadastro, horario inválido')
-      
-      # Verificando se o objetivo é válido com o IMC
-      elif hora == '1':
-            hora = 'manha'       
-      elif hora == '2':
-            hora = 'tarde'     
-      elif hora == '3':
-           hora = 'Noite'
-      dietas[cpf] = hora 
-      return hora
+import os
+def display_patient_info(cpf, cadastro):
+    RED = "\033[91m"
+    GREEN = "\033[92m"
+    RESET = "\033[0m"
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+    print("=" * 50)
+    print(f"{GREEN}{'INFORMAÇÕES DO PACIENTE':^50}{RESET}")
+    print("=" * 50)
+    print(f"CPF: {cpf}")
+    print(f"DATA DE NASCIMENTO: {cadastro[cpf][1]}")
+    print(f"TELEFONE: {cadastro[cpf][6]}")
+    print(f"GÊNERO: {cadastro[cpf][2]}")
+    print(f"PESO: {cadastro[cpf][3]} KG")
+    print(f"ALTURA: {cadastro[cpf][4]}")
+    print(f"IMC: {cadastro[cpf][5]}")
+    print("=" * 50)
+    
+    print(f'''
+    {GREEN}#########################{RESET}
+    {GREEN}## CADASTRADO COM SUCESSO {GREEN}##{RESET}
+    {GREEN}#########################{RESET}
+    ''')
+
+# Exemplo de uso
+cpf = "123.456.789-00"
+cadastro = {
+    "123.456.789-00": [
+        "Nome do Paciente",   # Índice 0
+        "01/01/1990",         # Índice 1 - Data de Nascimento
+        "Masculino",          # Índice 2 - Gênero
+        70,                   # Índice 3 - Peso
+        1.75,                 # Índice 4 - Altura
+        22.86,                # Índice 5 - IMC
+        "(84) 9 9619-7364"    # Índice 6 - Telefone
+    ]
+}
+
+display_patient_info(cpf, cadastro)
