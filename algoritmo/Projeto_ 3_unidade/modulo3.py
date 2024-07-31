@@ -195,8 +195,6 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
             print(f'{"ALTURA:":<15} {dados[4]} m')
             print(f'{"IMC:":<15} {dados[5]}')
             print(f'{"CPF:":<15} {dados[6]}')
-            print(f'{"DATA AGENDADA:":<15} {agendado}')
-
             input('Tecle <ENTER> para continuar...')         
         else:
             print(f'''
@@ -281,14 +279,6 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
                         print('IMC ALTERADO, NOVO IMC --> ', agendamento[cpf][5])
                         function.agendamento()
                         option = input('Digite outra opção: ')
-                elif option == '8':
-                        new_agenda = input('Digite uma nova ALTURA: ')
-                        agendamento[cpf][4] = new_agenda
-                        print('NOVO PESO CADASTRADO: ', agendamento[cpf][4])
-                        print('IMC ALTERADO, NOVO IMC --> ', agendamento[cpf][5])
-                        function.agendamento()
-                        option = input('Digite outra opção: ')
-
                 else:
                         print('ERRO AO TENTAR ALTERAR OS DADOS')
                         function.agendamento()
@@ -334,6 +324,7 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
             option = input('Digite outra opção: ')
     elif option == '5':
              os.system('cls')
+             crn = input('digite o CRN: -->') #Conselho Federal de Nutrição
              function.reports_scheduling(agendamento,agendamento_excluido)
     
     elif option == '0':

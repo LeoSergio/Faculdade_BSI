@@ -15,17 +15,18 @@ def cad_paciente(cadastro,cad_excluido):
     while option!='0':
         if option == '1':
                os.system('cls')
-                #Adicionando paciente    
-               RED = "\033[91m"
+                #Adicionando paciente
+               RED =   "\033[91m"
+               GREEN = "\033[91m"
                RESET = "\033[0m"
 
                # Inform user to enter the required information
-               print(f'''
-               {RED}
+               print('''
+               
                ===========================================
                     DIGITE AS INFORMAÇÕES PEDIDAS
                ===========================================
-               {RESET}
+               
                ''')
 
                # Input for name
@@ -75,7 +76,7 @@ def cad_paciente(cadastro,cad_excluido):
                          break
                     else:
                          print(f'''
-                    {RED}
+                    {GREEN}
                     ===========================================
                          OPÇÃO INVÁLIDA! DIGITE M OU F
                     ===========================================
@@ -85,7 +86,7 @@ def cad_paciente(cadastro,cad_excluido):
                # Weight and height input with numeric validation
                while True:
                     print('''
-                    {RED}
+                    {GREEN}
                     ===========================================
                          DIGITE APENAS NÚMEROS
                     ===========================================
@@ -266,6 +267,7 @@ def cad_paciente(cadastro,cad_excluido):
 
         elif option == '5':
              os.system('cls')
+             crn = input('digite o CRN: -->') #Conselho Federal de Nutrição
              function.reports_clients(cadastro,cad_excluido)
              function.menu_cad()
              option = input('Digite outra opção: ')

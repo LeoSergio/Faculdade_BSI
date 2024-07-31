@@ -189,6 +189,7 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
                   option = input('Digite outra opção: ')
         elif option == '6':
              os.system('cls')
+             crn = input('digite o CRN: -->') #Conselho Federal de Nutrição
              function.reports_diets(dietas, dietas_excluida)
              function.cad_dieta()
              option = input('Digite outra opção: ')
