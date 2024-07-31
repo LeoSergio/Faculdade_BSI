@@ -3,9 +3,8 @@ import validacao
 import modulo1
 import os
 
-dieta = {}
-dieta_excluida = {}
-def mod_dieta():
+
+def mod_dieta(cadastro,dietas,dietas_excluida):
     function.cad_dieta()
     option = input('Qual sua opção? --> ')
     while option != '0':
@@ -15,7 +14,7 @@ def mod_dieta():
             cpf = cpf.replace('.', '')
             cpf = cpf.replace('-', '')
             cpf = cpf.replace(' ', '')
-            if cpf in modulo1.cadastro:
+            if cpf in cadastro:
                 nome = input('Digite o nome da dieta: ')
                 nome = validacao.valida_nome(nome)        
                 alergia = input('Algum comer alergico ? [S/N] ')
@@ -29,20 +28,20 @@ def mod_dieta():
                 print('''
                             CADASTRAR OBJETIVOS
     ''')
-                obj = validacao.valida_obj(cpf)
+                obj = validacao.valida_obj(cadastro,cpf,dietas)
 
                 print('''
                             CADASTRAR HORÁRIO
     ''')
-                hora = validacao.hora(cpf)
-
-                dieta[nome] = [alimento, obj, hora,cpf]
+                hora = validacao.hora(cpf,dietas)
+#13971335462
+                dietas[nome] = [alimento, obj, hora,cpf]
 
                 print('NOME DA DIETA: ', {nome})
-                print( dieta[nome][1],)
-                print('OBJETIVO DA DIETA: ', dieta[nome][1])
-                print('HORÁRIO: ', dieta[nome][2])
-                print(validacao.plan_dieta(cpf))
+                print( dietas[nome][1],)
+                print('OBJETIVO DA DIETA: ', dietas[nome][1])
+                print('HORÁRIO: ', dietas[nome][2])
+                print(validacao.plan_dieta(cadastro,cpf))
 
                 print('''
                             #######################
@@ -63,7 +62,7 @@ def mod_dieta():
                           #######################
                 ''' )
                 cpf = input('Digite seu cpf: ')
-                if cpf in dieta:
+                if cpf in dietas:
                     nome =  validacao.exibir_dieta(cpf)
                     input('Tecle <ENTER> para continuar...') 
                     function.cad_dieta()
@@ -81,12 +80,12 @@ def mod_dieta():
         elif option == '3':
             print('''
                           #######################
-                #########      ALTERAR DIETA     ##########
+                #########      ALTERAR DIETAs     ##########
                           #######################
                 ''' )
             cpf = input('Digite seu CPF: ')
 
-            if cpf in modulo1.cadastro:              
+            if cpf in cadastro:              
                 resp = input('VOCÊ TEM CERTEZA ? , alterar os seus dados ? S/N ')
                 if resp.upper() == 'S':
                     
@@ -101,17 +100,17 @@ def mod_dieta():
                      if option == '1':
                         nome = input('Digite o novo NOME: ')
                         new_name= nome.upper()  
-                        dieta[nome] = new_name                         
+                        dietas[nome] = new_name                         
                         print('NOVO NOME CADASTRADO: ', {nome})
                         
                      elif option == '2':
                             new_alergia = input('POSSUI ALGUM ALERGIA: [S/N] ')
-                            dieta[nome][0] = new_alergia
-                            if dieta[nome][0].upper() == 'S':
+                            dietas[nome][0] = new_alergia
+                            if dietas[nome][0].upper() == 'S':
                                  alergia = input('Qual alimento você tem alergia: ')
-                                 dieta[nome][0] = alergia
-                            elif dieta[nome][0].upper() == 'N':
-                                 dieta[nome][0] == 'Não possiu Alergia'                                 
+                                 dietas[nome][0] = alergia
+                            elif dietas[nome][0].upper() == 'N':
+                                 dietas[nome][0] == 'Não possiu Alergia'                                 
                             
 
                      elif option == '3':
@@ -146,15 +145,15 @@ def mod_dieta():
                           #######################
                 ''' )
             cpf = input('Digite seu CPF: ').replace('.', '').replace('-', '').replace(' ', '')
-            if cpf in modulo1.cadastro:           
+            if cpf in cadastro:           
                 option = input('Você deseja remover suas informações ? [S/N] ')
                 if option.upper() == 'S':
                     nome = input('Digite o nome da dieta: ')
                     nome = validacao.valida_nome(nome)
                     if nome:
-                        if nome in dieta:
-                            dieta_excluida[nome] = dieta[nome]
-                            del dieta[nome]
+                        if nome in dietas:
+                            dietas_excluida[nome] = dietas[nome]
+                            del dietas[nome]
                             print('INFORMAÇÕES EXCLUÍDAS COM SUCESSO: ')
                         else:
                             print('NOME INVÁLIDO OU NÃO ENCONTRADO')
@@ -178,8 +177,8 @@ def mod_dieta():
         elif option == '5':
              os.system('cls')
              cpf = input('Digite seu CPF: ')
-             if cpf in modulo1.cadastro:
-                  validacao.plan_dieta(cpf)
+             if cpf in cadastro:
+                  dietas[cpf]=validacao.plan_dieta(cpf)
                   input('Tecle <ENTER> para continuar...')
                   function.cad_dieta()
                   option = input('Digite outra opção: ')
@@ -190,7 +189,7 @@ def mod_dieta():
                   option = input('Digite outra opção: ')
         elif option == '6':
              os.system('cls')
-             function.reports_clients()
+             function.reports_clients(dietas, dietas_excluida)
              function.cad_dieta()
              option = input('Digite outra opção: ')
         elif option == '0':

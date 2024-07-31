@@ -75,7 +75,7 @@ while option != '0':
     elif option == '2':
         os.system('cls')
         print('CADASTRAMENTO DE DIETAS')
-        modulo2.mod_dieta()
+        modulo2.mod_dieta(cadastro,dietas,dietas_excluida)
         function.main_menu()
         option = input('Digite outra opção: ')     
     elif option == '3':

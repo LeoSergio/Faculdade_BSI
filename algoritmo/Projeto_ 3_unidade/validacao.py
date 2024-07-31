@@ -73,8 +73,8 @@ def is_leap_year(year): #PEGUEI PELO COLEGA KAIO
         return False
     return True
 #####################################################################
-def valida_obj(cpf):
-    imc = modulo1.cadastro[cpf][5]
+def valida_obj(cadastro,cpf,dietas):
+    imc = cadastro[cpf][5]
     while True:
       # Solicitando o objetivo ao usuário
       obj = input('''
@@ -110,11 +110,11 @@ def valida_obj(cpf):
         obj = 'Ganhar Massa muscular'     
     elif obj == '3':
         obj = 'Ganhar Massa muscular'
-    modulo2.dieta[cpf] = obj 
+    dietas[cpf] = obj 
     return obj
 ##############################################################
-def plan_dieta(cpf):
-    imc = modulo1.cadastro[cpf][5]
+def plan_dieta(cadastro,cpf):
+    imc = cadastro[cpf][5]
     print('''
     #####################################
     #         PLANO DE DIETA             #
@@ -139,31 +139,34 @@ def plan_dieta(cpf):
 
 ################################################################
 
-def hora(cpf):
-    hora=input('''Qual o horário das refeições?
-                1 - Manhâ
+
+def hora(dietas, cpf):
+    while True:
+        # Solicitando o horário ao usuário
+        hora = input('''Qual o horário das refeições?
+                1 - Manhã
                 2 - Tarde
-                3- Cafe da tarde
-                4 - Noite                                                     
-                ''')
-    while hora !=  '1' and hora !='2' and hora !='3' and hora !='4':
-            print('Erro no cadastro, Horario inválido')
-            hora = input('''Quais os horarios das refeições?
-                1 - Manhâ
-                2 - Tarde
-                3- Cafe da tarde
-                4 - Noite                                                     
-                ''')
-    if hora == '1':
-        hora = 'Manhâ'
-    elif hora == '2':
-        hora = 'Tarde'
-    elif hora == '3':
-        hora = 'Cafe da tarde'
-    elif hora == '4':
-        hora = 'Noite'
-    modulo2.dieta[cpf]= hora
-    return hora
+                3 - Noite 
+        ''')
+        
+        # Verificando se a entrada é válida
+        if hora not in {'1', '2', '3'}:
+            print('Erro no cadastro, horário inválido')    
+            
+        if hora == '1':
+            horario = 'manhã'
+            break
+            
+        elif hora == '2':
+            horario = 'tarde'
+            break
+        elif hora == '3':
+            horario = 'noite'
+            break
+            
+        # Adicionando o horário ao dicionário dietas
+        dietas[cpf] = horario 
+        return horario
 
 def valida_nome(nome):#créditos: CHAT GPT
     # Remove espaços
