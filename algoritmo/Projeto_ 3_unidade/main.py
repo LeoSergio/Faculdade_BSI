@@ -81,7 +81,7 @@ while option != '0':
     elif option == '3':
         os.system('cls')
         print('Módulo3- Agendamento')
-        modulo3.agendam()
+        modulo3.agendam(cadastro,cad_excluido,agendamento,agendamento_excluido)
         function.main_menu()
         option = input('Digite outra opção: ') 
     elif option == '4':

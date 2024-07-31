@@ -30,17 +30,12 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
     ''')
                 obj = validacao.valida_obj(cadastro,cpf,dietas)
 
-                print('''
-                            CADASTRAR HORÁRIO
-    ''')
-                hora = validacao.hora(cpf,dietas)
 #13971335462
-                dietas[nome] = [alimento, obj, hora,cpf]
+                dietas[nome] = [alimento, obj,cpf]
 
                 print('NOME DA DIETA: ', {nome})
-                print( dietas[nome][1],)
+                print( dietas[nome][0],)
                 print('OBJETIVO DA DIETA: ', dietas[nome][1])
-                print('HORÁRIO: ', dietas[nome][2])
                 print(validacao.plan_dieta(cadastro,cpf))
 
                 print('''
@@ -50,7 +45,7 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
                 ''' )
                 function.cad_dieta()
                 option = input('Qual sua opção? --> ')
-           
+        
             else:
                 print('CPF INVALIDO OU NÃO CADASTRADO')
                 function.cad_dieta()
@@ -63,7 +58,7 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
                 ''' )
                 cpf = input('Digite seu cpf: ')
                 if cpf in dietas:
-                    nome =  validacao.exibir_dieta(cpf)
+                    nome =  validacao.exibir_dieta(cadastro,cpf,dietas)
                     input('Tecle <ENTER> para continuar...') 
                     function.cad_dieta()
                     option = input('Digite outra opção: ')
@@ -98,10 +93,15 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
 
                     -->  ''')
                      if option == '1':
-                        nome = input('Digite o novo NOME: ')
-                        new_name= nome.upper()  
-                        dietas[nome] = new_name                         
-                        print('NOVO NOME CADASTRADO: ', {nome})
+                        nome_antigo = input('Digite o NOME DA DIETA atual que deseja editar: ')
+                        new_name = input('Digite o novo NOME: ').upper()
+
+                        if nome_antigo in dietas:
+                            dietas[new_name] = dietas.pop(nome_antigo)
+                            print(f'NOME ATUALIZADO: {nome_antigo} para {new_name}')
+                        else:
+                            print(f'O nome "{nome_antigo}" não foi encontrado no dicionário.')
+                       
                         
                      elif option == '2':
                             new_alergia = input('POSSUI ALGUM ALERGIA: [S/N] ')
@@ -114,7 +114,7 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
                             
 
                      elif option == '3':
-                          obj=validacao.valida_obj(cpf)
+                          obj=validacao.valida_obj(cadastro,cpf,dietas)
                           print('NOPVO OBJETIVO CADASTRADO: ', obj )
                      elif option == '4':
                           hora = validacao.hora(cpf)
@@ -141,7 +141,7 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
             os.system('cls')           
             print('''
                           #######################
-                #########      REMOVER USUÁRIO     ##########
+                #########      REMOVER DIETA     ##########
                           #######################
                 ''' )
             cpf = input('Digite seu CPF: ').replace('.', '').replace('-', '').replace(' ', '')
@@ -178,7 +178,7 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
              os.system('cls')
              cpf = input('Digite seu CPF: ')
              if cpf in cadastro:
-                  dietas[cpf]=validacao.plan_dieta(cpf)
+                  dietas[cpf]=validacao.plan_dieta(cadastro,cpf)
                   input('Tecle <ENTER> para continuar...')
                   function.cad_dieta()
                   option = input('Digite outra opção: ')
@@ -189,7 +189,7 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
                   option = input('Digite outra opção: ')
         elif option == '6':
              os.system('cls')
-             function.reports_clients(dietas, dietas_excluida)
+             function.reports_diets(dietas, dietas_excluida)
              function.cad_dieta()
              option = input('Digite outra opção: ')
         elif option == '0':

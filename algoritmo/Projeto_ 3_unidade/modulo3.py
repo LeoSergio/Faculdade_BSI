@@ -26,10 +26,8 @@ se cpf in dicionario aproveitar agendamento, se nao cadastrar novas informaçõe
 
 '''
 #COLOCAR O HORARIO DENTRO DE UM WHILE
-agendamento = {}
-agendamento_excluido = {}
 
-def agendam():
+def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
     print('MODULO AGENDAMENTO')
     function.agendamento()
     option = input('Qual a sua opção: ')
@@ -40,12 +38,13 @@ def agendam():
         resp = input('Já possui cadastro de paciente? [S/N] --> ')
         if resp.upper() == 'S':
             cpf = input('Digite seu CPF: ').replace('.', '').replace('-', '').replace(' ', '')
-            if cpf in modulo1.cadastro:
+            if cpf in cadastro:
                 resp = input('Usar Dados do seu cadastro ? [S/N] ')
                 if resp.upper() == 'S':
-                     agendamento[cpf] = modulo1.cadastro
+                     agendamento[cpf] = cadastro[cpf]
                      #add horario ao dicionario agendamento
-                     print(agendamento[cpf])
+                     agendado = validacao.agendar_consulta(agendamento)
+                     print(agendamento[cpf])        
                 elif resp.upper() == 'N': #Não usar os dados do cadastro, usar outros dados.
                      print('DIGITE AS INFORMAÕES PEDIDAS.')
                      nome = input('Nome Completo: ')
@@ -56,7 +55,7 @@ def agendam():
                         cpf = cpf.replace('.', '')
                         cpf = cpf.replace('-', '')
                         cpf = cpf.replace(' ', '')
-                        if cpf in modulo1.cadastro and validacao.validaCPF(cpf):
+                        if cpf in cadastro and validacao.validaCPF(cpf):
                             print('USUARIO JÁ CADASTRADO')
                         elif validacao.validaCPF(cpf):
                                 print("CPF Ok!")
@@ -111,7 +110,8 @@ def agendam():
                         except ValueError: #indica que a entrada não é um número válido.
                             print('DIGITE APENAS NÚMEROS')
                      print('HORARIO DA CONSULTA')
-                     agendado = validacao.agendar_consulta() #ERRO, NÃO ESTA VERIFICANDO SE EXISTE  HORARIOS IGUAIS. CORRIGIR.
+                     agendado = validacao.agendar_consulta(agendamento)
+                      #ERRO, NÃO ESTA VERIFICANDO SE EXISTE  HORARIOS IGUAIS. CORRIGIR.
                      
                      agendamento[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number,agendado]
 
@@ -135,7 +135,7 @@ def agendam():
                     ''' )
 
                      input('Tecle <ENTER> para continuar...') #colocar nas outras function
-                     function.menu_cad()
+                     function.agendamento()
                      option = input('Digite outra opção: ')
                      
 
@@ -148,7 +148,7 @@ def agendam():
                           ####################################      
 ''')
             input("Tecle <ENTER> para continuar...")
-            modulo1.cad_paciente()
+            modulo1.cad_paciente(cadastro,cad_excluido)
             
     elif option == '2':
         '''
@@ -156,7 +156,7 @@ def agendam():
         '''
         print('''
                           #######################
-                ##########    VERIFICAR DIETAS     ###########
+                ##########    VERIFICAR AGENDAMENTO     ###########
                           #######################
                 ''' )
         cpf = input('Digite seu cpf: ')
@@ -164,7 +164,7 @@ def agendam():
             print('--- Agendamento ---')
             print(agendamento[cpf])
             input('Tecle <ENTER> para continuar...') 
-            function.cad_dieta()
+            function.agendamento()
             option = input('Digite outra opção: ')
         else:
             print('''
@@ -173,7 +173,7 @@ def agendam():
                     #############################################      
 ''')
             input('Tecle <ENTER> para continuar...') 
-            function.cad_dieta()
+            function.cad_agendamento()
     elif option == '3':
          os.system('cls')
          print('ALTERAR CONSULTA')
@@ -206,7 +206,7 @@ def agendam():
                     new_name= nome.upper()  
                     agendamento[cpf][0] = new_name                         
                     print('NOVO NOME CADASTRADO: ', agendamento[cpf][0])
-                    function.menu_cad()
+                    function.agendamento()
                     option = input('Digite outra opção: ')
                     
                 elif option == '2':
@@ -276,7 +276,7 @@ def agendam():
         print('EXCLUIR CONSULTA')
         print('''
                           #######################
-                #########      REMOVER USUÁRIO     ##########
+                #########   REMOVER AGENDAMENTO  ##########
                           #######################
                 ''' )
         cpf = input('Digite seu CPF: ')
@@ -300,20 +300,10 @@ def agendam():
             option = input('Digite outra opção: ')
     elif option == '5':
              os.system('cls')
-             function.reports_clients()
+             function.reports_scheduling(agendamento,agendamento_excluido)
              function.agendamento()
              option = input('Digite outra opção: ')
     elif option == '0':
         function.main_menu()
     else:
         print('OPÇÃO INVÁLIDA')
-    '''cpf = input('Digite seu CPF: ')
-    if cpf in cadastro:
-        print('conulta resultado')
-    if cadastro == {}:
-        print('ERRO')
-        print('Não possui cadastro, Cadastra-se no modulo paciente.')'''
-
-  #para imprimir a receita, Fazer meio q um login antes, com cpf de preferência!
-  #imprimir a receita
-  #Se não tiver todas as informações, dá erro avançar se as informações estiverem comPletas

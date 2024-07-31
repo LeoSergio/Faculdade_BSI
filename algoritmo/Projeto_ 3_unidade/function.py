@@ -132,59 +132,49 @@ def reports_clients(cadastro,cad_excluido):
     print()
     input("Pressione <ENTER> para continuar.")
 
-def reports_diets():
-    dieta = modulo2.dieta
-    dieta_ex = modulo1.dieta_excluida
+def reports_diets(dietas,dietas_excluida):
+    dietas = dietas
+    dietas_excluida = dietas_excluida
     
     # Limpa a tela de maneira compatível com diferentes sistemas operacionais
     os.system('cls' if os.name == 'nt' else 'clear')
-    if len(dieta) == 0 and len(dieta_ex) == 0:
+    
+    if len(dietas) == 0 and len(dietas_excluida) == 0:
         print("#========================================#")
         print("#========== SEM INFORMAÇÕES ==========#")
         print("#========================================#")
         print()
         print("--" * 25)
-    # Exibir clientes cadastrados
-    for cpf in dieta:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("#========================================#")
-        print("#========== DIETAS CADASTRADAS ==========#")
-        print("#========================================#")
-        print("--" * 25)
-        print('NOME: ', dieta[cpf][0])
-        print(f'CPF: {cpf}')
-        print('DATA DE NASCIMENTO: ', dieta[cpf][1])
-        print('TELEFONE: ', dieta[cpf][6])
-        print('GÊNERO: ', dieta[cpf][2])
-        print('PESO: ', dieta[cpf][3])
-        print('ALTURA: ', dieta[cpf][4])
-        print('IMC: ', dieta[cpf][5])
-        print()
-        print("--" * 25)
+    else:
+        # Exibir dietas cadastradas
+        if len(dietas) > 0:
+            print("#========================================#")
+            print("#========== DIETAS CADASTRADAS ==========#")
+            print("#========================================#")
+            print("--" * 25)
+            for nome in dietas:
+                print(f'NOME DA DIETA: {nome}')
+                print(f'DETALHE DA DIETA: {dietas[nome][0]}')
+                print(f'OBJETIVO DA DIETA: {dietas[nome][1]}')
+                print("--" * 25)
+        
+        # Exibir dietas removidas
+        if len(dietas_excluida) > 0:
+            print("#========================================#")
+            print("#========== DIETAS REMOVIDAS ==========#")
+            print("#========================================#")
+            print("--" * 25)
+            for nome in dietas_excluida:
+                print(f'{RED}NOME DA DIETA: {nome}{RESET}')
+                print(f'{RED}DETALHE DA DIETA: {dietas_excluida[nome][0]}{RESET}')
+                print(f'{RED}OBJETIVO DA DIETA: {dietas_excluida[nome][1]}{RESET}')
+                print("--" * 25)
     
-    # Exibir clientes excluídos
-    for cpf in dieta_ex:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("#========================================#")
-        print("#========== DIETAS REMOVIDAS ==========#")
-        print("#========================================#")
-        print()
-        print("--" * 25)
-        print(f'{RED}NOME: {dieta_ex[cpf][0]}{RESET}')
-        print(f'{RED}CPF: {cpf}{RESET}')
-        print(f'{RED}DATA DE NASCIMENTO: {dieta_ex[cpf][1]}{RESET}')
-        print(f'{RED}TELEFONE: {dieta_ex[cpf][6]}{RESET}')
-        print(f'{RED}GÊNERO: {dieta_ex[cpf][2]}{RESET}')
-        print(f'{RED}PESO: {dieta_ex[cpf][3]}{RESET}')
-        print(f'{RED}ALTURA: {dieta_ex[cpf][4]}{RESET}')
-        print(f'{RED}IMC: {dieta_ex[cpf][5]}{RESET}')
-        print(f'{RED}{"--" * 25}{RESET}')
-    
-    print()
     input("Pressione <ENTER> para continuar.")
-def reports_scheduling():
-    agendamento = modulo3.agendamento
-    agendamento_excluido = modulo3.agendamento_excluido
+
+def reports_scheduling(agendamento,agendamento_excluido):
+    agendamento = agendamento
+    agendamento_excluido = agendamento_excluido
     
     # Limpa a tela de maneira compatível com diferentes sistemas operacionais
     os.system('cls' if os.name == 'nt' else 'clear')

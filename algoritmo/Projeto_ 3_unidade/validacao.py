@@ -153,7 +153,7 @@ def hora(dietas, cpf):
         if hora not in {'1', '2', '3'}:
             print('Erro no cadastro, horário inválido')    
             
-        if hora == '1':
+        elif hora == '1':
             horario = 'manhã'
             break
             
@@ -188,17 +188,16 @@ def valida_nome(nome):#créditos: CHAT GPT
         return None
 
 # Entrada do nome do usuário
-def exibir_dieta(cpf):
+def exibir_dieta(cadastro,cpf,dietas):
     nome = input('Digite o nome da dieta: ')
     name_dieta_validado = valida_nome(nome)
     if name_dieta_validado:
-        if name_dieta_validado in modulo2.dieta:
-            dieta_info = modulo2.dieta[name_dieta_validado]
+        if name_dieta_validado in dietas:
+            dieta_info = dietas[name_dieta_validado]
             print('NOME DA DIETA: ', name_dieta_validado)
             print('ALERGIA: ', dieta_info[0])
             print('OBJETIVO: ', dieta_info[1])
-            print('HORARIO: ', dieta_info[2])
-            print(validacao.plan_dieta(cpf))
+            print(validacao.plan_dieta(cadastro,cpf))
         else:
             print('Dieta não encontrada ou não cadastrada.')
     else:
@@ -261,10 +260,10 @@ def obter_horario():
             print('Horário inválido. Tente novamente.')
 
 # Função para verificar se o horário está disponível
-def horario_disponivel(data, horario):
+def horario_disponivel(data, horario,agendamento):
     data_str = data.strftime('%d/%m/%Y')
-    if data_str in modulo3.agendamento:
-        for horario_agendado in modulo3.agendamento[data_str]:
+    if data_str in agendamento:
+        for horario_agendado in agendamento[data_str]:
             horario_inicial = (datetime.combine(data, datetime.strptime(horario_agendado, '%H:%M').time()) - timedelta(minutes=30)).time()
             horario_final = (datetime.combine(data, datetime.strptime(horario_agendado, '%H:%M').time()) + timedelta(minutes=30)).time()
             
@@ -273,11 +272,11 @@ def horario_disponivel(data, horario):
     return True
 
 # Função para agendar a consulta
-def agendar_consulta():
+def agendar_consulta(agendamento):
     data = obter_data()
     horario = obter_horario()
     
-    if horario_disponivel(data, horario) in modulo3.agendamento:
+    if horario_disponivel(data, horario,agendamento) in agendamento:
         print('Horário não disponível. Você pode agendar sua consulta.')
         data_str = data.strftime('%d/%m/%Y')
         horario_str = horario.strftime('%H:%M')
