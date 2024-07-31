@@ -170,10 +170,10 @@ def reports_diets(dietas,dietas_excluida):
             print("#========== DIETAS CADASTRADAS ==========#")
             print("#========================================#")
             print("--" * 25)
-            for nome in dietas:
-                print(f'NOME DA DIETA: {nome}')
-                print(f'DETALHE DA DIETA: {dietas[nome][0]}')
-                print(f'OBJETIVO DA DIETA: {dietas[nome][1]}')
+            for nome in dietas: #ERRO NO FOR, ESTA EXIBINDO DIETAS A MAIS
+                print(f'NOME DA DIETA:{dietas[nome][0]} ')
+                print(f'DETALHE DA DIETA: {dietas[nome][1]}')
+                print(f'OBJETIVO DA DIETA: {dietas[nome][2]}')
                 print("--" * 25)
         
         # Exibir dietas removidas

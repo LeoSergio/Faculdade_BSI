@@ -31,11 +31,11 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
                 obj = validacao.valida_obj(cadastro,cpf,dietas)
 
 #13971335462
-                dietas[nome] = [alimento, obj,cpf]
+                dietas[nome] = [nome,alimento, obj,cpf]
 
                 print('NOME DA DIETA: ', {nome})
-                print( dietas[nome][0],)
-                print('OBJETIVO DA DIETA: ', dietas[nome][1])
+                print( dietas[nome][1],)
+                print('OBJETIVO DA DIETA: ', dietas[nome][2])
                 print(validacao.plan_dieta(cadastro,cpf))
 
                 print('''
