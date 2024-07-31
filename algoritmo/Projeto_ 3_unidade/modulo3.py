@@ -44,7 +44,17 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
                      agendamento[cpf] = cadastro[cpf]
                      #add horario ao dicionario agendamento
                      agendado = validacao.agendar_consulta(agendamento)
-                     print(agendamento[cpf])        
+                     agendamento[cpf]=agendado
+                     print('NOME: ', cadastro[cpf][0])
+                     print(f'CPF: {cpf}')
+                     print('TELEFONE: ', cadastro[cpf][6])
+                     print('DATA DE NASCIMENTO: ' , cadastro[cpf][1],)
+                     print('GÊNERO: ', cadastro[cpf][2])
+                     print('PESO: ', cadastro[cpf][3], 'KG')
+                     print('ALTURA: ', cadastro[cpf][4])
+                     print('IMC: ', cadastro[cpf][5])
+                     print('DATA DA CONSULTA: ' , agendado)
+                     print('Custo da consulta: R$50,00')       
                 elif resp.upper() == 'N': #Não usar os dados do cadastro, usar outros dados.
                      print('DIGITE AS INFORMAÕES PEDIDAS.')
                      nome = input('Nome Completo: ')
@@ -114,7 +124,7 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
                       #ERRO, NÃO ESTA VERIFICANDO SE EXISTE  HORARIOS IGUAIS. CORRIGIR.
                      
                      agendamento[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number,agendado]
-
+                    
                     # Imprimindo os dados dos pacientes em formato de coluna
                     #os dados estão sendo armazenado no dicionário cadastro, chave CPF.
                      print('NOME: ', agendamento[cpf][0])
@@ -139,8 +149,15 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
                      option = input('Digite outra opção: ')
                      
 
-
-
+            else:
+                print(f'''
+{RED}
+#############################################
+#########  ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO  #########
+#############################################      
+{RESET}
+''')
+                
         elif resp.upper() == 'N':
             print('''
                           ####################################
@@ -156,23 +173,41 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
         '''
         print('''
                           #######################
-                ##########    VERIFICAR AGENDAMENTO     ###########
+                ########## VERIFICAR AGENDAMENTO ###########
                           #######################
                 ''' )
-        cpf = input('Digite seu cpf: ')
+        cpf = input('Digite seu CPF: ')
+        RED = "\033[91m"
+        RESET = "\033[0m"
         if cpf in agendamento:
-            print('--- Agendamento ---')
-            print(agendamento[cpf])
-            input('Tecle <ENTER> para continuar...') 
             
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print(f'''
+            ##############################
+            #       AGENDAMENTO         #
+            ##############################
+            ''')
+            dados = agendamento[cpf]
+            print(f'{"NOME:":<15} {dados[0]}')
+            print(f'{"DATA DE NASCIMENTO:":<15} {dados[1]}')
+            print(f'{"GÊNERO:":<15} {dados[2]}')
+            print(f'{"PESO:":<15} {dados[3]} KG')
+            print(f'{"ALTURA:":<15} {dados[4]} m')
+            print(f'{"IMC:":<15} {dados[5]}')
+            print(f'{"CPF:":<15} {dados[6]}')
+            print(f'{"DATA AGENDADA:":<15} {agendado}')
+
+            input('Tecle <ENTER> para continuar...')         
         else:
-            print('''
-                    #############################################
-        #########  ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO    #########
-                    #############################################      
-''')
+            print(f'''
+{RED}
+    #############################################
+    #########  ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO  #########
+    #############################################      
+{RESET}
+    ''')
             input('Tecle <ENTER> para continuar...') 
-            function.cad_agendamento()
+            function.agendamento()
     elif option == '3':
          os.system('cls')
          print('ALTERAR CONSULTA')
