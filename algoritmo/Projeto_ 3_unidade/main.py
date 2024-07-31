@@ -90,6 +90,8 @@ while option != '0':
         function.main_menu()
         modulo4.my_information()
         modulo4.project_information()
+        function.main_menu()
+        option = input('Digite outra opção: ')
         input('Tecle <ENTER> para continuar...')
 
         option = input('Digite outra opção: ') 

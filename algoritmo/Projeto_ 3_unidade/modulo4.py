@@ -41,6 +41,3 @@ def project_information():
     {f'':<20} pois isso é trabalho de um profissional qualificado.
     ''')
     print("=" * 50)
-
-my_information()
-project_information()
