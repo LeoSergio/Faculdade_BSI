@@ -73,7 +73,7 @@ def is_leap_year(year): #PEGUEI PELO COLEGA KAIO
         return False
     return True
 #####################################################################
-def valida_obj(cadastro,cpf,dietas):
+def valida_obj(cadastro,cpf,dietas,nome):
     imc = cadastro[cpf][5]
     while True:
       # Solicitando o objetivo ao usuário
@@ -110,7 +110,7 @@ def valida_obj(cadastro,cpf,dietas):
         obj = 'Ganhar Massa muscular'     
     elif obj == '3':
         obj = 'Ganhar Massa muscular'
-    dietas[cpf] = obj 
+    dietas[nome] = obj 
     return obj
 ##############################################################
 def plan_dieta(cadastro,cpf):

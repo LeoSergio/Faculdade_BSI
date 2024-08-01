@@ -150,7 +150,7 @@ def display_patient_info(cpf, cadastro):
     {GREEN}#########################{RESET}
     ''')
 
-def reports_diets(dietas,dietas_excluida,cadastro):
+def reports_diets(dietas,dietas_excluida):
     dietas = dietas
     dietas_excluida = dietas_excluida
     
@@ -191,6 +191,7 @@ def reports_diets(dietas,dietas_excluida,cadastro):
     input("Pressione <ENTER> para continuar.")
 
 def reports_scheduling(agendamento,agendamento_excluido):
+    cpf = agendamento
     agendamento = agendamento
     agendamento_excluido = agendamento_excluido
       

@@ -28,7 +28,7 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
                 print('''
                             CADASTRAR OBJETIVOS
     ''')
-                obj = validacao.valida_obj(cadastro,cpf,dietas)
+                obj = validacao.valida_obj(cadastro,cpf,dietas,nome)
 
 #13971335462
                 dietas[nome] = [nome,alimento, obj,cpf]
@@ -190,7 +190,7 @@ def mod_dieta(cadastro,dietas,dietas_excluida):
         elif option == '6':
              os.system('cls')
              crn = input('digite o CRN: -->') #Conselho Federal de Nutrição
-             function.reports_diets(dietas, dietas_excluida,cadastro)
+             function.reports_diets(dietas, dietas_excluida)
              function.cad_dieta()
              option = input('Digite outra opção: ')
         elif option == '0':

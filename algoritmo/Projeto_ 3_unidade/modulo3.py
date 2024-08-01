@@ -44,7 +44,7 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
                      agendamento[cpf] = cadastro[cpf]
                      #add horario ao dicionario agendamento
                      agendado = validacao.agendar_consulta(agendamento)
-                     agendamento[cpf]=agendado
+                     agendamento[cpf] = agendado
                      print('NOME: ', cadastro[cpf][0])
                      print(f'CPF: {cpf}')
                      print('TELEFONE: ', cadastro[cpf][6])
@@ -124,6 +124,8 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
                       #ERRO, NÃO ESTA VERIFICANDO SE EXISTE  HORARIOS IGUAIS. CORRIGIR.
                      
                      agendamento[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number,agendado]
+                     
+                     print(agendamento[cpf])
                     
                     # Imprimindo os dados dos pacientes em formato de coluna
                     #os dados estão sendo armazenado no dicionário cadastro, chave CPF.
