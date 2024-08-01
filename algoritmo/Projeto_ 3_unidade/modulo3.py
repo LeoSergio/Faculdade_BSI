@@ -153,11 +153,9 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
 
             else:
                 print(f'''
-{RED}
 #############################################
 #########  ERRO, CPF INVÁLIDO OU NÃO ENCONTRADO  #########
 #############################################      
-{RESET}
 ''')
                 
         elif resp.upper() == 'N':
@@ -181,22 +179,25 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
         cpf = input('Digite seu CPF: ')
         RED = "\033[91m"
         RESET = "\033[0m"
+        agendamento[cpf]
         if cpf in agendamento:
-            
             os.system('cls' if os.name == 'nt' else 'clear')
             print(f'''
             ##############################
             #       AGENDAMENTO         #
             ##############################
             ''')
-            dados = agendamento[cpf]
-            print(f'{"NOME:":<15} {dados[0]}')
-            print(f'{"DATA DE NASCIMENTO:":<15} {dados[1]}')
-            print(f'{"GÊNERO:":<15} {dados[2]}')
-            print(f'{"PESO:":<15} {dados[3]} KG')
-            print(f'{"ALTURA:":<15} {dados[4]} m')
-            print(f'{"IMC:":<15} {dados[5]}')
-            print(f'{"CPF:":<15} {dados[6]}')
+           
+            print('NOME: ', agendamento[cpf][0])
+            print(f'CPF: {cpf}')
+            print('TELEFONE: ', agendamento[cpf][6])
+            print('DATA DE NASCIMENTO: ' , agendamento[cpf][1],)
+            print('GÊNERO: ', agendamento[cpf][2])
+            print('PESO: ', agendamento[cpf][3], 'KG')
+            print('ALTURA: ', agendamento[cpf][4])
+            print('IMC: ', agendamento[cpf][5])
+            print('DATA DA CONSULTA: ' , agendamento[cpf][7],)
+            print('Custo da consulta: R$50,00')
             input('Tecle <ENTER> para continuar...')         
         else:
             print(f'''
