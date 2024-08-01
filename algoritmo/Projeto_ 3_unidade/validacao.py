@@ -34,7 +34,7 @@ def validaCPF(cpf): # PROF FLAVIUS
   return True
 
 ################################################################################
-def date(date_str): #PEGUEI PELO COLEGA KAIO
+def date(date_str): # PEGUEI PELO COLEGA KAIO
     try:
         day, month, year = date_str.split("/")  # Split by '/' separator
         day, month, year = int(day), int(month), int(year)  # Convert to integers
@@ -227,7 +227,7 @@ def validate_number(x):
     else:
         return False
     
-def obter_data(): 
+def obter_data(): #CREDITOS: CHAT GPT
     while True:
         print()
         data_str = input('Digite a data do agendamento (dd/mm/aaaa): ')
@@ -243,7 +243,7 @@ def obter_data():
         except ValueError:
             print('Data inválida. Tente novamente.')
 
-def obter_horario():
+def obter_horario(): #CREDITOS: CHAT GPT
     while True:
         horario_str = input('Digite a hora do agendamento (hh:mm): ')
         try:
@@ -256,7 +256,7 @@ def obter_horario():
         except ValueError:
             print('Horário inválido. Tente novamente.')
 
-def horario_disponivel(data, horario, agendamento):
+def horario_disponivel(data, horario, agendamento): #CREDITOS: CHAT GPT
     data_str = data.strftime('%d/%m/%Y')
     if data_str in agendamento:
         for horario_agendado in agendamento[data_str]:
@@ -267,7 +267,7 @@ def horario_disponivel(data, horario, agendamento):
                 return False
     return True
 
-def agendar_consulta(agendamento):
+def agendar_consulta(agendamento): #CREDITOS: CHAT GPT
     data = obter_data()
     horario = obter_horario()
     

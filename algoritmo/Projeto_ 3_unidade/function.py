@@ -1,11 +1,4 @@
-import validacao
-import function
-import modulo1
-import modulo2
-import modulo3
 import os
-
-
 
 def main_menu():
             print('''
@@ -75,7 +68,7 @@ def agendamento():
 
 RED = "\033[31m"
 RESET = "\033[0m"
-def reports_clients(cadastro,cad_excluido):
+def reports_clients(cadastro,cad_excluido): #TODOS OS RELATORIOS FOI INSPIRADO PELO PROJETO DO COLEGA KAIO.
     cadastro = cadastro
     cadastro_ex = cad_excluido
     
@@ -170,7 +163,7 @@ def reports_diets(dietas,dietas_excluida):
             print("#========== DIETAS CADASTRADAS ==========#")
             print("#========================================#")
             print("--" * 25)
-            for nome in dietas: #ERRO NO FOR, ESTA EXIBINDO DIETAS A MAIS
+            for nome in dietas: 
                 print(f'NOME DA DIETA:{dietas[nome][0]} ')
                 print(f'DETALHE DA DIETA: {dietas[nome][1]}')
                 print(f'OBJETIVO DA DIETA: {dietas[nome][2]}')

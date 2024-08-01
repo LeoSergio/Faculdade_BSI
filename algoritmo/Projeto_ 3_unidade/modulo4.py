@@ -10,11 +10,11 @@ def my_information():
 
     {f'Curso:':<15} Sistema de Informação
 
-    {f'Professor:':<15} Flavius
+    {f'Professor:':<15} Flavius  Gorgônio
 
     {f'Instituição:':<15} UFRN-CAICO/CERES
 
-    {f'Github:':<15} Leo.sergio...
+    {f'Github:':<15} LeoSergio
 
     {f'E-mail:':<15} leandro.sergio.583@gmail.com
 
@@ -23,11 +23,12 @@ def my_information():
     {f'Instagram:':<15} leandro.sergio.583
     ''')
     print("=" * 50)
+    input("Pressione <ENTER> para continuar.")
 
 
 
 def project_information():
-
+    os.system('cls' if os.name == 'nt' else 'clear')
     print("=" * 50)
     print(" " * 15 + "SOBRE O PROJETO")
     print("=" * 50)
@@ -41,3 +42,4 @@ def project_information():
     {f'':<20} pois isso é trabalho de um profissional qualificado.
     ''')
     print("=" * 50)
+    input("Pressione <ENTER> para continuar.")

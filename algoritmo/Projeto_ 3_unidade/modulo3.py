@@ -136,14 +136,8 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
                         agenda = str(input("-> "))
                         agenda = data_nasc.strip()
                         print()
-
-                     
-                      #ERRO, NÃO ESTA VERIFICANDO SE EXISTE  HORARIOS IGUAIS. CORRIGIR.
-                     
-                     agendamento[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number,agenda]
                     
-                    # Imprimindo os dados dos pacientes em formato de coluna
-                    #os dados estão sendo armazenado no dicionário cadastro, chave CPF.
+                     agendamento[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number,agenda]
                      print('NOME: ', agendamento[cpf][0])
                      print(f'CPF: {cpf}')
                      print('TELEFONE: ', agendamento[cpf][6])
