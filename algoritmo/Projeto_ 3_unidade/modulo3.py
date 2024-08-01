@@ -42,9 +42,16 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
                 resp = input('Usar Dados do seu cadastro ? [S/N] ')
                 if resp.upper() == 'S':
                      agendamento[cpf] = cadastro[cpf]
+                     agenda = str(input(" Data do agendamento: "))
+                     while not validacao.date(agenda):
+                        print("Data Inválida! Tente Novamente.\n(Insira a Data no Formato: xx/xx/xxxx)")
+                        print()
+                        agenda = str(input("-> "))
+                        agenda = data_nasc.strip()
+                        print()
+                        agendamento[cpf] = agenda
                      #add horario ao dicionario agendamento
-                     agendado = validacao.agendar_consulta(agendamento)
-                     agendamento[cpf] = agendado
+                     print(agendamento[cpf])
                      print('NOME: ', cadastro[cpf][0])
                      print(f'CPF: {cpf}')
                      print('TELEFONE: ', cadastro[cpf][6])
@@ -53,8 +60,9 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
                      print('PESO: ', cadastro[cpf][3], 'KG')
                      print('ALTURA: ', cadastro[cpf][4])
                      print('IMC: ', cadastro[cpf][5])
-                     print('DATA DA CONSULTA: ' , agendado)
-                     print('Custo da consulta: R$50,00')       
+                     print('DATA DA CONSULTA: ', agenda )
+                     print('Custo da consulta: R$50,00')  
+                     print(agendamento[cpf])   
                 elif resp.upper() == 'N': #Não usar os dados do cadastro, usar outros dados.
                      print('DIGITE AS INFORMAÕES PEDIDAS.')
                      nome = input('Nome Completo: ')
@@ -119,13 +127,20 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
                             break
                         except ValueError: #indica que a entrada não é um número válido.
                             print('DIGITE APENAS NÚMEROS')
+                            print()
                      print('HORARIO DA CONSULTA')
-                     agendado = validacao.agendar_consulta(agendamento)
+                     agenda = str(input(" Data do agendamento "))
+                     while not validacao.date(agenda):
+                        print("Data Inválida! Tente Novamente.\n(Insira a Data no Formato: xx/xx/xxxx)")
+                        print()
+                        agenda = str(input("-> "))
+                        agenda = data_nasc.strip()
+                        print()
+
+                     
                       #ERRO, NÃO ESTA VERIFICANDO SE EXISTE  HORARIOS IGUAIS. CORRIGIR.
                      
-                     agendamento[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number,agendado]
-                     
-                     print(agendamento[cpf])
+                     agendamento[cpf] = [nome,data_nasc,genero,peso,altura,imc,phone_number,agenda]
                     
                     # Imprimindo os dados dos pacientes em formato de coluna
                     #os dados estão sendo armazenado no dicionário cadastro, chave CPF.
@@ -137,7 +152,7 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
                      print('PESO: ', agendamento[cpf][3], 'KG')
                      print('ALTURA: ', agendamento[cpf][4])
                      print('IMC: ', agendamento[cpf][5])
-                     print('DATA DA CONSULTA: ' , agendamento[cpf][7],)
+                     print('DATA DA CONSULTA: 20/08/2024 ')
                      print('Custo da consulta: R$50,00')
 
                      print('''
@@ -196,7 +211,6 @@ def agendam(cadastro,cad_excluido,agendamento,agendamento_excluido):
             print('PESO: ', agendamento[cpf][3], 'KG')
             print('ALTURA: ', agendamento[cpf][4])
             print('IMC: ', agendamento[cpf][5])
-            print('DATA DA CONSULTA: ' , agendamento[cpf][7],)
             print('Custo da consulta: R$50,00')
             input('Tecle <ENTER> para continuar...')         
         else:
