@@ -1,20 +1,23 @@
 {
-    "configurations": [
-        {
-            "name": "windows-gcc-x64",
-            "includePath": [
-                "${workspaceFolder}/**"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "cStandard": "${default}",
-            "cppStandard": "${default}",
-            "compilerPath": "c:\\Users\\Leo\\Documents\\GitHub\\Faculdade_BSI\\programacao\\unidade1\\media.c",
-            "intelliSenseMode": "windows-gcc-x64"
-        }
-    ],
-    "version": 4
+  "configurations": [
+      {
+          "name": "Win32",
+          "includePath": [
+              "${workspaceFolder}/**",
+              "C:/MinGW/include",
+              "C:/MinGW/lib/gcc/mingw32/9.2.0/include"
+          ],
+          "defines": [
+              "_DEBUG",
+              "UNICODE",
+              "_UNICODE"
+          ],
+          "windowsSdkVersion": "10.0.19041.0",
+          "compilerPath": "C:/MinGW/bin/gcc.exe",
+          "cStandard": "c11",
+          "cppStandard": "c++17",
+          "intelliSenseMode": "windows-gcc-x64"
+      }
+  ],
+  "version": 4
 }
