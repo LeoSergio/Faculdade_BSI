@@ -1,5 +1,5 @@
 {
-  "C_Cpp.default.compilerPath": "c:\\Users\\Leo\\Documents\\GitHub\\Faculdade_BSI\\programacao\\unidade1\\media.c",
+  "C_Cpp.default.compilerPath": "gcc",
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",
