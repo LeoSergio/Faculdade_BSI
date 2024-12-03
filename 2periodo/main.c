@@ -22,9 +22,6 @@ int main(void) {
 
 
 
-
-
-
 int tela_main(void){    
     int op;
     printf("\n");
