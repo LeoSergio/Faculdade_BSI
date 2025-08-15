@@ -1,5 +1,4 @@
 
-'''
 print('Welcome')
 n = input(int('Digite um numero: -> '))
 m = input(int('Digite outro numero: '))
@@ -9,4 +8,3 @@ for x in range(n):
     if respn%0:
         print(respn)
 
-'''
