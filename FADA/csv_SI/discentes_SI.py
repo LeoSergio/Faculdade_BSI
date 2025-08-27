@@ -41,12 +41,14 @@ def diagnosticar_csv(arquivo_csv):
         print(f"Erro no diagnóstico: {e}")
 
 
-def filtrar_alunos_sistema_informacao(arquivo_csv, coluna_curso='nome_curso', salvar_resultado=True, diagnosticar=False): 
+def filtrar_alunos_por_id_curso(arquivo_csv, id_curso='7191770.0', coluna_id_curso='id_curso', salvar_resultado_individual=False, diagnosticar=False): 
+    """
+    Filtra alunos por ID do curso (Sistemas de Informação = 7191770.0)
+    """
     if diagnosticar:
         diagnosticar_csv(arquivo_csv)
     
     try:
-        
         print(f"Lendo arquivo: {arquivo_csv}")
         
         configs = [
@@ -61,20 +63,17 @@ def filtrar_alunos_sistema_informacao(arquivo_csv, coluna_curso='nome_curso', sa
         ]
         
         df = None
-        config_usada = None
         
         for config in configs:
             try:
                 print(f"Tentando com: encoding={config.get('encoding')}, separador='{config.get('sep')}'")
                 df = pd.read_csv(arquivo_csv, **config)
-                config_usada = config
                 print(f"✓ Sucesso com configuração: {config}")
                 break
             except Exception as e:
                 print(f"✗ Falhou: {e}")
                 continue
         
-       
         if df is None:
             try:
                 print("Tentando com engine Python (mais tolerante)...")
@@ -82,83 +81,66 @@ def filtrar_alunos_sistema_informacao(arquivo_csv, coluna_curso='nome_curso', sa
                 print("✓ Sucesso com engine Python")
             except Exception as e:
                 print(f"✗ Engine Python também falhou: {e}")
+                return pd.DataFrame()
         
         if df is None:
             raise Exception("Não foi possível ler o arquivo CSV com nenhuma configuração")
         
-       
         print(f"\nDataset carregado com sucesso!")
         print(f"Total de registros: {len(df)}")
         print(f"Colunas disponíveis: {list(df.columns)}")
         
-        
-        if coluna_curso not in df.columns:
-            print(f"\nAviso: Coluna '{coluna_curso}' não encontrada.")
+        # Verifica se a coluna do ID do curso existe
+        if coluna_id_curso not in df.columns:
+            print(f"\nAviso: Coluna '{coluna_id_curso}' não encontrada.")
             print("Colunas disponíveis:")
             for i, col in enumerate(df.columns, 1):
                 print(f"{i}. {col}")
             
-            
-            colunas_similares = [col for col in df.columns if 'curso' in col.lower() or 'cur_n' in col.lower()]
+            # Tenta encontrar coluna similar para ID do curso
+            colunas_similares = [col for col in df.columns if any(palavra in col.lower() for palavra in ['id_curso', 'idcurso', 'curso_id', 'cod_curso', 'codigo_curso'])]
             if colunas_similares:
-                coluna_curso = colunas_similares[0]
-                print(f"Usando coluna similar: '{coluna_curso}'")
+                coluna_id_curso = colunas_similares[0]
+                print(f"Usando coluna similar para ID: '{coluna_id_curso}'")
             else:
-                
-                try:
-                    escolha = input("\nDigite o número da coluna que contém o curso: ")
-                    coluna_curso = df.columns[int(escolha) - 1]
-                except (ValueError, IndexError):
-                    print("Escolha inválida. Usando a primeira coluna.")
-                    coluna_curso = df.columns[0]
+                # Tenta encontrar qualquer coluna numérica que possa ser o ID
+                for col in df.columns:
+                    if df[col].dtype in ['int64', 'float64']:
+                        coluna_id_curso = col
+                        print(f"Usando coluna numérica: '{coluna_id_curso}'")
+                        break
+                else:
+                    coluna_id_curso = df.columns[0]
+                    print(f"Usando primeira coluna: '{coluna_id_curso}'")
         
+        # Converte a coluna para string para garantir a comparação
+        df[coluna_id_curso] = df[coluna_id_curso].astype(str).str.strip()
         
-        df[coluna_curso] = df[coluna_curso].astype(str).str.strip().str.lower()
-        
-       
-        nomes_si = [
-            'sistema de informação',
-            'sistemas de informação', 
-            'sistema de informacao',
-            'sistemas de informacao',
-            'si',
-            'sistema informação',
-            'sistemas informação',
-            'bacharelado em sistemas de informação',
-            'bsi'
-        ]
-        
-        
-        mask = df[coluna_curso].str.contains('|'.join(nomes_si), case=False, na=False)
+        # Filtra os alunos pelo ID do curso (Sistemas de Informação)
+        mask = df[coluna_id_curso] == str(id_curso)
         alunos_si = df[mask].copy()
         
         print(f"\n--- RESULTADOS ---")
-        print(f"Alunos de Sistema de Informação encontrados: {len(alunos_si)}")
+        print(f"Alunos de Sistemas de Informação (ID {id_curso}) encontrados: {len(alunos_si)}")
         
         if len(alunos_si) == 0:
-            print("\nCursos únicos encontrados no dataset:")
-            cursos_unicos = df[coluna_curso].unique()
-            for curso in sorted(cursos_unicos):
-                if pd.notna(curso) and curso != 'nan':
-                    print(f"  - {curso}")
+            print(f"\nIDs de curso únicos encontrados no dataset (amostra):")
+            ids_unicos = df[coluna_id_curso].unique()[:20]  # Mostra apenas os primeiros 20
+            for curso_id in sorted(ids_unicos):
+                if pd.notna(curso_id) and str(curso_id).strip() != '' and str(curso_id).strip() != 'nan':
+                    print(f"  - ID: {curso_id}")
             
-            print("\nNenhum aluno de Sistema de Informação encontrado.")
-            print("Verifique se o nome do curso está correto no arquivo.")
+            print(f"\nNenhum aluno com ID de curso {id_curso} encontrado.")
             return pd.DataFrame()
-        
         
         print(f"Percentual do total: {(len(alunos_si)/len(df)*100):.1f}%")
         
-        
-        print(f"\n--- AMOSTRA DOS DADOS ---")
-        print(alunos_si.head())
-        
-       
-        if salvar_resultado:
+        # Salva resultado individual apenas se solicitado
+        if salvar_resultado_individual:
             nome_base = os.path.splitext(os.path.basename(arquivo_csv))[0]
-            nome_arquivo = f"alunos_si_{nome_base}.csv"
+            nome_arquivo = f"alunos_si_id_{id_curso}_{nome_base}.csv"
             alunos_si.to_csv(nome_arquivo, index=False, encoding='utf-8')
-            print(f"\nResultado salvo em: {nome_arquivo}")
+            print(f"\nResultado individual salvo em: {nome_arquivo}")
         
         return alunos_si
         
@@ -178,25 +160,26 @@ def analisar_dados_si(df_si, ano):
         return
     
     print(f"\n=== ANÁLISE DOS DADOS {ano} ===")
-    print(f"Total de alunos de Sistema de Informação: {len(df_si)}")
+    print(f"Total de alunos de Sistemas de Informação: {len(df_si)}")
     
-    
-    colunas_interesse = ['sexo', 'genero', 'idade', 'periodo', 'semestre', 'status', 'situacao', 'matricula']
+    colunas_interesse = ['sexo', 'genero', 'idade', 'periodo', 'semestre', 'status', 'situacao', 'matricula', 'ano_ingresso']
     
     for coluna in colunas_interesse:
-       
         colunas_similares = [col for col in df_si.columns if coluna.lower() in col.lower()]
         
         if colunas_similares:
             coluna_encontrada = colunas_similares[0]
             print(f"\n{coluna_encontrada.upper()}:")
-            contagem = df_si[coluna_encontrada].value_counts().head(10)  # Mostra apenas os 10 primeiros
+            contagem = df_si[coluna_encontrada].value_counts().head(10)
             for valor, qtd in contagem.items():
                 if pd.notna(valor) and str(valor).strip() != '':
                     print(f"  {valor}: {qtd} ({qtd/len(df_si)*100:.1f}%)")
 
 
 if __name__ == "__main__":
+    # ID do curso de Sistemas de Informação
+    ID_CURSO_SI = '7191770.0'
+    
     # Lista de arquivos para processar
     arquivos_csv = [
         "csv/discentes_2009.csv",
@@ -217,9 +200,10 @@ if __name__ == "__main__":
         "csv/discentes_2024.csv"
     ]
     
+    # Lista para armazenar todos os alunos de SI
+    todos_alunos_si = []
     
     for arquivo in arquivos_csv:
-        # Verifica se o arquivo existe
         if not os.path.exists(arquivo):
             print(f"⚠️  Arquivo '{arquivo}' não encontrado. Pulando...")
             continue
@@ -228,15 +212,54 @@ if __name__ == "__main__":
         print(f"PROCESSANDO: {arquivo}")
         print(f"{'='*60}")
         
-       
         try:
-            ano = int(arquivo.split('_')[1].split('.')[0])
-        except:
-            ano = "desconhecido"
+            # Extrai o ano do nome do arquivo
+            try:
+                ano = int(arquivo.split('_')[1].split('.')[0])
+            except:
+                ano = "desconhecido"
+            
+            # Filtra alunos de SI pelo ID - NÃO salva arquivo individual
+            alunos_si_ano = filtrar_alunos_por_id_curso(
+                arquivo, 
+                id_curso=ID_CURSO_SI,
+                coluna_id_curso='id_curso',
+                salvar_resultado_individual=False,  # Não salva individual
+                diagnosticar=True
+            )
+            
+            if not alunos_si_ano.empty:
+                # Adiciona coluna com o ano de origem
+                alunos_si_ano['ano_arquivo'] = ano
+                todos_alunos_si.append(alunos_si_ano)
+                
+                # Faz análise individual
+                analisar_dados_si(alunos_si_ano, ano)
+
+        except Exception as e:
+            print(f"Erro ao processar {arquivo}: {e}")
+            continue
+
+    # --- CONSOLIDA TODOS OS DADOS ---
+    if todos_alunos_si:
+        print(f"\n{'='*60}")
+        print("CONSOLIDANDO TODOS OS DADOS DE SISTEMAS DE INFORMAÇÃO...")
         
+        # Junta todos os DataFrames
+        df_consolidado = pd.concat(todos_alunos_si, ignore_index=True)
         
-        alunos_si = filtrar_alunos_sistema_informacao(arquivo,  coluna_curso='nome_curso',diagnosticar=True)
+        # Salva o arquivo consolidado
+        nome_arquivo_final = f"TODOS_ALUNOS_SISTEMAS_INFORMACAO_ID_{ID_CURSO_SI}.csv"
+        df_consolidado.to_csv(nome_arquivo_final, index=False, encoding='utf-8')
         
-       
-        if not alunos_si.empty:
-            analisar_dados_si(alunos_si, ano)
+        print(f"✅ CONSOLIDAÇÃO CONCLUÍDA!")
+        print(f"Total de alunos de SI encontrados: {len(df_consolidado)}")
+        print(f"Arquivo consolidado salvo como: {nome_arquivo_final}")
+        print(f"\nResumo por ano:")
+        print(df_consolidado['ano_arquivo'].value_counts().sort_index())
+        
+        # Mostra informações finais
+        print(f"\nColunas no arquivo final: {list(df_consolidado.columns)}")
+        
+    else:
+        print(f"\n❌ Nenhum aluno de Sistemas de Informação (ID {ID_CURSO_SI}) foi encontrado em nenhum dos arquivos.")
