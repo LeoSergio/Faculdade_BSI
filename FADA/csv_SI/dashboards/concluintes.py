@@ -3,90 +3,196 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-# Configuração inicial para evitar warning do matplotlib
 plt.rcParams['figure.figsize'] = [8, 6]
 
-# Volta uma pasta e acessa o arquivo CSV
+# Caminho do arquivo
 caminho_csv = os.path.join("..", "discentes_edit.csv")
 
 try:
-    # Verifica se o arquivo existe
     if not os.path.exists(caminho_csv):
-        st.error(f"❌ Arquivo não encontrado: {caminho_csv}")
-        st.write("📁 Estrutura de pastas:")
-        
-        # Mostra o diretório atual
-        st.write(f"**Diretório atual:** {os.getcwd()}")
-        
-        # Mostra o que há uma pasta acima
-        pasta_anterior = os.path.join("..")
-        if os.path.exists(pasta_anterior):
-            st.write(f"**Conteúdo da pasta anterior (**`../`**):**")
-            for item in os.listdir(pasta_anterior):
-                if os.path.isdir(os.path.join(pasta_anterior, item)):
-                    st.write(f"📂 {item}/")
-                elif item.endswith('.csv'):
-                    st.write(f"📄 {item}")
-                else:
-                    st.write(f"📝 {item}")
-        else:
-            st.write("Pasta anterior não existe")
-            
+        st.error(f"Arquivo não encontrado: {caminho_csv}")
+        st.stop()
+
+    # Ler dados
+    df = pd.read_csv(caminho_csv)
+
+    st.title("Análise de Cancelamentos")
+
+    # Normalizar colunas
+    df["status"] = df["status"].astype(str).str.lower().str.strip()
+
+    # Detectar coluna de ano
+    colunas_ano = ['ano_ingresso', 'ano', 'ingresso', 'ano_entrada', 'year']
+    coluna_ano = None
+    for col in colunas_ano:
+        if col in df.columns:
+            coluna_ano = col
+            break
+
+    if not coluna_ano:
+        st.error("Não foi encontrada nenhuma coluna de ano no dataset.")
+        st.stop()
+
+    # Converter ano para inteiro
+    df[coluna_ano] = pd.to_numeric(df[coluna_ano], errors="coerce")
+    df = df.dropna(subset=[coluna_ano])
+    df[coluna_ano] = df[coluna_ano].astype(int)
+
+    # Seleção de ano
+    anos_disponiveis = sorted(df[coluna_ano].unique())
+    ano_selecionado = st.selectbox("Selecione o ano de ingresso", options=anos_disponiveis, index=0)
+
+    df_ano = df[df[coluna_ano] == ano_selecionado]
+
+    # Estatísticas básicas - APENAS CANCELADOS
+    total_ingressantes = len(df_ano)
+    concluintes = df_ano["status"].str.contains("conclu", case=False, na=False).sum()
+    cancelados = df_ano["status"].str.contains("cancel", case=False, na=False).sum()
+
+    taxa_conclusao = (concluintes / total_ingressantes * 100) if total_ingressantes > 0 else 0
+    taxa_cancelados = (cancelados / total_ingressantes * 100) if total_ingressantes > 0 else 0
+
+    st.subheader(f"Estatísticas - Ano {ano_selecionado}")
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("Ingressantes", total_ingressantes)
+    col2.metric("Concluintes", concluintes, f"{taxa_conclusao:.1f}%")
+    col3.metric("Cancelados", cancelados, f"{taxa_cancelados:.1f}%", delta_color="inverse")
+
+    # Distribuição dos status
+    st.write("Distribuição de status")
+    st.bar_chart(df_ano["status"].value_counts())
+
+    # Análise detalhada de cancelamentos
+    st.subheader("🔍 Análise Detalhada de Cancelamentos")
+    
+    # Criar categorias para análise
+    df_ano['categoria_status'] = df_ano['status'].apply(
+        lambda x: 'Concluído' if 'conclu' in str(x).lower() 
+        else 'Cancelado' if 'cancel' in str(x).lower()
+        else 'Outros'
+    )
+    
+    # Gráfico de pizza para cancelamentos
+    fig_pizza, ax_pizza = plt.subplots(figsize=(8, 6))
+    categorias_status = df_ano['categoria_status'].value_counts()
+    ax_pizza.pie(categorias_status.values, labels=categorias_status.index, autopct='%1.1f%%', startangle=90)
+    ax_pizza.set_title(f"Distribuição de Status - Ano {ano_selecionado}")
+    st.pyplot(fig_pizza)
+
+    # Comparação temporal (2009–2024) - APENAS CANCELADOS
+    st.subheader("Evolução Temporal (2009–2024) - Cancelamentos")
+    df_periodo = df[(df[coluna_ano] >= 2009) & (df[coluna_ano] <= 2024)]
+
+    resumo = df_periodo.groupby(coluna_ano).agg(
+        total=('status', 'count'),
+        concluintes=('status', lambda x: x.str.contains("conclu", case=False, na=False).sum()),
+        cancelados=('status', lambda x: x.str.contains("cancel", case=False, na=False).sum())
+    ).reset_index()
+
+    resumo["taxa_conclusao"] = (resumo["concluintes"] / resumo["total"] * 100).round(2)
+    resumo["taxa_cancelados"] = (resumo["cancelados"] / resumo["total"] * 100).round(2)
+
+    st.dataframe(resumo)
+
+    # Gráfico de evolução - APENAS CANCELADOS
+    fig, ax = plt.subplots(figsize=(12, 6))
+    ax.plot(resumo[coluna_ano], resumo["taxa_conclusao"], label="Taxa de Conclusão", marker="o", linewidth=2)
+    ax.plot(resumo[coluna_ano], resumo["taxa_cancelados"], label="Taxa de Cancelados", marker="s", linestyle="--", color='red')
+    
+    ax.set_title("Evolução das Taxas de Conclusão e Cancelamentos (2009–2024)")
+    ax.set_xlabel("Ano de ingresso")
+    ax.set_ylabel("Percentual (%)")
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+    ax.tick_params(axis='x', rotation=45)
+    st.pyplot(fig)
+
+    # Análise de tendência de cancelamentos
+    st.subheader("📈 Tendência de Cancelamentos")
+    
+    # Calcular média móvel para suavizar a tendência
+    resumo['cancelados_mm'] = resumo['taxa_cancelados'].rolling(window=3, min_periods=1).mean()
+    
+    fig_tendencia, ax_tendencia = plt.subplots(figsize=(12, 6))
+    ax_tendencia.bar(resumo[coluna_ano], resumo["taxa_cancelados"], alpha=0.6, label='Cancelamentos Anuais', color='red')
+    ax_tendencia.plot(resumo[coluna_ano], resumo["cancelados_mm"], label='Tendência (Média Móvel 3 anos)', 
+                     color='darkred', linewidth=3, marker='o')
+    
+    ax_tendencia.set_title("Tendência da Taxa de Cancelamentos")
+    ax_tendencia.set_xlabel("Ano de ingresso")
+    ax_tendencia.set_ylabel("Percentual de Cancelamentos (%)")
+    ax_tendencia.legend()
+    ax_tendencia.grid(True, alpha=0.3)
+    ax_tendencia.tick_params(axis='x', rotation=45)
+    st.pyplot(fig_tendencia)
+
+    # Estatísticas consolidadas - APENAS CANCELADOS
+    st.subheader("📊 Estatísticas Consolidadas (2009-2024)")
+    
+    total_periodo = resumo['total'].sum()
+    concluintes_periodo = resumo['concluintes'].sum()
+    cancelados_periodo = resumo['cancelados'].sum()
+    
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Total de Ingressantes (2009-2024)", f"{total_periodo:,}")
+    with col2:
+        st.metric("Total de Concluintes", f"{concluintes_periodo:,}", 
+                 f"{(concluintes_periodo/total_periodo*100):.1f}%")
+    with col3:
+        st.metric("Total de Cancelados", f"{cancelados_periodo:,}", 
+                 f"{(cancelados_periodo/total_periodo*100):.1f}%", delta_color="inverse")
+
+    # Análise dos cancelamentos por ano
+    st.subheader("📋 Detalhamento de Cancelamentos por Ano")
+    
+    cancelamentos_por_ano = resumo[['ano_ingresso', 'total', 'cancelados', 'taxa_cancelados']].copy()
+    cancelamentos_por_ano['percentual'] = (cancelamentos_por_ano['cancelados'] / cancelamentos_por_ano['total'] * 100).round(1)
+    cancelamentos_por_ano = cancelamentos_por_ano.sort_values('taxa_cancelados', ascending=False)
+    
+    st.dataframe(cancelamentos_por_ano)
+
+    # Top 5 anos com maior taxa de cancelamento
+    st.subheader("🥇 Top 5 Anos com Maior Taxa de Cancelamento")
+    top_cancelamentos = cancelamentos_por_ano.head(5)
+    st.dataframe(top_cancelamentos)
+
+    # Análise detalhada por status
+    st.subheader("Filtrar por Status")
+    status_selecionado = st.selectbox("Selecione um status", options=df["status"].unique())
+    df_status = df_ano[df_ano["status"] == status_selecionado]
+
+    st.write(f"Alunos com status '{status_selecionado}' no ano {ano_selecionado}: {len(df_status)}")
+    
+    if len(df_status) > 0:
+        st.dataframe(df_status)
     else:
-        # Lê o arquivo CSV
-        df = pd.read_csv(caminho_csv)
-        
-        st.title("📊 Percentual de Conclusão no Curso")
+        st.info("Nenhum aluno encontrado com este status para o ano selecionado.")
 
-        # Verifica se a coluna status existe
-        if "status" not in df.columns:
-            st.error("Coluna 'status' não encontrada no dataset!")
-            st.write("Colunas disponíveis:", df.columns.tolist())
-        else:
-            # Total de ingressantes
-            total_ingresso = len(df)
-
-            # Total de concluintes (mais flexível)
-            total_concluido = len(df[df["status"].str.upper().str.contains("CONCLU", na=False)])
-
-            # Calcula percentual
-            if total_ingresso > 0:
-                percentual_concluido = (total_concluido / total_ingresso) * 100
-            else:
-                percentual_concluido = 0
-
-            # Exibe resultados
-            st.write(f"**Total de ingressantes:** {total_ingresso}")
-            st.write(f"**Total de concluintes:** {total_concluido}")
-            st.write(f"✅ **Percentual de conclusão:** {percentual_concluido:.2f}%")
-
-            # Gráfico comparativo
-            fig, ax = plt.subplots()
-            bars = ax.bar(["Ingressantes", "Concluintes"], [total_ingresso, total_concluido], 
-                         color=["skyblue", "green"])
-            
-            # Adiciona valores nas barras
-            for bar in bars:
-                height = bar.get_height()
-                ax.text(bar.get_x() + bar.get_width()/2., height + 0.1,
-                        f'{int(height)}', ha='center', va='bottom')
-            
-            ax.set_ylabel("Quantidade de alunos")
-            ax.set_title("Comparativo: Ingressantes vs Concluintes")
-            st.pyplot(fig)
-
-            # Estatísticas adicionais
-            st.write("---")
-            st.write("**Distribuição de status:**")
-            st.write(df["status"].value_counts())
-
-except FileNotFoundError:
-    st.error("❌ Arquivo não encontrado!")
-    st.write("Verifique se o arquivo 'discentes_edit.csv' está na pasta anterior.")
-    
-except pd.errors.EmptyDataError:
-    st.error("❌ O arquivo CSV está vazio!")
-    
 except Exception as e:
-    st.error(f"❌ Erro inesperado: {e}")
-    st.write("Detalhes do erro:", str(e))
+    st.error(f"Erro inesperado: {e}")
+
+
+    def funcA(lista):
+        indiceItem = len(lista)-1
+        imprimir = ''
+        while indiceItem >= 0:
+            if indiceItem != 0:
+                imprimir += lista[indiceItem] + ','
+            else:
+                imprimir += lista[indiceItem]
+        return imprimir
+    
+    def funcB(lista):
+        indiceItem = len(lista)-1
+        imprimir = ''
+        for i in range(0,indiceItem+1):
+            while indiceItem >= 0:
+                if indiceItem != 0:
+                    imprimir += str(lista[indiceItem]+lista[i]) + ','
+                else:
+                    imprimir += str(lista[indiceItem]+lista[i]) + ','
+                indiceItem -=1
+                i +=1
+        return imprimir
