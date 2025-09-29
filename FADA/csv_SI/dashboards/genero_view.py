@@ -6,7 +6,6 @@ import seaborn as sns
 import os
 
 # --- 1. Constantes e Configurações Iniciais ---
-
 CAMINHO_CSV = os.path.join("..", "discentes_edit.csv")
 COLUNA_GENERO = "sexo"
 COLUNA_STATUS = "status"
@@ -17,7 +16,6 @@ MAPA_GENERO = {"M": "Masculino", "F": "Feminino"}
 MAPA_STATUS = {
     'Concluído': ['concluido', 'concluído', 'formado', 'graduado', 'diploma'],
     'Ativo': ['ativo', 'matriculado', 'cursando', 'regular'],
-    # Removido 'Evadido'
     'Cancelado': ['cancelado', 'cancelamento', 'desistente', 'abandono', 'evasão', 'jubilado'],
     'Trancado': ['trancado', 'trancamento'],
     'Desligado': ['desligado', 'desligamento']
@@ -30,7 +28,6 @@ sns.set_palette("husl")
 
 
 # --- 2. Funções de Processamento ---
-
 def categorizar_status(status: str) -> str:
     status_lower = str(status).lower().strip()
     for categoria, palavras_chave in MAPA_STATUS.items():
@@ -45,29 +42,36 @@ def carregar_dados(caminho: str) -> pd.DataFrame:
         raise FileNotFoundError(f"Arquivo não encontrado em: {caminho}")
     
     df = pd.read_csv(caminho)
+    if COLUNA_ANO in df.columns:
+        df[COLUNA_ANO] = pd.to_numeric(df[COLUNA_ANO], errors='coerce')
+    
     df[COLUNA_GENERO] = df[COLUNA_GENERO].map(MAPA_GENERO)
     df[COLUNA_CATEGORIA_STATUS] = df[COLUNA_STATUS].apply(categorizar_status)
     return df
 
 
 # --- 3. UI - Sidebar ---
-
 def configurar_sidebar(df: pd.DataFrame):
-    st.sidebar.header("🔧 Filtros")
+    st.sidebar.header("Filtros")
     
     genero_opcoes = ["Geral"] + list(df[COLUNA_GENERO].unique())
     genero_selecionado = st.sidebar.radio("Selecione o gênero:", genero_opcoes)
 
     ano_selecionado = None
     if COLUNA_ANO in df.columns:
-        anos_disponiveis = ["Todos"] + sorted(df[COLUNA_ANO].unique())
-        ano_selecionado = st.sidebar.selectbox("Filtrar por ano:", anos_disponiveis)
+        anos_validos = sorted(df[COLUNA_ANO].dropna().unique().astype(int))
+        anos_disponiveis = ["Todos"] + anos_validos
+        
+        # MUDANÇA: O seletor de ano volta ao padrão original ('Todos')
+        ano_selecionado = st.sidebar.selectbox(
+            "Filtrar por ano:", 
+            anos_disponiveis,
+        )
 
     return genero_selecionado, ano_selecionado
 
 
 # --- 4. Componentes ---
-
 def exibir_metricas(df: pd.DataFrame):
     total = len(df)
     if total == 0:
@@ -75,10 +79,8 @@ def exibir_metricas(df: pd.DataFrame):
         return
 
     status_counts = df[COLUNA_CATEGORIA_STATUS].value_counts()
-
     concluidos = status_counts.get('Concluído', 0)
     cancelados = status_counts.get('Cancelado', 0)
-    
     taxa_conclusao = (concluidos / total * 100) if total > 0 else 0
     taxa_evasao = (cancelados / total * 100) if total > 0 else 0
 
@@ -94,11 +96,10 @@ def exibir_metricas(df: pd.DataFrame):
 
 
 def exibir_graficos_distribuicao(df, titulo):
-    st.subheader("📈 Distribuição por Status")
+    st.subheader("Distribuição por Status")
     status_counts = df[COLUNA_CATEGORIA_STATUS].value_counts()
     
     col1, col2 = st.columns([0.6, 0.4])
-    
     with col1:
         fig, ax = plt.subplots(figsize=(10, 6))
         bars = ax.bar(status_counts.index, status_counts.values, color=CORES_STATUS[:len(status_counts)])
@@ -118,12 +119,18 @@ def exibir_graficos_distribuicao(df, titulo):
         ax.set_title(f"Proporção de Status - {titulo}")
         st.pyplot(fig)
 
-
-def exibir_analise_comparativa(df):
+# Esta função continua correta, com o filtro interno
+def exibir_analise_comparativa(df: pd.DataFrame):
     st.write("---")
-    st.header("👥 Análise Comparativa por Gênero")
+    st.header("Análise Comparativa por Gênero (Ingressantes até 2020)")
 
-    stats = df.groupby(COLUNA_GENERO)[COLUNA_CATEGORIA_STATUS].value_counts().unstack(fill_value=0)
+    df_analise = df[df[COLUNA_ANO] <= 2020].copy()
+
+    if df_analise.empty:
+        st.info("Não há dados de ingressantes até o ano de 2020 para a análise comparativa.")
+        return
+
+    stats = df_analise.groupby(COLUNA_GENERO)[COLUNA_CATEGORIA_STATUS].value_counts().unstack(fill_value=0)
     stats['Total'] = stats.sum(axis=1)
     stats['Taxa Conclusão (%)'] = (stats['Concluído'] / stats['Total'] * 100).round(1)
     stats['Taxa Evasão (%)'] = (stats['Cancelado'] / stats['Total'] * 100).round(1)
@@ -136,18 +143,17 @@ def exibir_analise_comparativa(df):
         fig, ax = plt.subplots(figsize=(10, 6))
         stats_plot = stats[['Taxa Conclusão (%)', 'Taxa Evasão (%)']]
         stats_plot.plot(kind='bar', ax=ax)
-        ax.set_title("Comparação de Taxas")
+        ax.set_title("Comparação de Taxas (até 2020)")
         ax.tick_params(axis='x', rotation=0)
         ax.grid(axis='y', alpha=0.3)
         st.pyplot(fig)
 
 
 # --- 5. Main ---
-
 def main():
     try:
         df_original = carregar_dados(CAMINHO_CSV)
-        st.title("🎯 Dashboard - Análise por Gênero e Status")
+        st.title("Dashboard - Análise por Gênero e Status")
 
         genero_selecionado, ano_selecionado = configurar_sidebar(df_original)
 
@@ -162,18 +168,20 @@ def main():
             df_filtrado = df_filtrado[df_filtrado[COLUNA_ANO] == ano_selecionado]
             titulo += f" - Ano {ano_selecionado}"
 
-        st.header(f"📊 Análise {titulo}")
+        st.header(f"Análise {titulo}")
         exibir_metricas(df_filtrado)
 
         if not df_filtrado.empty:
             exibir_graficos_distribuicao(df_filtrado, titulo)
+            
             if genero_selecionado == "Geral":
-                exibir_analise_comparativa(df_filtrado)
+                exibir_analise_comparativa(df_original)
 
     except FileNotFoundError as e:
-        st.error(f"❌ Erro: {e}")
+        st.error(f"Erro ao carregar o arquivo: {e}")
+        st.info("Verifique se o arquivo 'discentes_edit.csv' está na pasta correta.")
     except Exception as e:
-        st.error(f"❌ Ocorreu um erro inesperado: {e}")
+        st.error(f"Ocorreu um erro inesperado: {e}")
 
 
 if __name__ == "__main__":
