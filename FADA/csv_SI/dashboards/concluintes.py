@@ -22,7 +22,7 @@ try:
     df["status"] = df["status"].astype(str).str.lower().str.strip()
 
     # Detectar coluna de ano
-    colunas_ano = ['ano_ingresso', 'ano', 'ingresso', 'ano_entrada', 'year']
+    colunas_ano = ['ano_ingresso']
     coluna_ano = None
     for col in colunas_ano:
         if col in df.columns:
@@ -80,9 +80,9 @@ try:
     ax_pizza.set_title(f"Distribuição de Status - Ano {ano_selecionado}")
     st.pyplot(fig_pizza)
 
-    # Comparação temporal (2009–2024) - APENAS CANCELADOS
-    st.subheader("Evolução Temporal (2009–2024) - Cancelamentos")
-    df_periodo = df[(df[coluna_ano] >= 2009) & (df[coluna_ano] <= 2024)]
+    # Comparação temporal (2009–2020) - APENAS CANCELADOS
+    st.subheader("Evolução Temporal (2009–2020) - Cancelamentos")
+    df_periodo = df[(df[coluna_ano] >= 2009) & (df[coluna_ano] <= 2020)]
 
     resumo = df_periodo.groupby(coluna_ano).agg(
         total=('status', 'count'),
@@ -100,7 +100,7 @@ try:
     ax.plot(resumo[coluna_ano], resumo["taxa_conclusao"], label="Taxa de Conclusão", marker="o", linewidth=2)
     ax.plot(resumo[coluna_ano], resumo["taxa_cancelados"], label="Taxa de Cancelados", marker="s", linestyle="--", color='red')
     
-    ax.set_title("Evolução das Taxas de Conclusão e Cancelamentos (2009–2024)")
+    ax.set_title("Evolução das Taxas de Conclusão e Cancelamentos (2009–2020)")
     ax.set_xlabel("Ano de ingresso")
     ax.set_ylabel("Percentual (%)")
     ax.legend()
@@ -117,7 +117,7 @@ try:
     fig_tendencia, ax_tendencia = plt.subplots(figsize=(12, 6))
     ax_tendencia.bar(resumo[coluna_ano], resumo["taxa_cancelados"], alpha=0.6, label='Cancelamentos Anuais', color='red')
     ax_tendencia.plot(resumo[coluna_ano], resumo["cancelados_mm"], label='Tendência (Média Móvel 3 anos)', 
-                     color='darkred', linewidth=3, marker='o')
+                      color='darkred', linewidth=3, marker='o')
     
     ax_tendencia.set_title("Tendência da Taxa de Cancelamentos")
     ax_tendencia.set_xlabel("Ano de ingresso")
@@ -129,20 +129,36 @@ try:
 
     # Estatísticas consolidadas - APENAS CANCELADOS
     st.subheader("📊 Estatísticas Consolidadas (2009-2024)")
-    
-    total_periodo = resumo['total'].sum()
-    concluintes_periodo = resumo['concluintes'].sum()
-    cancelados_periodo = resumo['cancelados'].sum()
-    
+
+    # --- INÍCIO DA SOLUÇÃO ---
+    # 1. Crie um novo DataFrame filtrando o período correto (2009-2024) a partir do DF original
+    df_consolidado = df[(df[coluna_ano] >= 2009) & (df[coluna_ano] <= 2024)]
+
+    # 2. Calcule os totais a partir deste novo DataFrame
+    total_consolidado = len(df_consolidado)
+    concluintes_consolidado = df_consolidado["status"].str.contains("conclu", case=False, na=False).sum()
+    cancelados_consolidado = df_consolidado["status"].str.contains("cancel", case=False, na=False).sum()
+
+    # Verifica se o total é maior que zero para evitar divisão por zero
+    if total_consolidado > 0:
+        taxa_conclusao_consolidada = (concluintes_consolidado / total_consolidado * 100)
+        taxa_cancelamento_consolidada = (cancelados_consolidado / total_consolidado * 100)
+    else:
+        taxa_conclusao_consolidada = 0
+        taxa_cancelamento_consolidada = 0
+
+    # 3. Exiba os novos valores calculados
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("Total de Ingressantes (2009-2024)", f"{total_periodo:,}")
+        st.metric("Total de Ingressantes (2009-2024)", f"{total_consolidado:,}")
     with col2:
-        st.metric("Total de Concluintes", f"{concluintes_periodo:,}", 
-                 f"{(concluintes_periodo/total_periodo*100):.1f}%")
+        st.metric("Total de Concluintes", f"{concluintes_consolidado:,}", 
+                  f"{taxa_conclusao_consolidada:.1f}%")
     with col3:
-        st.metric("Total de Cancelados", f"{cancelados_periodo:,}", 
-                 f"{(cancelados_periodo/total_periodo*100):.1f}%", delta_color="inverse")
+        st.metric("Total de Cancelados", f"{cancelados_consolidado:,}", 
+                  f"{taxa_cancelamento_consolidada:.1f}%", delta_color="inverse")
+    # --- FIM DA SOLUÇÃO ---
+
 
     # Análise dos cancelamentos por ano
     st.subheader("📋 Detalhamento de Cancelamentos por Ano")
@@ -172,27 +188,3 @@ try:
 
 except Exception as e:
     st.error(f"Erro inesperado: {e}")
-
-
-    def funcA(lista):
-        indiceItem = len(lista)-1
-        imprimir = ''
-        while indiceItem >= 0:
-            if indiceItem != 0:
-                imprimir += lista[indiceItem] + ','
-            else:
-                imprimir += lista[indiceItem]
-        return imprimir
-    
-    def funcB(lista):
-        indiceItem = len(lista)-1
-        imprimir = ''
-        for i in range(0,indiceItem+1):
-            while indiceItem >= 0:
-                if indiceItem != 0:
-                    imprimir += str(lista[indiceItem]+lista[i]) + ','
-                else:
-                    imprimir += str(lista[indiceItem]+lista[i]) + ','
-                indiceItem -=1
-                i +=1
-        return imprimir
