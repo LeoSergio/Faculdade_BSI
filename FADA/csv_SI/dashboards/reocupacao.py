@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from typing import List, Any
 
+
+#Edit os mapas, se algo der errado foi nessa alteração.
+
 # --- 1. Constantes e Configurações ---
 CAMINHO_CSV = "../discentes_edit.csv"
 COLUNAS = {
@@ -15,11 +18,9 @@ COLUNAS = {
 }
 MAPA_STATUS = {
     'Concluído': ['concluido', 'concluído', 'formado', 'graduado', 'diploma'],
-    'Ativo': ['ativo', 'matriculado', 'cursando', 'regular'],
-    'Evadido': ['evadido', 'evasão', 'desistente', 'jubilado', 'abandono'],
+    'Ativo': ['ativo', 'matriculado', 'formando', 'regular'],
     'Cancelado': ['cancelado', 'cancelamento'],
     'Trancado': ['trancado', 'trancamento'],
-    'Desligado': ['desligado', 'desligamento']
 }
 MAPA_INGRESSO = {
     'SISU': ['sisu', 'sistema de seleção unificada', 'sistema unificado'],
@@ -29,10 +30,6 @@ MAPA_INGRESSO = {
     'Reopção': ['reopção'],
     'Reingresso': ['reingresso'],
     'Vagas Residuais': ['vagas residuais', 'vaga residual'],
-    'Segunda Graduação': ['segunda graduação', 'graduado'],
-    'ENEM': ['enem'],
-    'Mobilidade Acadêmica': ['mobilidade'],
-    'Convênio': ['convênio', 'acordo']
 }
 
 st.set_page_config(page_title="Análise por Forma de Ingresso", layout="wide")
