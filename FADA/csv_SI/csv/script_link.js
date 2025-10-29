@@ -10,7 +10,7 @@ document.querySelectorAll("a[href*='resource']").forEach((link) => {
     const match = texto.match(/20\d{2}/);
     if (match) {
         const ano = parseInt(match[0]);
-        if (ano >= 2009 && ano <= 2024) {   
+        if (ano >= 2009 && ano <= 2025) {  // 
             urls[ano] = link.href;
         }
     }
