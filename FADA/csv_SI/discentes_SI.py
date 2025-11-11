@@ -1,10 +1,15 @@
 import pandas as pd
 import os
+import re
 
+# ==============================================================================
+# FUNÇÃO DE FILTRAGEM (PERMANECE IGUAL, POIS É EXCELENTE E REUTILIZÁVEL)
+# ==============================================================================
 def filtrar_alunos_por_id_curso(arquivo_csv, id_curso='7191770.0', coluna_id_curso='id_curso'): 
     """
-    Filtra alunos por ID do curso (Sistemas de Informação = 7191770.0)
-    Retorna DataFrame vazio se não conseguir processar
+    Filtra alunos por ID do curso a partir de um único arquivo CSV.
+    É robusta a diferentes formatos de CSV (separador, codificação).
+    Retorna um DataFrame do pandas.
     """
     try:
         # Tenta diferentes configurações de leitura
@@ -42,97 +47,108 @@ def filtrar_alunos_por_id_curso(arquivo_csv, id_curso='7191770.0', coluna_id_cur
             if colunas_similares:
                 coluna_id_curso = colunas_similares[0]
             else:
-                # Se não encontrar, retorna vazio
                 return pd.DataFrame()
         
-        # Converte a coluna para string e filtra
+        # Converte a coluna para string para garantir a comparação correta e filtra
         df[coluna_id_curso] = df[coluna_id_curso].astype(str).str.strip()
         mask = df[coluna_id_curso] == str(id_curso)
-        alunos_si = df[mask].copy()
+        alunos_filtrados = df[mask].copy()
         
-        return alunos_si
+        return alunos_filtrados
         
     except Exception:
         return pd.DataFrame()
 
-def gerar_csv_consolidado():
+# ==============================================================================
+# TAREFA 1: GERAR CSV CONSOLIDADO PARA SITUAÇÃO DOS DISCENTES
+# ==============================================================================
+def gerar_csv_situacoes():
     """
-    Função principal que gera o CSV consolidado sem mensagens no terminal
-    Retorna True se bem-sucedido, False caso contrário
+    Processa a lista de arquivos de SITUAÇÃO e gera um CSV consolidado.
     """
-    # ID do curso de Sistemas de Informação
+    print("\n--- Iniciando processamento de SITUAÇÕES de discentes ---")
     ID_CURSO_SI = '7191770.0'
     
-    # Lista de arquivos para processar
-    arquivos_csv = [
-        "csv/discentes_2009.csv",
-        "csv/discentes_2010.csv", 
-        "csv/discentes_2011.csv",
-        "csv/discentes_2012.csv",
-        "csv/discentes_2013.csv",
-        "csv/discentes_2014.csv",
-        "csv/discentes_2015.csv",
-        "csv/discentes_2016.csv",
-        "csv/discentes_2017.csv",
-        "csv/discentes_2018.csv",
-        "csv/discentes_2019.csv",
-        "csv/discentes_2020.csv",
-        "csv/discentes_2021.csv",
-        "csv/discentes_2022.csv",
-        "csv/discentes_2023.csv",
-        "csv/discentes_2024.csv"
+    # ATENÇÃO: ADICIONE AQUI TODOS OS SEUS ARQUIVOS DE SITUAÇÃO
+    arquivos_csv_situacoes = [
+        "situacao_discentes/situacoes-discentes-2012.1.csv",
+        "csv/situacao_discentes/situacoes-discentes-2012.2.csv",
+        # Adicione os outros arquivos de situação aqui. Ex:
+        # "csv/situacao_discentes/situacoes-discentes-2013.1.csv",
+        # ...
     ]
     
-    todos_alunos_si = []
-    arquivos_processados = 0
-    arquivos_com_erro = 0
+    todos_os_dados = []
     
-    for arquivo in arquivos_csv:
+    for arquivo in arquivos_csv_situacoes:
         if not os.path.exists(arquivo):
-            arquivos_com_erro += 1
+            print(f"AVISO: Arquivo não encontrado, pulando: {arquivo}")
             continue
         
-        try:
-            # Extrai o ano do nome do arquivo
-            ano = int(arquivo.split('_')[1].split('.')[0])
-            
-            # Filtra alunos de SI
-            alunos_si_ano = filtrar_alunos_por_id_curso(
-                arquivo, 
-                id_curso=ID_CURSO_SI,
-                coluna_id_curso='id_curso'
-            )
-            
-            if not alunos_si_ano.empty:
-                # Adiciona coluna com o ano de origem
-                alunos_si_ano['ano_arquivo'] = ano
-                todos_alunos_si.append(alunos_si_ano)
-                arquivos_processados += 1
+        dados_filtrados = filtrar_alunos_por_id_curso(arquivo, id_curso=ID_CURSO_SI)
         
-        except Exception:
-            arquivos_com_erro += 1
-            continue
+        if not dados_filtrados.empty:
+            match = re.search(r'(\d{4}\.\d|\d{4})', arquivo)
+            periodo = match.group(1) if match else 'desconhecido'
+            dados_filtrados['periodo_arquivo'] = periodo
+            todos_os_dados.append(dados_filtrados)
+            print(f"  -> Processado: {arquivo} ({len(dados_filtrados)} registros encontrados)")
 
-    # Consolida todos os dados
-    if todos_alunos_si:
-        try:
-            df_consolidado = pd.concat(todos_alunos_si, ignore_index=True)
-            
-            # Salva o arquivo consolidado
-            nome_arquivo_final = f"TODOS_ALUNOS_SISTEMAS_INFORMACAO_ID_123{ID_CURSO_SI}.csv"
-            df_consolidado.to_csv(nome_arquivo_final, index=False, encoding='utf-8')
-            
-            # Única mensagem permitida
-            print(f"CSVs lidos com sucesso: {arquivos_processados} arquivos processados, {len(df_consolidado)} alunos encontrados")
-            return True
-            
-        except Exception:
-            print("Erro ao consolidar os dados")
-            return False
+    if todos_os_dados:
+        df_consolidado = pd.concat(todos_os_dados, ignore_index=True)
+        nome_arquivo_final = "SITUACOES_ALUNOS_SISTEMAS_INFORMACAO.csv"
+        df_consolidado.to_csv(nome_arquivo_final, index=False, encoding='utf-8')
+        print(f"✅ Arquivo de SITUAÇÕES gerado com sucesso: '{nome_arquivo_final}' ({len(df_consolidado)} registros no total)")
     else:
-        print("Nenhum arquivo CSV foi lido com sucesso")
-        return False
+        print("Nenhum registro de Sistemas de Informação encontrado nos arquivos de situação fornecidos.")
 
-# Executa a função
+# ==============================================================================
+# TAREFA 2: GERAR CSV CONSOLIDADO PARA DISCENTES EGRESSOS
+# ==============================================================================
+def gerar_csv_egressos():
+    """
+    Processa a lista de arquivos de EGRESSOS e gera um CSV consolidado.
+    """
+    print("\n--- Iniciando processamento de discentes EGRESSOS ---")
+    ID_CURSO_SI = '7191770.0'
+    
+    # ATENÇÃO: ADICIONE AQUI TODOS OS SEUS ARQUIVOS DE EGRESSOS
+    arquivos_csv_egressos = [
+        "csv/egressos/discentes-egressos-2009.csv",
+        "csv/egressos/discentes-egressos-2010.csv",
+        # Adicione os outros arquivos de egressos aqui. Ex:
+        # "csv/egressos/discentes-egressos-2011.csv",
+        # ...
+    ]
+    
+    todos_os_dados = []
+    
+    for arquivo in arquivos_csv_egressos:
+        if not os.path.exists(arquivo):
+            print(f"AVISO: Arquivo não encontrado, pulando: {arquivo}")
+            continue
+
+        dados_filtrados = filtrar_alunos_por_id_curso(arquivo, id_curso=ID_CURSO_SI)
+        
+        if not dados_filtrados.empty:
+            match = re.search(r'(\d{4})', arquivo)
+            ano = match.group(1) if match else 'desconhecido'
+            dados_filtrados['ano_arquivo'] = ano
+            todos_os_dados.append(dados_filtrados)
+            print(f"  -> Processado: {arquivo} ({len(dados_filtrados)} registros encontrados)")
+
+    if todos_os_dados:
+        df_consolidado = pd.concat(todos_os_dados, ignore_index=True)
+        nome_arquivo_final = "EGRESSOS_SISTEMAS_INFORMACAO.csv"
+        df_consolidado.to_csv(nome_arquivo_final, index=False, encoding='utf-8')
+        print(f"✅ Arquivo de EGRESSOS gerado com sucesso: '{nome_arquivo_final}' ({len(df_consolidado)} registros no total)")
+    else:
+        print("Nenhum registro de Sistemas de Informação encontrado nos arquivos de egressos fornecidos.")
+
+# ==============================================================================
+# BLOCO DE EXECUÇÃO PRINCIPAL
+# ==============================================================================
 if __name__ == "__main__":
-    gerar_csv_consolidado()
+    gerar_csv_situacoes()
+    gerar_csv_egressos()
+    print("\nProcessamento concluído.")
