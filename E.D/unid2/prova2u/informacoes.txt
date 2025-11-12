@@ -1,0 +1,5 @@
+Algoritmos usados para cada exemplo de estrutura(pilha,fila e lista):
+pilha: hstorico de navegação
+fila:  E-commerce com a questão da logistica de entrega
+lista: usar o exemplo de uma playlist
+
