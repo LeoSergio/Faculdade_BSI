@@ -3,3 +3,6 @@ pilha: hstorico de navegação
 fila:  E-commerce com a questão da logistica de entrega
 lista: usar o exemplo de uma playlist
 
+tenho que fazer os graficos de add e remove da lista e fila e adicionar as suas respectivas
+pastas.
+
