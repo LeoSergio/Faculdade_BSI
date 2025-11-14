@@ -9,10 +9,10 @@ Backend: Python (Django + Django Rest Framework)
 Banco de Dados: PostgreSQL
 
 Diagrama da Arquitetura
-O modelo é Desacoplado (Headless). O Frontend, o Backend e as fontes de dados externas são sistemas independentes que se comunicam via APIs.
+O modelo é Desacoplado (Headless). O Frontend, o Backend e as fontes de dados externas são sistemas independentes que se comunicam via APIs. "modelos de camadas".
 
 ------------------------------------------------
-----
+------------------------------------------------
 
 
 🚀 Justificativa das Ferramentas
