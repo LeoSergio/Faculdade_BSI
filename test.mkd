@@ -1,0 +1,58 @@
+# Projeto Arquitetural do Software
+
+Documento construído a partir do **Modelo BSI - Doc 005 - Documento de Projeto Arquitetural do Software**.
+
+## Descrição da Arquitetura do Projeto
+
+A arquitetura adotada para o sistema de Análise de Desempenho Acadêmico é o modelo **Desacoplado (Headless)**, baseado na **Arquitetura em 3 Camadas (3-Tier)**.
+
+Neste modelo, a aplicação é dividida em dois subsistemas principais e independentes que se comunicam exclusivamente via protocolo HTTP (API RESTful):
+
+1.  **Frontend (Camada de Apresentação):** Uma aplicação web moderna (Single Page Application / Server Side Rendering) responsável pela interface do usuário, dashboards interativos e experiência do aluno/professor.
+2.  **Backend (Camada de Lógica e Dados):** Uma API robusta responsável pelas regras de negócio, autenticação, persistência de dados e processamento de arquivos.
+
+Além das camadas tradicionais, o sistema integra um **Pipeline de ETL (Extract, Transform, Load)** dedicado no backend. Este componente é responsável por receber arquivos PDF (históricos escolares), extrair dados tabulares não estruturados, higienizá-los e persisti-los no banco de dados relacional.
+
+**Requisitos não funcionais impactantes:**
+* **Desacoplamento:** A separação permite que o frontend evolua independentemente do backend, facilitando a criação futura de aplicações móveis consumindo a mesma API.
+* **Confiabilidade de Dados:** O uso de transações atômicas no banco de dados é crucial para garantir a integridade das notas extraídas.
+* **Containerização:** O projeto será desenvolvido orientado a microsserviços/containers desde o início para garantir paridade entre os ambientes de desenvolvimento e produção.
+
+## Visão Geral da Arquitetura
+
+Abaixo apresenta-se a organização geral dos componentes, demonstrando o fluxo de dados desde o navegador do usuário até o processamento de dados no servidor.
+
+```mermaid
+flowchart TD
+    subgraph "BLOCO 1: Cliente (Frontend)"
+        direction TB
+        A(Navegador) --> B{Aplicação React / Next.js}
+        B -- "Requisições HTTP (JSON)" --> API_GATE
+        API_GATE -- "Respostas (JSON)" --> B
+        B --> DASH(Dashboards e Gráficos)
+    end
+
+    subgraph "BLOCO 2: Servidor (Backend)"
+        direction TB
+        API_GATE(API RESTful - Django Rest Framework)
+        
+        API_GATE -- "Autenticação e Rotas" --> CONTROLLER{Views / Controllers}
+        
+        CONTROLLER -- "Solicita Extração" --> SERVICE_ETL[Service: Motor de Extração]
+        SERVICE_ETL -- "Lê PDF (Tabula/Pandas)" --> SERVICE_ETL
+        
+        CONTROLLER -- "Persistência" --> ORM[Django ORM]
+        SERVICE_ETL -- "Salva Dados Limpos" --> ORM
+        
+        ORM <--> DB[(PostgreSQL)]
+    end
+
+    style A fill:#FFF3E0,stroke:#FB8C00
+    style B fill:#FFF3E0,stroke:#FB8C00
+    style DASH fill:#FFF3E0,stroke:#FB8C00
+
+    style API_GATE fill:#E3F2FD,stroke:#1E88E5
+    style CONTROLLER fill:#E3F2FD,stroke:#1E88E5
+    style SERVICE_ETL fill:#FFEBEE,stroke:#E53935
+    style ORM fill:#E3F2FD,stroke:#1E88E5
+    style DB fill:#E8F5E9,stroke:#43A047
