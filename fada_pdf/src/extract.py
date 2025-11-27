@@ -1,1 +1,0 @@
-#leitura e estração do PDF(Apenas extrai os dados,não 1limpa)
