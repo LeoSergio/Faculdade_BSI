@@ -1,0 +1,1 @@
+# A CLASSE Hash (usa a árvore)

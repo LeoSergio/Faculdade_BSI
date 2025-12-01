@@ -1,0 +1,1 @@
+# O TESTE (Lê CSVs, roda as 3 operações e gera .res)

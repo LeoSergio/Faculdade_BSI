@@ -1,0 +1,4 @@
+* O script main_experimento.py mantém a tabela hash viva na memória entre a inserção e a busca.
+* Se precisar corrigir a lógica da Hash, mexe apenas no arquivo da classe. Se precisar
+ mudar como mede o tempo, mexe apenas no arquivo de experimento.
+ *

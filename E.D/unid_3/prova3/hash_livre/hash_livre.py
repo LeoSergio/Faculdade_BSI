@@ -1,0 +1,1 @@
+# A CLASSE (Lógica pura)
