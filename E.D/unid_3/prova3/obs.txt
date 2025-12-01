@@ -1,4 +1,9 @@
 * O script main_experimento.py mantém a tabela hash viva na memória entre a inserção e a busca.
 * Se precisar corrigir a lógica da Hash, mexe apenas no arquivo da classe. Se precisar
  mudar como mede o tempo, mexe apenas no arquivo de experimento.
- *
+
+*Execução do trabalho:
+    abra o terminal na pasta unid3/prova3
+    execute: python hash_livre/main_experimento.py
+    execute: python hash_binaria/main_experimento.py
+    Verifique a pasta "resultados" e veja se gerou os 6 arquivos .res

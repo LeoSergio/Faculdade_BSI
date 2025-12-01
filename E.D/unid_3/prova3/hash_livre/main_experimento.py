@@ -23,7 +23,7 @@ def executar():
     # 1. INSERÇÃO
     print("Iniciando Inserção (Hash Livre)...")
     tempos = []
-    with open('../csv/insercao.csv', 'r') as f:
+    with open('../csv/inscricao.csv', 'r') as f:
         reader = csv.reader(f)
         # next(reader) # Descomente se o CSV tiver cabeçalho
         for linha in reader:
