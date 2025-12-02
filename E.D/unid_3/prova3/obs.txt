@@ -7,3 +7,4 @@
     execute: python hash_livre/main_experimento.py
     execute: python hash_binaria/main_experimento.py
     Verifique a pasta "resultados" e veja se gerou os 6 arquivos .res
+    Plotagem dos graficos no arquivo PlotaGrafico.py
