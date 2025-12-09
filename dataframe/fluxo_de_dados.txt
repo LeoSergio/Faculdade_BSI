@@ -1,0 +1,17 @@
+Modularização:
+ dataframe/
+    ├── __init__.py          # Expõe a função principal para uso externo
+    ├── loader.py            # Responsável apenas por ler o PDF (tabula-py)
+    ├── parser.py            # Limpeza e transformação de dados brutos para Pandas
+    ├── indicadores.py       # O arquivo de lógica de negócios
+    └── builder.py           # Orquestrador: aplica os indicadores ao DataFrame
+    └── view_data.py         # Visualização do DataFrame
+
+
+Fluxo de Dados:
+
+PDF entra em loader.py -> Sai Dados Brutos.
+
+Dados Brutos entram em parser.py -> Sai DataFrame Limpo.
+
+DataFrame Limpo entra em builder.py, que consulta indicadores.py -> Sai DataFrame Enriquecido (com as métricas calculadas).
