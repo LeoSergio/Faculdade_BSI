@@ -1,0 +1,45 @@
+🏛️ Arquitetura do Projeto: Análise de Dados Educacionais
+Este documento descreve a arquitetura de software e as ferramentas selecionadas para o projeto, com foco em um sistema escalável, seguro e moderno que consome dados via APIs.
+
+Stack de Tecnologia
+Frontend: React (Next.js) + TypeScript
+
+Backend: Python (Django + Django Rest Framework)
+
+Banco de Dados: PostgreSQL
+
+Diagrama da Arquitetura
+O modelo é Desacoplado (Headless). O Frontend, o Backend e as fontes de dados externas são sistemas independentes que se comunicam via APIs. "modelos de camadas".
+
+------------------------------------------------
+------------------------------------------------
+
+
+🚀 Justificativa das Ferramentas
+1. Frontend (O que o usuário vê)
+React (com Next.js)
+O que faz: Constrói a interface do usuário (os dashboards, tabelas e gráficos) que o usuário vê no navegador.
+
+Por que usar: É a biblioteca de UI mais popular do mundo. Permite criar componentes reutilizáveis, e o Next.js garante a alta performance e otimização (SEO) da aplicação.
+
+TypeScript
+O que faz: Adiciona "superpoderes" ao JavaScript, como a checagem de tipos.
+
+Por que usar: Previne bugs antes que aconteçam. Garante que os dados vindos da API (ex: uma nota) sejam sempre do tipo correto (ex: number), tornando o código mais seguro e fácil de manter.
+
+2. Backend (O cérebro da aplicação)
+Django
+O que faz: O framework principal que gerencia a lógica de negócios, a segurança e o banco de dados.
+
+Por que usar: É um framework Python "com baterias inclusas". Ele nos dá um Painel de Administração e um sistema de autenticação prontos, economizando semanas de trabalho.
+
+Django Rest Framework (DRF)
+O que faz: Transforma o Django em um servidor de API RESTful de alta performance.
+
+Por que usar: É a ponte perfeita entre nosso banco de dados e o frontend React. Ele padroniza a entrega de dados (em JSON) de forma segura e rápida, com uma API de testes navegável inclusa.
+
+3. Banco de Dados (Onde os dados vivem)
+PostgreSQL
+O que faz: Armazena todos os dados da aplicação (alunos, notas, disciplinas) de forma estruturada.
+
+Por que usar: É o banco de dados relacional mais avançado e confiável para aplicações de dados. Garante a integridade dos dados acadêmicos e escala com performance para consultas complexas de análise.
