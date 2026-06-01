@@ -9,7 +9,7 @@ A = [1+2*C   -C      0       0;
       0       0      -C      1+2*C];
 
 % === LETRA A ===
-disp('=== (a) Fatoração LU de A com C=1 ===');
+disp('=== (a)');
 disp(' ');
 disp('Matriz A (tridiagonal):');
 disp(A);
@@ -22,10 +22,8 @@ disp(round(U * 1e4) / 1e4);
 disp('Verificação LU - PA (deve ser zeros):');
 disp(round((L*U - P*A) * 1e4) / 1e4);
 
-input('--- Pressione Enter para continuar para (b) ---');
-
 % === LETRA B ===
-disp('=== (b) Distribuições de temperatura t1, t2, t3, t4 ===');
+disp('B');
 disp(' ');
 
 t0 = [10; 15; 15; 10];
@@ -37,7 +35,3 @@ for k = 1:4
   T = U \ (L \ (P * T));
   fprintf('t%d = [%.4f, %.4f, %.4f, %.4f]^T\n', k, T(1), T(2), T(3), T(4));
 end
-
-disp(' ');
-disp('Conclusão: as temperaturas convergem para 0° ao longo do tempo,');
-disp('pois as extremidades da barra são mantidas a 0°.');

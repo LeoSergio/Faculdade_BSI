@@ -11,7 +11,6 @@ function [A, b] = monta_sistema(m, n)
   T_left  = 5;
 
   for i = 1:n
-    % interpolação linear na borda direita
     if n == 1
       T_right = 7.5;
     else
@@ -19,31 +18,27 @@ function [A, b] = monta_sistema(m, n)
     end
 
     for j = 1:m
-      k = (i-1)*m + j;  % índice global do ponto
+      k = (i-1)*m + j;
       A(k,k) = 4;
 
-      % vizinho esquerdo
       if j > 1
         A(k, k-1) = -1;
       else
         b(k) = b(k) + T_left;
       end
 
-      % vizinho direito
       if j < m
         A(k, k+1) = -1;
       else
         b(k) = b(k) + T_right;
       end
 
-      % vizinho acima
       if i > 1
         A(k, k-m) = -1;
       else
         b(k) = b(k) + T_top;
       end
 
-      % vizinho abaixo
       if i < n
         A(k, k+m) = -1;
       else
@@ -54,18 +49,17 @@ function [A, b] = monta_sistema(m, n)
 end
 
 % === LETRA D ===
-disp('=== (d) Função monta_sistema(m, n) implementada ===');
-disp('Constrói A (banda pentadiagonal) e b para malha m x n.');
+disp('=== (d) ===');
+disp('Função monta_sistema(m, n) implementada.');
 disp(' ');
 
-input('--- Pressione Enter para continuar para (e) ---');
 
 % === LETRA E ===
-disp('=== (e) Teste com m=4, n=2 (reproduz problema original) ===');
+disp('=== (e) ===');
 disp(' ');
 [A_test, b_test] = monta_sistema(4, 2);
-disp('Matriz A gerada:'); disp(A_test);
-disp('Vetor b gerado:'); disp(b_test');
+disp('Matriz A:'); disp(A_test);
+disp('Vetor b:'); disp(b_test');
 
 A_orig = [ 4 -1 -1  0  0  0  0  0;
           -1  4  0 -1  0  0  0  0;
@@ -78,27 +72,24 @@ A_orig = [ 4 -1 -1  0  0  0  0  0;
 b_orig = [5; 15; 0; 10; 0; 10; 20; 30];
 
 if isequal(A_test, A_orig) && isequal(b_test, b_orig)
-  disp('✓ A e b coincidem com o enunciado!');
+  disp('A e b coincidem com o enunciado.');
 else
-  disp('✗ Divergência encontrada.');
   disp('Diferença em A:'); disp(A_test - A_orig);
   disp('Diferença em b:'); disp(b_test - b_orig);
 end
 
-input('--- Pressione Enter para continuar para (f) ---');
 
 % === LETRA F ===
-disp('=== (f) Solução e mapa de calor para m=4, n=2 ===');
+disp('=== (f) ===');
 disp(' ');
 [A_f, b_f] = monta_sistema(4, 2);
 [L, U, P]  = lu(A_f);
 x_f        = U \ (L \ (P * b_f));
 
-disp('Temperaturas nos pontos interiores (matriz n x m):');
+disp('Temperaturas (matriz n x m):');
 T_matrix = reshape(x_f, 4, 2)';
 disp(T_matrix);
 
-% Mapa de calor com bordas
 T_full = zeros(4, 6);
 T_full(1,:)   = 0;
 T_full(4,:)   = 10;
@@ -111,18 +102,20 @@ figure;
 imagesc(T_full);
 colorbar;
 colormap(hot);
-title('Distribuição de Temperatura na Placa (m=4, n=2)');
-xlabel('Posição horizontal');
-ylabel('Posição vertical');
+title('Temperatura na Placa (m=4, n=2)');
+xlabel('Horizontal');
+ylabel('Vertical');
 
-input('--- Pressione Enter para continuar para (g) ---');
+
+
+
 
 % === LETRA G ===
-disp('=== (g) Estudo de escalabilidade ===');
+disp('=== (g) ===');
 disp(' ');
-sizes = [10 20 50 100];  % removido 200 para não travar
+sizes = [10 20 50 100];
 
-fprintf('%-12s %-12s %-12s %-12s %-14s\n', ...
+fprintf('%-12s %-12s %-12s %-12s %-20s\n', ...
         'Malha', 'T_montar(s)', 'T_fatorar(s)', 'T_resolver(s)', 'T_inversa(s)');
 
 for s = sizes
@@ -130,49 +123,45 @@ for s = sizes
 
   t1 = tic;
   [A_g, b_g] = monta_sistema(m, n);
-  A_sp = sparse(A_g);  % já converte para sparse
+  A_sp = sparse(A_g);
   t_build = toc(t1);
 
   t2 = tic;
-  [L_g, U_g, P_g] = lu(A_sp);  % LU esparsa
+  [L_g, U_g, P_g, Q_g] = lu(A_sp);  % 4 saídas: corrige o warning
   t_lu = toc(t2);
 
   t3 = tic;
-  U_g \ (L_g \ (P_g * b_g));
+  x_g = Q_g * (U_g \ (L_g \ (P_g * b_g)));  % usa Q na solução
   t_solve = toc(t3);
 
-  if N <= 400  % só calcula inversa para malhas pequenas
+  if N <= 400
     t4 = tic;
     inv(full(A_sp));
     t_inv = toc(t4);
     str_inv = sprintf('%.4f', t_inv);
   else
-    str_inv = 'N/A (muito grande)';
+    str_inv = 'N/A';
   end
 
   fprintf('%-12s %-12.4f %-12.4f %-12.4f %-20s\n', ...
           sprintf('%dx%d',m,n), t_build, t_lu, t_solve, str_inv);
 end
 
-disp(' ');
-disp('Conclusão: fatoração LU esparsa é muito mais rápida e econômica');
-disp('em memória do que calcular A^{-1} para matrizes grandes.');
 
-input('--- Pressione Enter para continuar para (h) ---');
+input('');
 
 % === LETRA H ===
-disp('=== (h) Esparsidade para malha 100x100 ===');
+disp('=== (h) ===');
 disp(' ');
 [A_h, b_h] = monta_sistema(100, 100);
-N_h        = 100*100;
-nnz_dense  = nnz(A_h);
-total      = N_h^2;
-pct        = 100 * nnz_dense / total;
+N_h       = 100*100;
+nnz_dense = nnz(A_h);
+total     = N_h^2;
+pct       = 100 * nnz_dense / total;
 
-fprintf('Elementos não nulos: %d de %d (%.4f%%)\n', nnz_dense, total, pct);
+fprintf('Nao nulos: %d de %d (%.4f%%)\n', nnz_dense, total, pct);
 disp(' ');
 
-% Versão esparsa
 A_sparse = sparse(A_h);
 
 t_dense_lu = tic;
@@ -180,11 +169,8 @@ lu(A_h);
 t_dense_lu = toc(t_dense_lu);
 
 t_sparse_lu = tic;
-lu(A_sparse);
+[L_h, U_h, P_h, Q_h] = lu(A_sparse);  % 4 saídas: corrige o warning
 t_sparse_lu = toc(t_sparse_lu);
 
-fprintf('Tempo LU densa:  %.4f s\n', t_dense_lu);
-fprintf('Tempo LU esparsa: %.4f s\n', t_sparse_lu);
-disp(' ');
-disp('Conclusão: matriz esparsa usa muito menos memória e é');
-disp('significativamente mais rápida para fatoração LU.');
+fprintf('LU densa:   %.4f s\n', t_dense_lu);
+fprintf('LU esparsa: %.4f s\n', t_sparse_lu);
