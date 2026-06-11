@@ -89,7 +89,7 @@ Para um projeto de prazo semestral, `ValueNotifier` + `flutter_hooks` entrega re
 ```bash
 # 1. Clonar o repositório
 git clone git@github.com:LeoSergio/Faculdade_BSI.git
-cd Faculdade_BSI/POO/giro_saude_oficial
+cd Faculdade_BSI/poo/radar_sus
 
 # 2. Instalar dependências
 flutter pub get
@@ -109,8 +109,7 @@ flutter run
 - [x] Filtro por quantidade de resultados via `DropdownButton`
 - [x] Componentização genérica com `List<Map<String, dynamic>>`
 - [x] Gerência de estado reativa sem `StatefulWidget`
-- [ ] Painel de indicadores municipais com comparativo regional *(próximo semestre)*
-- [ ] Histórico de leituras com notificação semanal *(próximo semestre)*
+
 
 ---
 
@@ -126,7 +125,7 @@ Faculdade_BSI/
 ├── E.D/
 ├── FADA/
 └── POO/
-    └── giro_saude_oficial/   ← você está aqui
+    └── RadarSus/   ← você está aqui
 ```
 
 ---
@@ -135,7 +134,7 @@ Faculdade_BSI/
 
 **Leo Sergio**  
 Bacharelado em Sistemas de Informação  
-Universidade — Natal, RN  
+Universidade — NCaicó, RN  
 
 [![GitHub](https://img.shields.io/badge/GitHub-LeoSergio-181717?style=flat&logo=github)](https://github.com/LeoSergio)
 
