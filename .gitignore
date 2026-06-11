@@ -1,19 +1,65 @@
-# Ambiente Virtual (Orange Data Mining)
+# ─────────────────────────────────────────
+# Python / Orange Data Mining
+# ─────────────────────────────────────────
 ambiente-orange/
-
-# Cache Python
 __pycache__/
 *.pyc
 *.pyo
 
+# ─────────────────────────────────────────
 # Editor
+# ─────────────────────────────────────────
 .vscode/
 .idea/
 *.code-workspace
 
-# Sistema
+# ─────────────────────────────────────────
+# Sistema Operacional
+# ─────────────────────────────────────────
 .DS_Store
 Thumbs.db
 
+# ─────────────────────────────────────────
 # Arquivos de teste temporários
+# ─────────────────────────────────────────
 test.*
+
+# ─────────────────────────────────────────
+# Flutter / Dart
+# ─────────────────────────────────────────
+# Ferramentas internas do Dart/Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+
+# Build
+build/
+*.iml
+
+# Android
+**/android/**/gradle-wrapper.jar
+**/android/.gradle/
+**/android/captures/
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+
+# iOS
+**/ios/**/*.mode1v3
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/*.nvram
+**/ios/**/*.plst
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Cobertura de testes
+coverage/
