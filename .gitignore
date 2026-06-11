@@ -1,4 +1,6 @@
-cat > .gitignore << 'EOF'
+# Ambiente Virtual (Orange Data Mining)
+ambiente-orange/
+
 # Cache Python
 __pycache__/
 *.pyc
@@ -15,4 +17,3 @@ Thumbs.db
 
 # Arquivos de teste temporários
 test.*
-EOF
