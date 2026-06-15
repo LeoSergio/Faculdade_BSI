@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'views/home_screen.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeDateFormatting('pt_BR', null);
   runApp(const RadarSusApp());
 }
 
@@ -18,11 +16,12 @@ class RadarSusApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: _buildTheme(Brightness.light),
       darkTheme: _buildTheme(Brightness.dark),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 
   ThemeData _buildTheme(Brightness brightness) {
+    // Uma cor mais puxada para o universo de dados/vigilância (Azul Marinho)
     const seedColor = Color(0xFF005C8A);
 
     final colorScheme = ColorScheme.fromSeed(
