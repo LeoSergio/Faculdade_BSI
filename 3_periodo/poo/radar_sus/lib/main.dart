@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'views/home_screen.dart';
+import 'views/screens/main_shell.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,43 +14,21 @@ class RadarSusApp extends StatelessWidget {
     return MaterialApp(
       title: 'RadarSUS',
       debugShowCheckedModeBanner: false,
-      theme: _buildTheme(Brightness.light),
-      darkTheme: _buildTheme(Brightness.dark),
-      home: const HomeScreen(),
+      theme: _buildTheme(),
+      home: const MainShell(),
     );
   }
 
-  ThemeData _buildTheme(Brightness brightness) {
-    // Uma cor mais puxada para o universo de dados/vigilância (Azul Marinho)
-    const seedColor = Color(0xFF005C8A);
-
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: seedColor,
-      brightness: brightness,
-    );
-
+  ThemeData _buildTheme() {
     return ThemeData(
       useMaterial3: true,
-      colorScheme: colorScheme,
+      colorScheme: const ColorScheme.light(
+        primary: Color(0xFF1A5FA8),
+        surface: Color(0xFFF4F6F9),
+        onSurface: Color(0xFF0C2340),
+      ),
+      scaffoldBackgroundColor: const Color(0xFFF4F6F9),
       fontFamily: 'Roboto',
-      appBarTheme: AppBarTheme(
-        centerTitle: false,
-        backgroundColor: colorScheme.surface,
-        foregroundColor: colorScheme.onSurface,
-        titleTextStyle: TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 20,
-          fontWeight: FontWeight.w800,
-          color: colorScheme.onSurface,
-          letterSpacing: -0.5,
-        ),
-      ),
-      cardTheme: CardThemeData(
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
     );
   }
 }

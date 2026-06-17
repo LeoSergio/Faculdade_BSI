@@ -1,92 +1,62 @@
 import 'package:flutter/material.dart';
 import '../../models/alerta_dengue.dart';
+import '../screens/main_shell.dart';
 
 class AlertaCard extends StatelessWidget {
   final AlertaDengue alerta;
-
   const AlertaCard({super.key, required this.alerta});
-
-  static const _cores = {
-    1: Color(0xFF2E7D32),
-    2: Color(0xFFF9A825),
-    3: Color(0xFFE65100),
-    4: Color(0xFFC62828),
-  };
-  static const _textos = {
-    1: 'Baixo',
-    2: 'Moderado',
-    3: 'Alto',
-    4: 'Muito Alto',
-  };
 
   @override
   Widget build(BuildContext context) {
-    final cor = _cores[alerta.nivelAlerta] ?? Colors.grey;
-    final texto = _textos[alerta.nivelAlerta] ?? 'Sem dados';
+    final cor = AppColors.nivelCor(alerta.nivelAlerta);
+    final texto = AppColors.nivelTexto(alerta.nivelAlerta);
 
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: cor.withOpacity(0.4), width: 1.2),
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.cardBg,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.border),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        child: Row(
-          children: [
-            // Indicador de nível colorido
-            Container(
-              width: 4,
-              height: 48,
-              decoration: BoxDecoration(
-                color: cor,
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-            const SizedBox(width: 12),
+      clipBehavior: Clip.hardEdge,
+      child: Row(
+        children: [
+          // Barra lateral colorida
+          Container(width: 4, height: 54, color: cor),
 
-            // Datas e casos
-            Expanded(
+          // Período e casos
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(alerta.periodoFormatado,
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.w500,
+                          color: AppColors.textPrimary)),
+                  const SizedBox(height: 2),
                   Text(
-                    alerta.periodoFormatado,
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    'Notificados: ${alerta.casosNotificados}  •  Estimativa: ${alerta.casosEstimados}',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
+                    'Notificados: ${alerta.casosNotificados} · Estimativa: ${alerta.casosEstimados}',
+                    style: const TextStyle(fontSize: 10, color: AppColors.textSec),
                   ),
                 ],
               ),
             ),
+          ),
 
-            // Chip de risco
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: cor.withOpacity(0.12),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: cor.withOpacity(0.4)),
-              ),
-              child: Text(
-                texto,
-                style: TextStyle(
-                  color: cor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
-                ),
-              ),
+          // Chip de nível
+          Container(
+            margin: const EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
+            decoration: BoxDecoration(
+              color: cor.withOpacity(0.12),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: cor.withOpacity(0.5)),
             ),
-          ],
-        ),
+            child: Text(texto,
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: cor)),
+          ),
+        ],
       ),
     );
   }
